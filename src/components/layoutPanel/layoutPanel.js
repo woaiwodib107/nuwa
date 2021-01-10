@@ -25,7 +25,7 @@ export default class LayoutPanel extends React.Component {
                             value={this.props.options.chooseType}
                             style={{ width: 120 }}
                             onChange={this.handleStrokeTypeChange}
-                        >
+                        >   
                             <Option value="offLine">offLine</Option>
                             <Option value="vertical">vertical</Option>
                         </Select>

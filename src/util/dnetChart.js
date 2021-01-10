@@ -3,7 +3,6 @@ import { defaultConfigs } from './defaultConfig'
 import * as _lodash from 'lodash'
 import assign from 'assign-deep'
 const TIME_CONFIG = ['timeLine', 'animation', 'color', 'markLine', 'insert']
-
 const LAYOUT_CONFIG = ['offLine', 'vertical', 'onLine', 'circle', 'bipartite']
 
 const COMPARISON_CONFIG = [
@@ -236,6 +235,10 @@ export function getInsertPosition(configs){
             break
         case 'right':
             x = eachWidth - margin
+            y = eachHeight/2
+            break
+        case 'center':
+            x = eachWidth/2
             y = eachHeight/2
             break
         case 'topLeft':

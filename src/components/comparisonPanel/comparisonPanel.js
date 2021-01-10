@@ -58,7 +58,7 @@ const cloumnOptions = [
     { label: 'disappear', value: 'disappear' }
 ]
 
-const index2chooseType = [
+const index2chooseItem = [
     'appear-Node',
     'stable-Node',
     'disappear-Node',
@@ -81,22 +81,22 @@ export default class ComparisonPanel extends React.Component {
         this.props.onSubmit({ taskType: e.target.value })
     }
     handleColumnChange = (e) => {
-        const nodeOrLink = this.props.options.chooseType.split('-')[1]
-        this.props.onSubmit({ chooseType: `${e.target.value}-${nodeOrLink}` })
+        const nodeOrLink = this.props.options.chooseItem.split('-')[1]
+        this.props.onSubmit({ chooseItem: `${e.target.value}-${nodeOrLink}` })
     }
     handleRowChange = (e) => {
-        const changeAttr = this.props.options.chooseType.split('-')[0]
-        this.props.onSubmit({ chooseType: `${changeAttr}-${e.target.value}` })
+        const changeAttr = this.props.options.chooseItem.split('-')[0]
+        this.props.onSubmit({ chooseItem: `${changeAttr}-${e.target.value}` })
     }
     handleIconsClick = (index) => {
-        this.props.onSubmit({ chooseType: index2chooseType[Number(index)] })
+        this.props.onSubmit({ chooseItem: index2chooseItem[Number(index)] })
     }
     handleIsOnChange = (value) =>{
         this.props.onSubmit({ isOn: value })
     }
 
     changeElementStyle = (option) => {
-        const changeKey = this.props.options.chooseType.split('-').join('')
+        const changeKey = this.props.options.chooseItem.split('-').join('')
         const changeOptions = this.props.options[changeKey]
         this.props.onSubmit({ [changeKey]: { ...changeOptions, ...option } })
     }
@@ -128,7 +128,7 @@ export default class ComparisonPanel extends React.Component {
     render() {
         const {
             isOn,
-            chooseType,
+            chooseItem,
             appearNode,
             appearLink,
             stableNode,
@@ -136,7 +136,7 @@ export default class ComparisonPanel extends React.Component {
             disappearNode,
             disappearLink
         } = this.props.options
-        let changeKey = chooseType.split('-')
+        let changeKey = chooseItem.split('-')
         changeKey = changeKey.join('')
         const changeOptions = this.props.options[changeKey]
         return (
@@ -159,7 +159,7 @@ export default class ComparisonPanel extends React.Component {
                         <Radio.Group
                             buttonStyle="solid"
                             onChange={this.handleColumnChange}
-                            value={chooseType.split('-')[0]}
+                            value={chooseItem.split('-')[0]}
                         >
                             <Radio.Button style={columnButtonStyle} value="appear">
                                 appear
@@ -177,7 +177,7 @@ export default class ComparisonPanel extends React.Component {
                             <Radio.Group
                                 buttonStyle="solid"
                                 onChange={this.handleRowChange}
-                                value={chooseType.split('-')[1]}
+                                value={chooseItem.split('-')[1]}
                             >
                                 <Radio.Button style={rowButtonStyle} value="Node">
                                     Node
@@ -192,7 +192,7 @@ export default class ComparisonPanel extends React.Component {
                                 id="appear-Node"
                                 onClick={() => this.handleIconsClick(0)}
                                 className={`line-icon-container ${
-                                    chooseType === 'appear-Node' ? 'choose-icon' : ''
+                                    chooseItem === 'appear-Node' ? 'choose-icon' : ''
                                 }`}
                             >
                                 <SampleItem config={appearNode} />
@@ -200,14 +200,14 @@ export default class ComparisonPanel extends React.Component {
                             <div
                                 onClick={() => this.handleIconsClick(1)}
                                 className={`line-icon-container ${
-                                    chooseType === 'stable-Node' ? 'choose-icon' : ''
+                                    chooseItem === 'stable-Node' ? 'choose-icon' : ''
                                 }`}
                             >
                                 <SampleItem config={stableNode} />
                             </div>
                             <div
                                 className={`line-icon-container ${
-                                    chooseType === 'disappear-Node' ? 'choose-icon' : ''
+                                    chooseItem === 'disappear-Node' ? 'choose-icon' : ''
                                 }`}
                                 onClick={() => this.handleIconsClick(2)}
                             >
@@ -216,7 +216,7 @@ export default class ComparisonPanel extends React.Component {
                             <div
                                 onClick={() => this.handleIconsClick(3)}
                                 className={`line-icon-container ${
-                                    chooseType === 'appear-Link' ? 'choose-icon' : ''
+                                    chooseItem === 'appear-Link' ? 'choose-icon' : ''
                                 }`}
                             >
                                 <SampleItem config={appearLink} type={'link'} />
@@ -224,7 +224,7 @@ export default class ComparisonPanel extends React.Component {
                             <div
                                 onClick={() => this.handleIconsClick(4)}
                                 className={`line-icon-container ${
-                                    chooseType === 'stable-Link' ? 'choose-icon' : ''
+                                    chooseItem === 'stable-Link' ? 'choose-icon' : ''
                                 }`}
                             >
                                 <SampleItem config={stableLink} type={'link'} />
@@ -232,7 +232,7 @@ export default class ComparisonPanel extends React.Component {
                             <div
                                 onClick={() => this.handleIconsClick(5)}
                                 className={`line-icon-container ${
-                                    chooseType === 'disappear-Link' ? 'choose-icon' : ''
+                                    chooseItem === 'disappear-Link' ? 'choose-icon' : ''
                                 }`}
                             >
                                 <SampleItem config={disappearLink} type={'link'} />

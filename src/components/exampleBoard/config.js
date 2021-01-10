@@ -22,7 +22,7 @@ export const configSet = [
         time: {
             chooseTypes: ['timeLine','insert'],
             insert: {
-                position: 'bottom', //目前就实现这一个。。。
+                position: 'center', //目前就实现这一个。。。
                 linkStyle: {
                     shape: 'line'
                 }

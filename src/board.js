@@ -12,13 +12,15 @@ export default class Board extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            board: 'example',
+            board: 'system',
             jsonfile: {},
             filename: '',
             basic: {
-                width: 300,
-                height: 300,
-                margin: 10,
+                width: 250,
+                height: 250,
+                eachWidth: 250,
+                eachHeight: 250,
+                margin: 30,
                 nodeStyle: {
                     shape: 'circle',
                     fillColor: '#DAD5D5',
@@ -29,50 +31,82 @@ export default class Board extends React.Component {
                     textColor: 'white'
                 },
                 linkStyle: {
-                    shape: 'line',
+                    shape: 'curve',
                     strokeColor: '#908F8F',
                     strokeType: 'solid',
                     strokeWidth: 2
                 }
             },
             time: {
-                chooseTypes: ['position', 'markLine'],
-                visible: {
-                    isVisible: true
+                chooseTypes:['timeLine', 'insert'],
+                timeLine: {
+                    horizonDistance: 250,
+                    verticalDistance: 0,
+                    // 有可能只对节点进行该操作
+                    element: 'all',
                 },
-                position: {
-                    eachMargin: 5,
-                    eachWidth: 200,
-                    eachHeight: 200
+                insert: {
+                    position:'bottom',
+                    margin: 10,
+                    nodeStyle: {
+                        shape: 'circle',
+                        fillColor: '#ffcc00',
+                        strokeColor: '#000000',
+                        strokeWidth: 1,
+                        radius: 6,
+                        strokeType: 'solid',
+                        textColor: 'white'
+                    },
+                    linkStyle: {
+                        shape: 'curve',
+                        strokeColor: '#ffcc00',
+                        strokeType: 'solid',
+                        strokeWidth: 2
+                    }
                 },
                 color: {
-                    number: 10
+                    element: 'all',
+                    startColor: '#FD8F8F',
+                    endColor: '#90B5FB'
                 },
                 animation: {
-                    speed: 800
-                },
-                link: {
-                    xDistance: 100,
-                    yDistance: 40
+                    speed: 1800
                 },
                 markLine: {
+                    strokeType: 'solid',
                     strokeColor: '#FD8F8F',
                     strokeWidth: 1,
                     strokeDasharray: '5,5'
                 }
             },
             layout: {
-                chooseType: 'vertical',
+                chooseType: 'offLine',
                 vertical: {
                     yDistance: 40,
                     linkStyle: {
                         shape: 'curve'
                     }
-                }
+                },
+                offLine:{
+
+                },
+                onLine: {
+        
+                },
+                bipartite: {
+        
+                },
+                circle: {
+        
+                } 
             },
             comparison: {
                 isOn: true,
-                chooseType: 'stable-Node',
+                chooseItem: 'stable-Node',
+                chooseTypes:['shape', 'fillColor', 'strokeColor', 'strokeWidth', 'strokeType', 'color', 'radius'],
+                // keyFrame可为上一帧、下一帧、具体某一帧
+                keyFrame: 'next',
+                elements: 'all',
                 appearNode: {
                     shape: 'circle',
                     fillColor: '#FD8F8F',
@@ -80,7 +114,7 @@ export default class Board extends React.Component {
                     strokeWidth: 1,
                     strokeType: 'solid',
                     textColor: 'white',
-                    radius: 6
+                    radius: 8
                 },
                 stableNode: {
                     shape: 'circle',
@@ -96,24 +130,27 @@ export default class Board extends React.Component {
                     fillColor: '#90B5FB',
                     strokeColor: '#000000',
                     strokeWidth: 1,
-                    radius: 6,
+                    radius: 8,
                     strokeType: 'solid',
                     textColor: 'white'
                 },
                 appearLink: {
+                    shape: 'curve',
                     strokeColor: '#FD8F8F',
                     strokeType: 'solid',
-                    strokeWidth: 2
+                    strokeWidth: 3
                 },
                 stableLink: {
+                    shape: 'line',
                     strokeColor: '#908F8F',
                     strokeType: 'solid',
-                    strokeWidth: 2
+                    strokeWidth: 1
                 },
                 disappearLink: {
+                    shape: 'curve',
                     strokeColor: '#90B5FB',
                     strokeType: 'solid',
-                    strokeWidth: 2
+                    strokeWidth: 3
                 }
             }
         }

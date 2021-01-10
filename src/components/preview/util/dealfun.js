@@ -316,9 +316,17 @@ export const getPiePathColor = (len, startColor, endColor) => {
 }
 
 function getChooseComparisonStyle(configs) {
-    const comparisonNode = _.cloneDeep(configs.comparison.node)
+    const comparisonNode = _.cloneDeep({
+        stableNode: configs.comparison.stableNode,
+        appearNode: configs.comparison.appearNode,
+        disappearNode: configs.comparison.disappearNode
+    })
     const basicNodeStyle = _.cloneDeep(configs.basic.nodeStyle)
-    const comparisonLink = _.cloneDeep(configs.comparison.link)
+    const comparisonLink = _.cloneDeep({
+        appearLink: configs.comparison.appearLink,
+        stableLink: configs.comparison.stableLink,
+        disappearLink: configs.comparison.disappearLink
+    })
     const basicLinkStyle = _.cloneDeep(configs.basic.linkStyle)
     configs.comparison.chooseTypes.forEach((v) => {
         delete basicNodeStyle[v]
@@ -328,8 +336,8 @@ function getChooseComparisonStyle(configs) {
     comparisonNode.appearNode = { ...comparisonNode.appearNode, ...basicNodeStyle }
     comparisonNode.disappearNode = { ...comparisonNode.disappearNode, ...basicNodeStyle }
     comparisonLink.appearLink = { ...comparisonLink.appearLink, ...basicLinkStyle }
-    comparisonLink.stableNode = { ...comparisonLink.stableNode, ...basicLinkStyle }
-    comparisonLink.disappearNode = { ...comparisonLink.disappearNode, ...basicLinkStyle }
+    comparisonLink.stableLink = { ...comparisonLink.stableLink, ...basicLinkStyle }
+    comparisonLink.disappearLink = { ...comparisonLink.disappearLink, ...basicLinkStyle }
     return {
         comparisonNode,
         comparisonLink,

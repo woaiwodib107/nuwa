@@ -135,12 +135,12 @@ export default class TimePanel extends React.Component {
                         </div>
                     </div> */}
 
-                    {/* position */}
+                    {/* timeLine */}
                     <div className="encoding-item">
                         <div className="encoding-item-title">
                             <Button
                                 type={
-                                    this.props.options.chooseTypes.indexOf('position') > -1
+                                    this.props.options.chooseTypes.indexOf('timeLine') > -1
                                         ? 'primary'
                                         : 'default'
                                 }
@@ -149,7 +149,7 @@ export default class TimePanel extends React.Component {
                                 }}
                                 block
                             >
-                                Position
+                                TimeLine
                             </Button>
                         </div>
                         <div className="encoding-item-content">
@@ -159,23 +159,23 @@ export default class TimePanel extends React.Component {
                             </div>
                             <div className="item-right-container">
                                 <div className="item-right-option">
-                                    <div>EachMargin:</div>
+                                    <div>HorizonDistance:</div>
                                     <Input
-                                        value={options.position.eachMargin}
+                                        value={options.timeLine.horizonDistance}
                                         type="number"
                                         onChange={(e) =>
-                                            this.handleTimeOptionsInput(e, 'position', 'eachMargin')
+                                            this.handleTimeOptionsInput(e, 'timeLine', 'horizonDistance')
                                         }
                                         style={{ width: '65px' }}
                                     />
                                 </div>
                                 <div className="item-right-option">
-                                    <div>EachWidth:</div>
+                                    <div>VerticalDistance:</div>
                                     <Input
-                                        value={options.position.eachWidth}
+                                        value={options.timeLine.verticalDistance}
                                         type="number"
                                         onChange={(e) =>
-                                            this.handleTimeOptionsInput(e, 'position', 'eachWidth')
+                                            this.handleTimeOptionsInput(e, 'timeLine', 'verticalDistance')
                                         }
                                         style={{ width: '65px' }}
                                     />
@@ -290,7 +290,7 @@ export default class TimePanel extends React.Component {
                                 <div className="link-circle2 item-circle2"></div>
                             </div>
                             <div className="item-right-container">
-                                <div className="item-right-option">
+                                {/* <div className="item-right-option">
                                     <div>xDistance:</div>
                                     <Input
                                         value={options.link.xDistance}
@@ -311,10 +311,52 @@ export default class TimePanel extends React.Component {
                                         }
                                         style={{ width: '65px' }}
                                     />
+                                </div> */}
+                            </div>
+                        </div>
+                    </div>
+                
+                    {/* insert */}
+                    <div className="encoding-item">
+                        <div className="encoding-item-title">
+                            <Button
+                                type={
+                                    this.props.options.chooseTypes.indexOf('insert') > -1
+                                        ? 'primary'
+                                        : 'default'
+                                }
+                                onClick={(e) => {
+                                    this.handleButtonOnClick('insert', e)
+                                }}
+                                block
+                            >
+                                Insert
+                            </Button>
+                        </div>
+                        <div className="encoding-item-content">
+                            <div className="color-ctrl item-ctrl">
+                                <div className="color-circle1 item-circle1"></div>
+                                <div
+                                    className="color-circle2 item-circle2"
+                                    style={{ backgroundColor: this.state.color }}
+                                ></div>
+                            </div>
+                            <div className="item-right-container">
+                                <div className="item-right-option">
+                                    <div>Margin:</div>
+                                    <Input
+                                        value={options.insert.margin}
+                                        type="number"
+                                        onChange={(e) =>
+                                            this.handleTimeOptionsInput(e, 'insert', 'margin')
+                                        }
+                                        style={{ width: '65px' }}
+                                    />
                                 </div>
                             </div>
                         </div>
                     </div>
+                
                 </div>
             </div>
         )

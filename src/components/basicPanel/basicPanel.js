@@ -8,8 +8,6 @@ export default class BasicPanel extends React.Component {
         super(props)
     }
     handleConfigChange = (e, key) => {
-        console.log('eeee', e)
-        // const { value } = e.target
         this.props.onSubmit({
             [key]: parseInt(e)
         })
@@ -30,25 +28,25 @@ export default class BasicPanel extends React.Component {
                 <div className="sub-title">&nbsp;Basic</div>
                 <div className="configDiv">
                     <div className="change-option-item">
-                        <div>width:</div>
+                        <div>eachWidth:</div>
                         <InputNumber
                             size="small"
                             min={1}
                             max={1000}
                             value={this.props.options.width}
                             style={{ width: 120 }}
-                            onChange={(e) => this.handleConfigChange(e, 'width')}
+                            onChange={(e) => this.handleConfigChange(e, 'eachWidth')}
                         />
                     </div>
                     <div className="change-option-item">
-                        <div>height:</div>
+                        <div>eachHeight:</div>
                         <InputNumber
                             size="small"
                             min={1}
                             max={750}
                             style={{ width: 120 }}
                             value={this.props.options.height}
-                            onChange={(e) => this.handleConfigChange(e, 'height')}
+                            onChange={(e) => this.handleConfigChange(e, 'eachHeight')}
                         />
                     </div>
                     <div className="change-option-item">
@@ -63,7 +61,7 @@ export default class BasicPanel extends React.Component {
                         />
                     </div>
                     <div className="change-option-item">
-                        <div>Layout:</div>
+                        <div>linkShape:</div>
                         <Select
                             value={this.props.options.linkStyle.shape}
                             style={{ width: 120 }}
@@ -76,16 +74,6 @@ export default class BasicPanel extends React.Component {
                             <Option value="line">line</Option>
                         </Select>
                     </div>
-                    {/* <Row>
-                        <Col span={12} className="setLabel">
-                            nodeStyle:&nbsp;
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={12} className="setLabel">
-                            linkStyle:&nbsp;
-                        </Col>
-                    </Row> */}
                 </div>
             </div>
         )
