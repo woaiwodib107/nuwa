@@ -1,0 +1,22 @@
+
+.board {
+  background: #b2b5b9;
+  height: 1080px;
+  width: 1920px;
+}
+
+.example-board{
+  width: 1920px;
+  background: #b2b5b9;
+}
+
+.example-row{
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.example-col{
+  width: 940px;
+  height: 600px
+}

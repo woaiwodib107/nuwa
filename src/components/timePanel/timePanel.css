@@ -1,0 +1,301 @@
+/*time view*/
+.time-box {
+    background: #fff;
+    border: 1px solid rgb(68, 67, 67);
+    border-radius: 8px;
+    height: 970px;
+    width: 290px;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    text-align: center;
+}
+
+.encoding-table-container {
+    overflow-x: visible;
+    overflow-y: auto;
+}
+
+/* 滚动条 */
+.encoding-table-container::-webkit-scrollbar-track {
+    border: 1px solid #d3d3d3;
+    background-color: #f5f5f5;
+}
+
+.encoding-table-container::-webkit-scrollbar {
+    height: 4px;
+    width: 4px;
+    background-color: #f5f5f5;
+}
+
+.encoding-table-container::-webkit-scrollbar-thumb {
+    background-color: #d3d3d3;
+}
+
+.encoding-divider {
+    font-size: 14px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
+    line-height: 1px;
+    border-left: 80px solid rgb(46, 45, 45);
+    border-right: 80px solid rgb(46, 45, 45);
+    text-align: center;
+}
+
+.encoding-divider-selected {
+    border: 2px solid rgb(100, 149, 237);
+    font-size: 14px;
+    color: rgb(100, 149, 237);
+    line-height: 14px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 10px;
+    margin-bottom: 8px;
+    margin-left: 15px;
+    margin-right: 15px;
+    text-align: center;
+}
+
+.encoding-item {
+    border-bottom: 1px dashed black;
+    padding-bottom: 15px;
+    /* height:140px; */
+}
+
+.encoding-item-title {
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    height: 32px;
+}
+
+.encoding-item-content {
+    margin-left: 15px;
+    margin-right: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.item-ctrl {
+    background-color: #fff;
+    border: 1px solid black;
+    border-radius: 8px;
+    width: 120px;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.item-right-container {
+    width: 140px;
+    margin-top: 5px;
+    text-align: center;
+    margin-left: 5px;
+}
+
+.item-right-container div {
+    font-size: 12px;
+}
+
+.item-right-option {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item-circle1 {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin-left: 15px;
+}
+
+.item-circle2 {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin-right: 15px;
+}
+
+.visible-picker-box {
+    /* float: left; */
+    width: 90px;
+    margin-top: 5px;
+    margin-left: 10px;
+    text-align: center;
+}
+
+#visible-button {
+    width: 80px;
+    text-align: center;
+}
+
+#invisible-button {
+    width: 80px;
+    text-align: center;
+}
+
+.visible-ctrl {
+    /* float: left; */
+}
+
+.visible-circle1 {
+    border: 1.5px solid black;
+}
+
+.visible-circle2 {
+    border: 1.5px solid black;
+}
+
+.position-ctrl {
+}
+
+.position-circle1 {
+    border: 1px dashed black;
+}
+
+.position-circle2 {
+    border: 1px solid black;
+}
+
+.color-ctrl {
+}
+
+.color-picker-box {
+    /* float: left; */
+    width: 120px;
+    margin-top: 25px;
+}
+
+.color-picker {
+    width: 60px;
+    height: 30px;
+    margin-top: 10px;
+    background-color: #fff;
+    background-attachment: fixed;
+}
+
+.color-circle1 {
+    border: 1px dashed black;
+}
+
+.color-circle2 {
+    border: 1px solid black;
+}
+
+.ellipse1 {
+    position: absolute;
+    width: 20px;
+    height: 8px;
+    margin-left: 55px;
+    margin-top: 30px;
+    background: #929090;
+    border-radius: 50% / 50%;
+    transform: rotate(30deg);
+}
+.ellipse2 {
+    position: absolute;
+    width: 20px;
+    height: 8px;
+    margin-left: 58px;
+    margin-top: 32px;
+    background: #6d6b6b;
+    border-radius: 50% / 50%;
+    transform: rotate(30deg);
+}
+.ellipse3 {
+    position: absolute;
+    width: 20px;
+    height: 8px;
+    margin-left: 61px;
+    margin-top: 34px;
+    background: #3a3939;
+    border-radius: 50% / 50%;
+    transform: rotate(30deg);
+}
+
+.wavy {
+    position: absolute;
+    display: block;
+    height: 0.5em;
+    white-space: nowrap;
+    letter-spacing: 8px;
+    padding-top: 45px;
+    margin-left: 60px;
+    overflow: hidden;
+    transform: rotate(30deg);
+}
+
+.wavy::before {
+    content: '\2000\2000';
+    /* IE浏览器实线代替 */
+    text-decoration: overline;
+    /* 现代浏览器 */
+    text-decoration: overline wavy;
+}
+
+.glyph-ctrl {
+    background-color: #fff;
+    border: 1px solid black;
+    border-radius: 8px;
+    width: 140px;
+    height: 80px;
+    display: flex;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.glyph-circle1 {
+    border: 1px dashed black;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin: 10px 20px 10px 10px;
+}
+
+.glyph-circle2 {
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin: 30px 10px 10px 10px;
+}
+
+.glyph-icon {
+    position: absolute;
+    margin-left: 110px;
+    margin-top: 50px;
+    height: 25px;
+    width: 25px;
+}
+
+.animation-ctrl {
+    border: 1px solid black;
+}
+
+.animation-circle1 {
+    border: 1px dashed black;
+}
+
+.animation-circle2 {
+    border: 1px solid black;
+}
+
+.link-ctrl {
+}
+
+.link-circle1 {
+    border: 1px dashed black;
+}
+
+.link-circle2 {
+    border: 1px solid black;
+}

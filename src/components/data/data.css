@@ -1,0 +1,15 @@
+/* 滚动条 */
+.data-group-container::-webkit-scrollbar-track {
+    border: 1px solid #d3d3d3;
+    background-color: #f5f5f5;
+}
+
+.data-group-container::-webkit-scrollbar {
+    height: 4px;
+    width: 4px;
+    background-color: #f5f5f5;
+}
+
+.data-group-container::-webkit-scrollbar-thumb {
+    background-color: #d3d3d3;
+}

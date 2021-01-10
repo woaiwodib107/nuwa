@@ -1,0 +1,13 @@
+.tad-control-container {
+    margin: 10px;
+    margin-left: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.tad-control-icon svg {
+    margin-top: 10px;
+    width: 20px;
+    height: 20px;
+}

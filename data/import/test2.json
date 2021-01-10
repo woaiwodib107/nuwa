@@ -1,0 +1,31 @@
+{
+    "graphs": [
+        {
+            "nodes": [{ "id": "a" }, { "id": "b" }],
+            "links": [{ "source": "a", "target": "b" }]
+        },
+        {
+            "nodes": [{ "id": "b" }, { "id": "c" }],
+            "links": [{ "source": "b", "target": "c" }]
+        }
+    ],
+    "compareEncode": [
+        {
+            "nodes": "all",
+            "links": "all",
+            "times": [0, 1],
+            "keyTime": "last",
+            "encode": {
+                "appear": {
+                    "color": [102, 194, 165]
+                },
+                "stable": {
+                    "color": [199, 198, 198]
+                },
+                "disappear": {
+                    "color": [252, 141, 98]
+                }
+            }
+        }
+    ]
+}

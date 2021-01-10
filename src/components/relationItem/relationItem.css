@@ -1,0 +1,48 @@
+.relation-item {
+    margin-top: 10px;
+    height: 90px;
+}
+
+.relation-rect-container {
+    background-color: #fff;
+    border: 1px solid black;
+    border-radius: 8px;
+    width: 120px;
+    height: 60px;
+    display: flex;
+}
+
+.left-solid-circle {
+    border: 1.5px solid black;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin: 15px 15px 0px 15px;
+}
+
+.left-dashed-circle {
+    border: 1.5px dashed black;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin: 15px 15px 0px 15px;
+}
+.right-solid-circle {
+    border: 1.5px solid black;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin: 15px 15px 0px 15px;
+}
+.right-dashed-circle {
+    border: 1.5px dashed black;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin: 15px 15px 0px 15px;
+}
+
+.relation-options-container {
+    width: 100px;
+    margin-left: 10px;
+}
