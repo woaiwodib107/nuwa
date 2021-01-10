@@ -1,9 +1,7 @@
 import * as d3 from 'd3'
-import { sum } from 'd3'
 import { defaultConfigs } from './defaultConfig'
 import * as assign from 'assign-deep'
-import { configs } from 'eslint-plugin-prettier'
-import { configConsumerProps } from 'antd/lib/config-provider'
+import {getInsertPosition} from '../../../util/dnetChart.js'
 import * as _ from 'lodash'
 // import { link } from '../NetV'
 export const _intersection = (setA, setB) => {
@@ -421,10 +419,10 @@ export const getGraphLayout = (timeGraphs, sumGraphs, configs) => {
             let { x, y, timeId, id } = node
             if (node.type === 'time' && configs.layout.chooseType === 'offLine') {
                 // 对代表time的节点的位置特殊处理
-                x = eachWidth / 2
-                y = eachHeight - configs.time.insert.margin
-                node.x = x
-                node.y = y
+                const result = getInsertPosition(configs)
+                console.log("reuslt", result)
+                node.x = result.x
+                node.y = result.y
             }
             if (configs.time.chooseTypes.indexOf('timeLine') === -1) {
                 horizonDistance = 0

@@ -46,6 +46,8 @@ export const defaultConfigs = {
     time: {
         chooseTypes:[],
         insert: {
+            position:'bottom',
+            margin: 10,
             nodeStyle: {
                 shape: 'circle',
                 fillColor: '#ffcc00',
@@ -60,8 +62,7 @@ export const defaultConfigs = {
                 strokeColor: '#ffcc00',
                 strokeType: 'solid',
                 strokeWidth: 2
-            },
-            margin: 10
+            }
         },
         color: {
             element: 'all',

@@ -22,9 +22,20 @@ export const configSet = [
         time: {
             chooseTypes: ['timeLine','insert'],
             insert: {
-                timeLine: 'bottom', //目前就实现这一个。。。
+                position: 'bottom', //目前就实现这一个。。。
                 linkStyle: {
                     shape: 'line'
+                }
+            }
+        }
+    },
+    {
+        time: {
+            chooseTypes: ['timeLine','insert'],
+            insert: {
+                position: 'bottomRight', //目前就实现这一个。。。
+                linkStyle: {
+                    shape: 'curve'
                 }
             }
         }

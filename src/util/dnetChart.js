@@ -216,6 +216,52 @@ export function getSvgWidthHeight(configs, len) {
     return { svgWidth, svgHeight }
 }
 
+// 获取插入节点的位置
+export function getInsertPosition(configs){
+    let x,y
+    const {eachWidth, eachHeight} = configs.basic
+    const {margin, position} = configs.time.insert
+    switch (position){
+        case 'top':
+            x = eachWidth/2 
+            y = margin
+            break
+        case 'bottom':
+            x = eachWidth/2 
+            y = eachHeight - margin
+            break
+        case 'left':
+            x = margin
+            y = eachHeight/2
+            break
+        case 'right':
+            x = eachWidth - margin
+            y = eachHeight/2
+            break
+        case 'topLeft':
+            x = margin
+            y = margin
+            break
+        case 'topRight':
+            x = eachWidth - margin
+            y = margin
+            break
+        case 'bottomLeft':
+            x = margin
+            y = eachHeight - margin
+            break
+        case 'bottomRight':
+            x = eachWidth - margin
+            y = eachHeight - margin
+            break
+        default:
+            x = eachWidth/2 
+            y = eachHeight - margin
+            break
+    }
+    return {x,y}
+}
+
 export function assignConfigs(setConfigs) {
     let configs = _lodash.cloneDeep(setConfigs)
     let sumConfigs = _lodash.cloneDeep(defaultConfigs)

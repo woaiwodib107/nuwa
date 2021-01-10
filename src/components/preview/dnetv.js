@@ -21,7 +21,6 @@ class DNetV {
         
         // 判断如果configs的time中如果选择了insert，就执行timeASnode，给graph添加代表时间的节点
         if(this.configs.time.chooseTypes.indexOf('insert') > -1){
-            console.log("*****----insert-----")
             u.timeASnode(this.data)
         }
 
