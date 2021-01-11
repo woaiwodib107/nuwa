@@ -79,8 +79,8 @@ export const defaultConfigs = {
             strokeDasharray: '5,5'
         },
         timeLine: {
-            horizonDistance: 250,
-            verticalDistance: 0,
+            xDistance: 250,
+            yDistance: 0,
             // 有可能只对节点进行该操作
             element: 'all',
         }

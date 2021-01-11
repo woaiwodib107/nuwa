@@ -4,6 +4,7 @@ import * as _lodash from 'lodash'
 import assign from 'assign-deep'
 const TIME_CONFIG = ['timeLine', 'animation', 'color', 'markLine', 'insert']
 const LAYOUT_CONFIG = ['offLine', 'vertical', 'onLine', 'circle', 'bipartite']
+export const INSERT_POSITION = ['top', 'bottom', 'left', 'right', 'center', 'topLeft', 'topRight', 'bottomRight', 'bottomLeft']
 
 const COMPARISON_CONFIG = [
     'shape',
@@ -204,14 +205,15 @@ function isLayoutConfig(item) {
 export function getSvgWidthHeight(configs, len) {
     let svgWidth, svgHeight
     const { eachWidth, eachHeight, margin } = configs.basic
-    const { horizonDistance, verticalDistance } = configs.time.timeLine
+    const { xDistance, yDistance } = configs.time.timeLine
     if (configs.time.chooseTypes.indexOf('timeLine') > -1) {
-        svgWidth = margin * 2 + eachWidth + horizonDistance * (len - 1)
-        svgHeight = margin * 2 + eachHeight + verticalDistance * (len - 1)
+        svgWidth = margin * 2 + eachWidth + xDistance * (len - 1)
+        svgHeight = margin * 2 + eachHeight + yDistance * (len - 1)
     } else {
         svgWidth = margin * 2 + eachWidth
         svgHeight = margin * 2 + eachHeight
     }
+    // console.log("svgWidth, svgHeight", svgWidth, svgHeight)
     return { svgWidth, svgHeight }
 }
 

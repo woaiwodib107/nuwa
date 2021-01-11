@@ -413,7 +413,7 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
 export const getGraphLayout = (timeGraphs, sumGraphs, configs) => {
     let { nodes, links } = sumGraphs
     const { eachWidth, eachHeight, margin } = configs.basic
-    let { horizonDistance, verticalDistance } = configs.time.timeLine
+    let { xDistance, yDistance } = configs.time.timeLine
     const layoutNodes = Object.fromEntries(nodes.map((d) => [d.id, d]))
     const layoutLinks = Object.fromEntries(links.map((d) => [d.id, d]))
     let timeGraphsValues = Object.values(timeGraphs)
@@ -428,16 +428,15 @@ export const getGraphLayout = (timeGraphs, sumGraphs, configs) => {
             if (node.type === 'time' && configs.layout.chooseType === 'offLine') {
                 // 对代表time的节点的位置特殊处理
                 const result = getInsertPosition(configs)
-                console.log("reuslt", result)
                 node.x = result.x
                 node.y = result.y
             }
             if (configs.time.chooseTypes.indexOf('timeLine') === -1) {
-                horizonDistance = 0
-                verticalDistance = 0
+                xDistance = 0
+                yDistance = 0
             }
-            x = node.x + node.timeIndex * horizonDistance + margin
-            y = node.y + node.timeIndex * verticalDistance + margin
+            x = node.x + node.timeIndex * xDistance + margin
+            y = node.y + node.timeIndex * yDistance + margin
             if (tempElement === 'node' || tempElement === 'all') {
                 node.x = x
                 node.y = y 

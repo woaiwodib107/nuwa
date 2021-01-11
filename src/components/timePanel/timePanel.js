@@ -1,5 +1,7 @@
 import React from 'react'
 import { Button, Select, Input } from 'antd'
+import { INSERT_POSITION } from '../../util/dnetChart'
+import { TIME_PANEL_INPUT_WIDTH as TPIW } from '../../util/const'
 import { ChromePicker } from 'react-color'
 import './timePanel.css'
 
@@ -57,6 +59,11 @@ export default class TimePanel extends React.Component {
         const { value } = e.target
         const optionObject = this.props.options[option]
         optionObject[key] = Number(value)
+        this.props.onSubmit({ [option]: optionObject })
+    }
+    handleTimeOptionsSelect = (value, option, key) => {
+        const optionObject = this.props.options[option]
+        optionObject[key] = value
         this.props.onSubmit({ [option]: optionObject })
     }
 
@@ -159,25 +166,25 @@ export default class TimePanel extends React.Component {
                             </div>
                             <div className="item-right-container">
                                 <div className="item-right-option">
-                                    <div>HorizonDistance:</div>
+                                    <div>xDistance:</div>
                                     <Input
-                                        value={options.timeLine.horizonDistance}
+                                        value={options.timeLine.xDistance}
                                         type="number"
                                         onChange={(e) =>
-                                            this.handleTimeOptionsInput(e, 'timeLine', 'horizonDistance')
+                                            this.handleTimeOptionsInput(e, 'timeLine', 'xDistance')
                                         }
-                                        style={{ width: '65px' }}
+                                        style={{ width: TPIW }}
                                     />
                                 </div>
                                 <div className="item-right-option">
-                                    <div>VerticalDistance:</div>
+                                    <div>yDistance:</div>
                                     <Input
-                                        value={options.timeLine.verticalDistance}
+                                        value={options.timeLine.yDistance}
                                         type="number"
                                         onChange={(e) =>
-                                            this.handleTimeOptionsInput(e, 'timeLine', 'verticalDistance')
+                                            this.handleTimeOptionsInput(e, 'timeLine', 'yDistance')
                                         }
-                                        style={{ width: '65px' }}
+                                        style={{ width: TPIW }}
                                     />
                                 </div>
                             </div>
@@ -218,7 +225,7 @@ export default class TimePanel extends React.Component {
                                         onChange={(e) =>
                                             this.handleTimeOptionsInput(e, 'animation', 'speed')
                                         }
-                                        style={{ width: '65px' }}
+                                        style={{ width: TPIW }}
                                     />
                                 </div>
                             </div>
@@ -259,7 +266,7 @@ export default class TimePanel extends React.Component {
                                         onChange={(e) =>
                                             this.handleTimeOptionsInput(e, 'color', 'number')
                                         }
-                                        style={{ width: '65px' }}
+                                        style={{ width: TPIW }}
                                     />
                                 </div>
                             </div>
@@ -298,7 +305,7 @@ export default class TimePanel extends React.Component {
                                         onChange={(e) =>
                                             this.handleTimeOptionsInput(e, 'link', 'xDistance')
                                         }
-                                        style={{ width: '65px' }}
+                                        style={{ width: TPIW }}
                                     />
                                 </div>
                                 <div className="item-right-option">
@@ -309,7 +316,7 @@ export default class TimePanel extends React.Component {
                                         onChange={(e) =>
                                             this.handleTimeOptionsInput(e, 'link', 'yDistance')
                                         }
-                                        style={{ width: '65px' }}
+                                        style={{ width: TPIW }}
                                     />
                                 </div> */}
                             </div>
@@ -350,8 +357,24 @@ export default class TimePanel extends React.Component {
                                         onChange={(e) =>
                                             this.handleTimeOptionsInput(e, 'insert', 'margin')
                                         }
-                                        style={{ width: '65px' }}
+                                        style={{ width: TPIW }}
                                     />
+                                </div>
+                                <div className="item-right-option">
+                                    <div>Position:</div>
+                                    <Select
+                                        value={options.insert.position}
+                                        style={{ width: TPIW }}
+                                        onChange={(e) =>
+                                            this.handleTimeOptionsSelect(e, 'insert', 'position')}
+                                    >   {
+                                            INSERT_POSITION.map(v=>{
+                                                return (
+                                                    <Option key={v} value={v}>{v}</Option>
+                                                )
+                                            })
+                                        }
+                                    </Select>
                                 </div>
                             </div>
                         </div>
