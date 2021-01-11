@@ -241,8 +241,11 @@ export default class ComparisonPanel extends React.Component {
                     </div>
                 </div>
                 <div className="change-option-panle">
-                    {/* 选择形状：圆形、三角形、方形 */}
-                    {changeOptions.shape ? (
+                    {/* 选择形状：节点和链接是不一样的。
+                        节点：圆形、三角形、方形 
+                        链接：直线、曲线
+                    */}
+                    {chooseItem.split('-')[1]==='Node' ? (
                         <div className="change-option-item">
                             <div>Shape:</div>
                             <Select
@@ -258,7 +261,23 @@ export default class ComparisonPanel extends React.Component {
                                 </Option>
                             </Select>
                         </div>
-                    ) : null}
+                    ) : (
+                        <div className="change-option-item">
+                            <div>Shape:</div>
+                            <Select
+                                value={changeOptions.shape}
+                                onChange={this.handleShapeChange}
+                                style={{ width: 120 }}
+                            >
+                                <Option key="line">
+                                    <div>line</div>
+                                </Option>
+                                <Option key="curve">
+                                    <div>curve</div>
+                                </Option>
+                            </Select>
+                        </div>
+                    )}
                     {/* 选择线型 */}
                     <div className="change-option-item">
                         <div>StrokeType:</div>

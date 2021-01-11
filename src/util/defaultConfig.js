@@ -1,3 +1,14 @@
+// import {COMPARISON_CONFIG} from './dnetChart.js'
+
+export const COMPARISON_CONFIG = [
+    'shape',
+    'fillColor',
+    'strokeColor',
+    'strokeWidth',
+    'strokeType',
+    'radius'
+]
+
 export const defaultConfigs = {
     basic: {
         width: 250,
@@ -87,7 +98,7 @@ export const defaultConfigs = {
     },
     comparison: {
         isOn: true,
-        chooseTypes:['shape', 'fillColor', 'strokeColor', 'strokeWidth', 'strokeType', 'color', 'radius'],
+        chooseTypes: COMPARISON_CONFIG,
         // keyFrame可为上一帧、下一帧、具体某一帧
         keyFrame: 'next',
         elements: 'all',
@@ -98,7 +109,8 @@ export const defaultConfigs = {
             strokeWidth: 1,
             strokeType: 'solid',
             textColor: 'white',
-            radius: 8
+            radius: 8,
+            opacity: 1
         },
         stableNode: {
             shape: 'circle',
@@ -107,7 +119,8 @@ export const defaultConfigs = {
             strokeWidth: 1,
             radius: 6,
             strokeType: 'solid',
-            textColor: 'white'
+            textColor: 'white',
+            opacity: 1
         },
         disappearNode: {
             shape: 'circle',
@@ -116,25 +129,29 @@ export const defaultConfigs = {
             strokeWidth: 1,
             radius: 8,
             strokeType: 'solid',
-            textColor: 'white'
+            textColor: 'white',
+            opacity: 1
         },
         appearLink: {
             shape: 'curve',
             strokeColor: '#FD8F8F',
             strokeType: 'solid',
-            strokeWidth: 3
+            strokeWidth: 3,
+            opacity: 1
         },
         stableLink: {
             shape: 'line',
             strokeColor: '#908F8F',
             strokeType: 'solid',
-            strokeWidth: 1
+            strokeWidth: 1,
+            opacity: 1
         },
         disappearLink: {
             shape: 'curve',
             strokeColor: '#90B5FB',
             strokeType: 'solid',
-            strokeWidth: 3
+            strokeWidth: 3,
+            opacity: 1
         }
     }
 }

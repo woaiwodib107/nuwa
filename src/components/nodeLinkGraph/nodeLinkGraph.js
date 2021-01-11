@@ -2,6 +2,9 @@ import React from 'react'
 import NodeItemContainer from '../nodeItemContainer/nodeItemContainer.js'
 import LinkContainer from '../linkContainer/linkContainer.js'
 import Motion from '../motion/Motion'
+import { 
+    getLinkOpacity
+} from '../../util/dnetChart.js'
 
 export default function NodeLinkGraph(props) {
     const { data, width, height } = props
@@ -27,7 +30,7 @@ export default function NodeLinkGraph(props) {
                                 duration={1500}
                                 key={`${v.id}_motion`}
                                 style={{
-                                    opacity: 1,
+                                    opacity: getLinkOpacity(v),
                                     sourceX: v.source.x,
                                     sourceY: v.source.y,
                                     targetX: v.target.x,
@@ -63,7 +66,7 @@ export default function NodeLinkGraph(props) {
                                 duration={1500}
                                 key={`${v.id}_motion`}
                                 style={{
-                                    opacity: 1,
+                                    opacity: v.opacity,
                                     x: v.x,
                                     y: v.y
                                 }}

@@ -28,13 +28,15 @@ export default class Board extends React.Component {
                     strokeWidth: 1,
                     radius: 6,
                     strokeType: 'solid',
-                    textColor: 'white'
+                    textColor: 'white',
+                    opacity: 1
                 },
                 linkStyle: {
                     shape: 'curve',
                     strokeColor: '#908F8F',
                     strokeType: 'solid',
-                    strokeWidth: 2
+                    strokeWidth: 2,
+                    opacity: 1
                 }
             },
             time: {
@@ -55,13 +57,15 @@ export default class Board extends React.Component {
                         strokeWidth: 1,
                         radius: 6,
                         strokeType: 'solid',
-                        textColor: 'white'
+                        textColor: 'white',
+                        opacity: 1
                     },
                     linkStyle: {
                         shape: 'curve',
                         strokeColor: '#ffcc00',
                         strokeType: 'solid',
-                        strokeWidth: 2
+                        strokeWidth: 2,
+                        opacity: 1
                     }
                 },
                 color: {

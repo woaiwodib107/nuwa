@@ -1,20 +1,12 @@
 import * as d3 from 'd3'
-import { defaultConfigs } from './defaultConfig'
+import { defaultConfigs,  COMPARISON_CONFIG} from './defaultConfig'
 import * as _lodash from 'lodash'
 import assign from 'assign-deep'
+
+
 const TIME_CONFIG = ['timeLine', 'animation', 'color', 'markLine', 'insert']
 const LAYOUT_CONFIG = ['offLine', 'vertical', 'onLine', 'circle', 'bipartite']
 export const INSERT_POSITION = ['top', 'bottom', 'left', 'right', 'center', 'topLeft', 'topRight', 'bottomRight', 'bottomLeft']
-
-const COMPARISON_CONFIG = [
-    'shape',
-    'fillColor',
-    'strokeColor',
-    'strokeWidth',
-    'strokeType',
-    'color',
-    'radius'
-]
 
 export const defaultConfigs_bak = {
     layout: {
@@ -339,6 +331,7 @@ export function assignConfigs(setConfigs) {
     if ('comparison' in configs) {
         if (typeof configs.comparison === 'boolean' && configs.comparison) {
             // 全部开启
+            sumConfigs.comparison.isOn = true
             sumConfigs.comparison.chooseTypes = COMPARISON_CONFIG
         } else if (
             typeof configs.comparison === 'string' &&
@@ -604,9 +597,61 @@ export function getLineData(len, data) {
     return lineData
 }
 
-export function getArcPathData(y1, y2) {
-    const r = Math.abs(y2 - y1) / 2
-    return `M 0,${y1}A${r},${r} 0,0,1 0,${y2}`
+// export function getArcPathData(y1, y2) {
+//     const r = Math.abs(y2 - y1) / 2
+//     return `M 0,${y1}A${r},${r} 0,0,1 0,${y2}`
+// }
+
+export function getLinkOpacity(props){
+    const { status, type , style} = props
+    if(type==='time'|| status.length === 0){
+        return style.linkStyle.opacity
+    }else if(status.length === 1){
+        return style[status[0]].opacity
+    }
+}
+
+export function getLineType(status, style){
+    const typeA = style[status[0]].shape
+    const typeB = style[status[1]].shape
+    if(typeA === typeB){
+        return typeA === 'curve'? 'curve': 'line'
+    }else{
+        return [typeA, typeB]
+    }
+}
+
+export function getArcPathData(source, target) {
+    const { firstData, secondData} = getDividedArcPathData(source, target)
+    return firstData + secondData
+}
+
+export function getHybridPathData(source, target) {
+    let newSource, newTarget
+    // source在上，target在下
+    if (source.y > target.y) {
+        newSource = target
+        newTarget = source
+    } else {
+        newSource = source
+        newTarget = target
+    }
+    const x1 = newSource.x
+    const y1 = newSource.y
+    const x2 = newTarget.x
+    const y2 = newTarget.y
+    const flag = x1 < x2 ? 1 : -1
+    const flag2 = x1 < x2 ? 1 : 0
+    const r = (Math.sqrt(Math.pow(y2 - y1, 2) + Math.pow(x2 - x1, 2)) * Math.sqrt(2)) / 2
+    if (r == 0) {
+        return { firstData: null, secondData: null }
+    }
+    let mx = (x1 + x2) / 2 + (flag * (1 - Math.sqrt(2) / 2) * r * (y2 - y1)) / (Math.sqrt(2) * r)
+    let my = (y1 + y2) / 2 + (flag * (1 - Math.sqrt(2) / 2) * r * (x1 - x2)) / (Math.sqrt(2) * r)
+    const firstData = `M ${x1},${y1}A${r},${r} 0,0,${flag2} ${mx},${my}`
+    const secondData = `M ${mx},${my} L ${x2},${y2}`
+    // console.log("firstData","secondData",firstData,secondData)
+    return { firstData, secondData }
 }
 
 export function getDividedArcPathData(source, target) {

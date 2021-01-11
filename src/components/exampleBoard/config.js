@@ -16,7 +16,7 @@ export const configSet = [
     },
     {
         time: ['animation', 'timeLine'],
-        comparison: 'color'
+        comparison: true
     },
     {
         time: {

@@ -23,6 +23,7 @@ export default function ArcLinkContainer(props) {
             />
         )
     } else if((status.length === 2)){
+        
         return (
             <>
                 <ArcLinkItem
