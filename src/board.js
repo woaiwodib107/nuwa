@@ -118,7 +118,8 @@ export default class Board extends React.Component {
                     strokeWidth: 1,
                     strokeType: 'solid',
                     textColor: 'white',
-                    radius: 8
+                    radius: 8,
+                    opacity: 1
                 },
                 stableNode: {
                     shape: 'circle',
@@ -127,7 +128,8 @@ export default class Board extends React.Component {
                     strokeWidth: 1,
                     radius: 6,
                     strokeType: 'solid',
-                    textColor: 'white'
+                    textColor: 'white',
+                    opacity: 1
                 },
                 disappearNode: {
                     shape: 'circle',
@@ -136,25 +138,29 @@ export default class Board extends React.Component {
                     strokeWidth: 1,
                     radius: 8,
                     strokeType: 'solid',
-                    textColor: 'white'
+                    textColor: 'white',
+                    opacity: 1
                 },
                 appearLink: {
                     shape: 'curve',
                     strokeColor: '#FD8F8F',
                     strokeType: 'solid',
-                    strokeWidth: 3
+                    strokeWidth: 3,
+                    opacity: 1
                 },
                 stableLink: {
                     shape: 'line',
                     strokeColor: '#908F8F',
                     strokeType: 'solid',
-                    strokeWidth: 1
+                    strokeWidth: 1,
+                    opacity: 1
                 },
                 disappearLink: {
                     shape: 'curve',
                     strokeColor: '#90B5FB',
                     strokeType: 'solid',
-                    strokeWidth: 3
+                    strokeWidth: 3,
+                    opacity: 1
                 }
             }
         }

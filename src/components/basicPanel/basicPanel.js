@@ -1,11 +1,26 @@
 import React from 'react'
-import { InputNumber, Select, Row, Col } from 'antd'
+import { InputNumber,Radio, Select } from 'antd'
+import SampleItem from '../sampleItem/sampleItem.js'
+import NodeLinkStylePanel from '../nodeLinkStylePanel/NodeLinkStylePanel.js'
 
 const { Option } = Select
+
+const rowButtonStyle = {
+    boxSizing: 'border-box',
+    width: '64px',
+    padding: '0px',
+    fontSize: '12px',
+    height: '64px',
+    lineHeight: '64px',
+    alighItems: 'center'
+}
 
 export default class BasicPanel extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            chooseItem : 'Node'
+        }
     }
     handleConfigChange = (e, key) => {
         this.props.onSubmit({
@@ -22,11 +37,20 @@ export default class BasicPanel extends React.Component {
             [option]: displayItem
         })
     }
+
+    handleIconsClick = (value) => {
+        this.setState({
+            chooseItem: value
+        })
+    }
+
     render() {
+        const optionKey = this.state.chooseItem === 'Node' ? 'nodeStyle' : 'linkStyle'
+        const changeOptions = this.props.options[optionKey]
         return (
             <div className="basic-box">
                 <div className="sub-title">&nbsp;Basic</div>
-                <div className="configDiv">
+                <div className="encoding-table-container">
                     <div className="change-option-item">
                         <div>eachWidth:</div>
                         <InputNumber
@@ -60,20 +84,57 @@ export default class BasicPanel extends React.Component {
                             onChange={(e) => this.handleConfigChange(e, 'margin')}
                         />
                     </div>
-                    <div className="change-option-item">
-                        <div>linkShape:</div>
-                        <Select
-                            value={this.props.options.linkStyle.shape}
-                            style={{ width: 120 }}
-                            size="small"
-                            onChange={(value) =>
-                                this.handleStyleChange('linkStyle', 'shape', value)
-                            }
+                    <div className="basic-panel-line">
+                        <div
+                            onClick={() => this.handleIconsClick("Node")}
+                            className="second-line-left"
                         >
-                            <Option value="curve">curve</Option>
-                            <Option value="line">line</Option>
-                        </Select>
+                            <Radio.Group
+                                buttonStyle="solid"
+                                value={this.state.chooseItem}
+                            >
+                                <Radio.Button style={rowButtonStyle} value="Node">
+                                    Node
+                                </Radio.Button>
+                            </Radio.Group>
+                        </div>
+                        <div
+                            onClick={() => this.handleIconsClick('Node')}
+                            className={`bp-line-icon-container ${
+                                this.state.chooseItem === 'Node' ? 'choose-icon' : ''
+                            }`}
+                        >
+                            <SampleItem config={this.props.options.nodeStyle} />
+                        </div>
+                        <div
+                            onClick={() => this.handleIconsClick('Link')}
+                            className="second-line-left"
+                        >
+                            <Radio.Group
+                                buttonStyle="solid"
+                                value={this.state.chooseItem}
+                            >
+                                <Radio.Button style={rowButtonStyle} value="Link">
+                                    Link
+                                </Radio.Button>
+                            </Radio.Group>
+                        </div>
+                        <div
+                            onClick={() => this.handleIconsClick('Link')}
+                            className={`bp-line-icon-container ${
+                                this.state.chooseItem === 'Link' ? 'choose-icon' : ''
+                            }`}
+                        >
+                            <SampleItem config={this.props.options.linkStyle} type={'link'}/>
+                        </div>
                     </div>
+
+                    <NodeLinkStylePanel
+                        type={this.state.chooseItem}
+                        optionKey={optionKey}
+                        changeOptions={changeOptions}
+                        onSubmit={this.props.onSubmit}
+                    />
                 </div>
             </div>
         )

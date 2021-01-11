@@ -3,7 +3,7 @@ import LinkItem from '../linkItem/linkItem.js'
 import { getDividedOptions } from '../../util/dnetChart.js'
 
 export default function LineLinkContainer(props) {
-    const {status,type} = props
+    const {status, type} = props
     if(type==='time'||status.length === 0){
         return (
             <LinkItem
