@@ -435,11 +435,24 @@ export const getGraphLayout = (timeGraphs, sumGraphs, configs) => {
                 xDistance = 0
                 yDistance = 0
             }
-            x = node.x + node.timeIndex * xDistance + margin
-            y = node.y + node.timeIndex * yDistance + margin
-            if (tempElement === 'node' || tempElement === 'all') {
-                node.x = x
-                node.y = y 
+            // 无论是否选中节点，margin偏移都是要的
+            node.x += margin
+            node.y += margin
+            if (tempElement === 'node') {
+                x = node.x
+                y = node.y
+                node.x = node.x + node.timeIndex * xDistance
+                node.y = node.y + node.timeIndex * yDistance 
+            }else if(tempElement === 'link'){
+                // 只是链接进行偏移.
+                x = node.x + node.timeIndex * xDistance
+                y = node.y + node.timeIndex * yDistance 
+            }else{
+                // 都进行偏移
+                node.x = node.x + node.timeIndex * xDistance
+                node.y = node.y + node.timeIndex * yDistance 
+                x = node.x
+                y = node.y
             }
             // 记录节点新的位置信息
             newNodes[node.timeId] = { timeId, x, y, id }
@@ -451,10 +464,8 @@ export const getGraphLayout = (timeGraphs, sumGraphs, configs) => {
             link.source = graph.nodes[link.source.id]
             link.target = graph.nodes[link.target.id]
             if (configs.time.chooseTypes.indexOf('timeLine') > -1) {
-                if (tempElement === 'link' || tempElement === 'all') {
-                    link.source = { ...newNodes[link.sourceTimeId] }
-                    link.target = { ...newNodes[link.targetTimeId] }
-                }
+                link.source = { ...newNodes[link.sourceTimeId] }
+                link.target = { ...newNodes[link.targetTimeId] }
             }
         })
     })

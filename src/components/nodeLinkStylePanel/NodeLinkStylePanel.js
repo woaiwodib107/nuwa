@@ -1,4 +1,4 @@
-import React , { useState }from 'react'
+import React, { useState } from 'react'
 import { Radio, Select, Input, Switch } from 'antd'
 import { ChromePicker } from 'react-color'
 
@@ -13,19 +13,19 @@ export default function NodeLinkStylePanel(props) {
         props.onSubmit({ [props.optionKey]: { ...changeOptions, ...option } })
     }
     const handleStyleChange = (key, value) => {
-        changeElementStyle({[key]: value})
+        changeElementStyle({ [key]: value })
     }
 
     const handleElementColorClick = (index) => {
-      const tempArr = [...colorPickerDisplay]
-      tempArr[index] = !tempArr[index]
-      setColorPickerDisplay(tempArr)
+        const tempArr = [...colorPickerDisplay]
+        tempArr[index] = !tempArr[index]
+        setColorPickerDisplay(tempArr)
     }
 
     const handleElementColorChange = (colorCode, index) => {
-      changeElementStyle({ [colorIndexToName[index]]: colorCode.hex })
+        changeElementStyle({ [colorIndexToName[index]]: colorCode.hex })
     }
-    const { changeOptions, type} = props
+    const { changeOptions, type } = props
     return (
         <div className="change-option-panle">
             {/* 选择形状：节点和链接是不一样的。
@@ -37,7 +37,7 @@ export default function NodeLinkStylePanel(props) {
                     <div>Shape:</div>
                     <Select
                         value={changeOptions.shape}
-                        onChange={(value)=>handleStyleChange('shape', value)}
+                        onChange={(value) => handleStyleChange('shape', value)}
                         style={{ width: 120 }}
                     >
                         <Option key="circle">
@@ -53,7 +53,7 @@ export default function NodeLinkStylePanel(props) {
                     <div>Shape:</div>
                     <Select
                         value={changeOptions.shape}
-                        onChange={(value)=>handleStyleChange('shape', value)}
+                        onChange={(value) => handleStyleChange('shape', value)}
                         style={{ width: 120 }}
                     >
                         <Option key="line">
@@ -71,7 +71,7 @@ export default function NodeLinkStylePanel(props) {
                 <Select
                     value={changeOptions.strokeType}
                     style={{ width: 120 }}
-                    onChange={(value)=>handleStyleChange('strokeType', value)}
+                    onChange={(value) => handleStyleChange('strokeType', value)}
                 >
                     <Option value="solid">solid</Option>
                     <Option value="dashed">dashed</Option>

@@ -76,6 +76,13 @@
     overflow: hidden;
 }
 
+.basic-box-content{
+    overflow-x: visible;
+    overflow-y: auto;
+}
+
+
+
 /*layout view*/
 .layout-box {
     background: #fff;

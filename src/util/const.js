@@ -9,3 +9,5 @@ export const SAMPLE_LINK_TARGET = {
 }
 export const SAMPLE_ITEM_WIDTH = 62
 export const SAMPLE_ITEM_HEIGHT = 62
+
+export const TIME_TIMELINE_ELEMENT = ['node', 'link', 'all']

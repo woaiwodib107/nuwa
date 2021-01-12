@@ -1,7 +1,9 @@
 import React from 'react'
 import { Button, Select, Input } from 'antd'
 import { INSERT_POSITION } from '../../util/dnetChart'
-import { TIME_PANEL_INPUT_WIDTH as TPIW } from '../../util/const'
+import { TIME_PANEL_INPUT_WIDTH as TPIW ,
+    TIME_TIMELINE_ELEMENT 
+} from '../../util/const'
 import { ChromePicker } from 'react-color'
 import './timePanel.css'
 
@@ -81,67 +83,6 @@ export default class TimePanel extends React.Component {
                     </svg>
                 </div>
                 <div className="encoding-table-container">
-                    {/* visble */}
-                    {/* <div className="encoding-item">
-                        <div className="encoding-item-title">
-                            <Button
-                                type={
-                                    this.props.options.chooseTypes.indexOf('visible') > -1
-                                        ? 'primary'
-                                        : 'default'
-                                }
-                                onClick={(e) => {
-                                    this.handleButtonOnClick('visible', e)
-                                }}
-                                block
-                            >
-                                Visible
-                            </Button>
-                        </div>
-                        <div className="encoding-item-content">
-                            <div className="visible-ctrl item-ctrl">
-                                <div
-                                    className="visible-circle1 item-circle1"
-                                    style={{ borderStyle: this.state.visible }}
-                                ></div>
-                                <div
-                                    className="visible-circle2 item-circle2"
-                                    style={{ borderStyle: this.state.visible }}
-                                ></div>
-                            </div>
-                            <div className="visible-picker-box">
-                                <Button
-                                    id="visible-button"
-                                    onClick={() => this.switchVisibleClick(true)}
-                                    style={{
-                                        color: options.visible.isVisible ? '#6495ED' : '#B0C4DE',
-                                        borderColor: options.visible.isVisible
-                                            ? '#6495ED'
-                                            : '#B0C4DE',
-                                        borderWidth: options.visible.isVisible ? '2px' : '1px'
-                                    }}
-                                >
-                                    {' '}
-                                    Visible{' '}
-                                </Button>
-                                <Button
-                                    id="invisible-button"
-                                    onClick={() => this.switchVisibleClick(false)}
-                                    style={{
-                                        color: !options.visible.isVisible ? '#6495ED' : '#B0C4DE',
-                                        borderColor: !options.visible.isVisible
-                                            ? '#6495ED'
-                                            : '#B0C4DE',
-                                        borderWidth: !options.visible.isVisible ? '2px' : '1px'
-                                    }}
-                                >
-                                    {' '}
-                                    Invisible
-                                </Button>
-                            </div>
-                        </div>
-                    </div> */}
-
                     {/* timeLine */}
                     <div className="encoding-item">
                         <div className="encoding-item-title">
@@ -186,6 +127,22 @@ export default class TimePanel extends React.Component {
                                         }
                                         style={{ width: TPIW }}
                                     />
+                                </div>
+                                <div className="item-right-option">
+                                    <div>Element:</div>
+                                    <Select
+                                        value={options.timeLine.element}
+                                        style={{ width: TPIW }}
+                                        onChange={(e) =>
+                                            this.handleTimeOptionsSelect(e, 'timeLine', 'element')}
+                                    >   {
+                                            TIME_TIMELINE_ELEMENT.map(v=>{
+                                                return (
+                                                    <Option key={v} value={v}>{v}</Option>
+                                                )
+                                            })
+                                        }
+                                    </Select>
                                 </div>
                             </div>
                         </div>
