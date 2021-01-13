@@ -1,7 +1,7 @@
 import React from 'react'
 import { InputNumber,Radio, Select } from 'antd'
 import SampleItem from '../sampleItem/sampleItem.js'
-import NodeLinkStylePanel from '../nodeLinkStylePanel/NodeLinkStylePanel.js'
+import NodeLinkStylePanel from '../nodeLinkStylePanel/nodeLinkStylePanel.js'
 import NodeLinkSample from '../nodeLinkSample/nodeLinkSample.js'
 
 const { Option } = Select

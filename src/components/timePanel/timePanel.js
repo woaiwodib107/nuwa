@@ -4,6 +4,7 @@ import { INSERT_POSITION } from '../../util/dnetChart'
 import { TIME_PANEL_INPUT_WIDTH as TPIW ,
     TIME_TIMELINE_ELEMENT 
 } from '../../util/const'
+import NodeLinkStylePanel from '../nodeLinkStylePanel/nodeLinkStylePanel.js'
 import NodeLinkSample from '../nodeLinkSample/nodeLinkSample.js'
 import './timePanel.css'
 
@@ -49,6 +50,12 @@ export default class TimePanel extends React.Component {
         this.props.onSubmit({ [option]: optionObject })
     }
 
+    handleTimeOptionsChange = ( option, value) => {
+        const optionObject = {...this.props.options[option], ...value}
+        // optionObject[key] = value
+        this.props.onSubmit({ [option]: optionObject })
+    }
+
     handleIconsClick = (value) => {
         this.setState({
             chooseItem: value
@@ -56,6 +63,8 @@ export default class TimePanel extends React.Component {
     }
     render() {
         const options = this.props.options
+        const optionKey = this.state.chooseItem === 'Node' ? 'nodeStyle' : 'linkStyle'
+        const changeOptions = this.props.options.insert[optionKey]
         return (
             <div className="time-box">
                 <div className="sub-title">
@@ -327,7 +336,14 @@ export default class TimePanel extends React.Component {
                                 chooseItem = {this.state.chooseItem}
                                 onSubmit = {this.handleIconsClick}
                             />
+                            
                         </div>
+                        <NodeLinkStylePanel
+                                type={this.state.chooseItem}
+                                optionKey={optionKey}
+                                changeOptions={changeOptions}
+                                onSubmit={(value)=>this.handleTimeOptionsChange('insert', value)}
+                            />
                     </div>
                 
                 </div>

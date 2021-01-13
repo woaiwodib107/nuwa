@@ -35,10 +35,6 @@ export const defaultConfigs = {
     layout: {
         chooseType: 'offLine',
         vertical: {
-            yDistance: 40,
-            linkStyle: {
-                shape: 'curve'
-            }
         },
         offLine:{
 
@@ -65,13 +61,15 @@ export const defaultConfigs = {
                 strokeWidth: 1,
                 radius: 6,
                 strokeType: 'solid',
-                textColor: 'white'
+                textColor: 'white',
+                opcity: 1,
             },
             linkStyle: {
                 shape: 'curve',
                 strokeColor: '#ffcc00',
                 strokeType: 'solid',
-                strokeWidth: 2
+                strokeWidth: 2,
+                opacity :1
             }
         },
         color: {
@@ -98,10 +96,10 @@ export const defaultConfigs = {
     },
     comparison: {
         isOn: true,
-        chooseTypes: COMPARISON_CONFIG,
-        // keyFrame可为上一帧、下一帧、具体某一帧
         keyFrame: 'next',
         elements: 'all',
+        chooseTypes: COMPARISON_CONFIG,
+        // keyFrame可为上一帧、下一帧、具体某一帧
         appearNode: {
             shape: 'circle',
             fillColor: '#FD8F8F',

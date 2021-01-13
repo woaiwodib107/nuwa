@@ -27,7 +27,7 @@ export default function ExampleBoard() {
                             width={340}
                             height={500}
                         />
-                        <Preview data={jsonData.graphs} config={config} width={1550} height={500} />
+                        <Preview data={jsonData.graphs} config={config} width={1545} height={500} />
                     </div>
                 )
             })}

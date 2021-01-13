@@ -42,8 +42,8 @@ export default function Preview(props) {
     return (
         <div
             style={{
-                width: `${props.width ? props.width : 1040}px`,
-                height: `${props.height ? props.height : 580}px`
+                width: `${props.width ? props.width : 1035}px`,
+                height: `${props.height ? props.height : 600}px`
             }}
             className="preview-box"
         >

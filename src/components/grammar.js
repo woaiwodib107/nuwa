@@ -71,8 +71,8 @@ export default class Grammar extends React.Component {
         return (
             <div 
                 style={{
-                    width:`${this.props.width ? this.props.width: 1040}px`,
-                    height: `${this.props.height ? this.props.height: 400}px`
+                    width:`${this.props.width ? this.props.width: 1035}px`,
+                    height: `${this.props.height ? this.props.height: 380}px`
                 }}
                 className="grammar-box ">
                 <div className="sub-title">

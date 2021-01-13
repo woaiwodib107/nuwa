@@ -2,7 +2,7 @@ import React from 'react'
 import { ChromePicker } from 'react-color'
 import SampleItem from '../sampleItem/sampleItem.js'
 import { Radio, Select, Input, Switch } from 'antd'
-import NodeLinkStylePanel from '../nodeLinkStylePanel/NodeLinkStylePanel.js'
+import NodeLinkStylePanel from '../nodeLinkStylePanel/nodeLinkStylePanel.js'
 import './comparisonPanel.css'
 
 // Trend或者 Diff 配置

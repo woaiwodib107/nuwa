@@ -1,0 +1,14 @@
+.ant-collapse-header {
+  padding: 4px 0px 4px 10px !important;
+  display: flex !important;
+  justify-content: flex-start !important;
+  font-size: 14px !important;
+}
+
+.ant-collapse-header span {
+  top: 7px !important;
+}
+
+.ant-collapse-content-box{
+   padding:  0px !important;
+}
