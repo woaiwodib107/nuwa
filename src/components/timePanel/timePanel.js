@@ -78,7 +78,7 @@ export default class TimePanel extends React.Component {
                                         : 'default'
                                 }
                                 onClick={(e) => {
-                                    this.handleButtonOnClick('position', e)
+                                    this.handleButtonOnClick('timeLine', e)
                                 }}
                                 block
                             >

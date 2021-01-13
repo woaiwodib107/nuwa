@@ -25,9 +25,9 @@ export default function ExampleBoard() {
                         <Grammar
                             options={configItem}
                             width={340}
-                            height={600}
+                            height={500}
                         />
-                        <Preview data={jsonData.graphs} config={config} width={1540} height={600} />
+                        <Preview data={jsonData.graphs} config={config} width={1550} height={500} />
                     </div>
                 )
             })}

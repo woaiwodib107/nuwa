@@ -71,10 +71,10 @@ export default class Grammar extends React.Component {
         return (
             <div 
                 style={{
-                    width:`${this.props.width ? this.props.width: 1010}px`,
+                    width:`${this.props.width ? this.props.width: 1040}px`,
                     height: `${this.props.height ? this.props.height: 400}px`
                 }}
-                className="grammar-box">
+                className="grammar-box ">
                 <div className="sub-title">
                     &nbsp;Grammar
                     <Upload
@@ -94,7 +94,7 @@ export default class Grammar extends React.Component {
                     </svg>
                 </div>
                 <div className="filename">{this.state.filename}</div>
-                <div className="json-text">
+                <div className="json-text simple_scrollbar">
                     <ReactJson
                         className="json-box"
                         {...this.state.jsonOptions}
