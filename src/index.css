@@ -4,7 +4,7 @@
     border: 1px solid rgb(68, 67, 67);
     border-radius: 8px;
     height: 450px;
-    width: 270px;
+    width: 280px;
     display: flex;
     flex-direction: column;
     padding: 0;
@@ -66,7 +66,7 @@
     border: 1px solid rgb(68, 67, 67);
     border-radius: 8px;
     height: 510px;
-    width: 270px;
+    width: 280px;
     display: flex;
     flex-direction: column;
     padding: 0;

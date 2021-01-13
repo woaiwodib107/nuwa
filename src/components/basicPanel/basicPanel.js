@@ -2,6 +2,7 @@ import React from 'react'
 import { InputNumber,Radio, Select } from 'antd'
 import SampleItem from '../sampleItem/sampleItem.js'
 import NodeLinkStylePanel from '../nodeLinkStylePanel/NodeLinkStylePanel.js'
+import NodeLinkSample from '../nodeLinkSample/nodeLinkSample.js'
 
 const { Option } = Select
 
@@ -85,50 +86,13 @@ export default class BasicPanel extends React.Component {
                         />
                     </div>
                     <div className="basic-panel-line">
-                        <div
-                            onClick={() => this.handleIconsClick("Node")}
-                            className="second-line-left"
-                        >
-                            <Radio.Group
-                                buttonStyle="solid"
-                                value={this.state.chooseItem}
-                            >
-                                <Radio.Button style={rowButtonStyle} value="Node">
-                                    Node
-                                </Radio.Button>
-                            </Radio.Group>
-                        </div>
-                        <div
-                            onClick={() => this.handleIconsClick('Node')}
-                            className={`bp-line-icon-container ${
-                                this.state.chooseItem === 'Node' ? 'choose-icon' : ''
-                            }`}
-                        >
-                            <SampleItem config={this.props.options.nodeStyle} />
-                        </div>
-                        <div
-                            onClick={() => this.handleIconsClick('Link')}
-                            className="second-line-left"
-                        >
-                            <Radio.Group
-                                buttonStyle="solid"
-                                value={this.state.chooseItem}
-                            >
-                                <Radio.Button style={rowButtonStyle} value="Link">
-                                    Link
-                                </Radio.Button>
-                            </Radio.Group>
-                        </div>
-                        <div
-                            onClick={() => this.handleIconsClick('Link')}
-                            className={`bp-line-icon-container ${
-                                this.state.chooseItem === 'Link' ? 'choose-icon' : ''
-                            }`}
-                        >
-                            <SampleItem config={this.props.options.linkStyle} type={'link'}/>
-                        </div>
+                        <NodeLinkSample
+                            nodeStyle = {this.props.options.nodeStyle}
+                            linkStyle = {this.props.options.linkStyle}
+                            chooseItem = {this.state.chooseItem}
+                            onSubmit = {this.handleIconsClick}
+                        />
                     </div>
-
                     <NodeLinkStylePanel
                         type={this.state.chooseItem}
                         optionKey={optionKey}

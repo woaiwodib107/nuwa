@@ -4,7 +4,7 @@ import { INSERT_POSITION } from '../../util/dnetChart'
 import { TIME_PANEL_INPUT_WIDTH as TPIW ,
     TIME_TIMELINE_ELEMENT 
 } from '../../util/const'
-import { ChromePicker } from 'react-color'
+import NodeLinkSample from '../nodeLinkSample/nodeLinkSample.js'
 import './timePanel.css'
 
 const { Option } = Select
@@ -13,29 +13,9 @@ export default class TimePanel extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            chooseTypes: this.props.options.chooseTypes,
-            visible: this.props.options.visible,
-            position: this.props.options.position,
-            color: this.props.options.color,
-            animation: this.props.options.animation,
-            link: this.props.options.link,
-            glyph: this.props.options.glyph,
             colorPickerDisplay: false,
-            isVisible: this.props.options.visible !== 'dashed' ? true : false,
-            elementColorPickerDisplay: [false, false, false]
-        }
-    }
-    switchVisibleClick = (value) => {
-        this.props.onSubmit({
-            visible: {
-                isVisible: value
-            }
-        })
-    }
-    handleSubmitOptions() {
-        if (this.props.onSubmit) {
-            const { visible, position, color, animation, link, glyph } = this.state
-            this.props.onSubmit({ visible, position, color, animation, link, glyph })
+            elementColorPickerDisplay: [false, false, false],
+            chooseItem: 'Node'
         }
     }
     handleButtonOnClick(type, event) {
@@ -69,6 +49,11 @@ export default class TimePanel extends React.Component {
         this.props.onSubmit({ [option]: optionObject })
     }
 
+    handleIconsClick = (value) => {
+        this.setState({
+            chooseItem: value
+        })
+    }
     render() {
         const options = this.props.options
         return (
@@ -88,7 +73,7 @@ export default class TimePanel extends React.Component {
                         <div className="encoding-item-title">
                             <Button
                                 type={
-                                    this.props.options.chooseTypes.indexOf('timeLine') > -1
+                                    options.chooseTypes.indexOf('timeLine') > -1
                                         ? 'primary'
                                         : 'default'
                                 }
@@ -153,7 +138,7 @@ export default class TimePanel extends React.Component {
                         <div className="encoding-item-title">
                             <Button
                                 type={
-                                    this.props.options.chooseTypes.indexOf('animation') > -1
+                                    options.chooseTypes.indexOf('animation') > -1
                                         ? 'primary'
                                         : 'default'
                                 }
@@ -194,7 +179,7 @@ export default class TimePanel extends React.Component {
                         <div className="encoding-item-title">
                             <Button
                                 type={
-                                    this.props.options.chooseTypes.indexOf('color') > -1
+                                    options.chooseTypes.indexOf('color') > -1
                                         ? 'primary'
                                         : 'default'
                                 }
@@ -235,7 +220,7 @@ export default class TimePanel extends React.Component {
                         <div className="encoding-item-title">
                             <Button
                                 type={
-                                    this.props.options.chooseTypes.indexOf('markLine') > -1
+                                    options.chooseTypes.indexOf('markLine') > -1
                                         ? 'primary'
                                         : 'default'
                                 }
@@ -285,7 +270,7 @@ export default class TimePanel extends React.Component {
                         <div className="encoding-item-title">
                             <Button
                                 type={
-                                    this.props.options.chooseTypes.indexOf('insert') > -1
+                                    options.chooseTypes.indexOf('insert') > -1
                                         ? 'primary'
                                         : 'default'
                                 }
@@ -334,6 +319,14 @@ export default class TimePanel extends React.Component {
                                     </Select>
                                 </div>
                             </div>
+                        </div>
+                        <div className="encoding-item-content">
+                            <NodeLinkSample
+                                nodeStyle = {options.insert.nodeStyle}
+                                linkStyle = {options.insert.linkStyle}
+                                chooseItem = {this.state.chooseItem}
+                                onSubmit = {this.handleIconsClick}
+                            />
                         </div>
                     </div>
                 

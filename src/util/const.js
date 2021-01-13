@@ -11,3 +11,13 @@ export const SAMPLE_ITEM_WIDTH = 62
 export const SAMPLE_ITEM_HEIGHT = 62
 
 export const TIME_TIMELINE_ELEMENT = ['node', 'link', 'all']
+
+export const ROW_BUTTON_STYLE = {
+  boxSizing: 'border-box',
+  width: '64px',
+  padding: '0px',
+  fontSize: '12px',
+  height: '64px',
+  lineHeight: '64px',
+  alighItems: 'center'
+}

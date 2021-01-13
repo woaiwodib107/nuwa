@@ -4,7 +4,7 @@
     border: 1px solid rgb(68, 67, 67);
     border-radius: 8px;
     height: 970px;
-    width: 290px;
+    width: 280px;
     display: flex;
     flex-direction: column;
     padding: 0;
@@ -67,16 +67,17 @@
 }
 
 .encoding-item-title {
-    margin-left: 15px;
-    margin-right: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
     margin-top: 10px;
     margin-bottom: 5px;
     height: 32px;
 }
 
 .encoding-item-content {
-    margin-left: 15px;
-    margin-right: 15px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 5px;
     display: flex;
     justify-content: space-between;
 }

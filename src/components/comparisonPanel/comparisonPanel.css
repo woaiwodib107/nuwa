@@ -117,6 +117,11 @@
     justify-content: flex-start;
 }
 
+.node-link-sample {
+    display: flex;
+    justify-content: flex-start;
+}
+
 .item-color-picker-box {
     z-index: 999;
 }
