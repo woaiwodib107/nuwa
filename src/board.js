@@ -112,7 +112,7 @@ export default class Board extends React.Component {
                 keyFrame: 'next',
                 elements: 'all',
                 appearNode: {
-                    shape: 'circle',
+                    shape: 'rect',
                     fillColor: '#FD8F8F',
                     strokeColor: '#000000',
                     strokeWidth: 1,

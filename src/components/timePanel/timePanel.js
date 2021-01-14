@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Select, Input } from 'antd'
+import { Button, Select, Input, InputNumber } from 'antd'
 import { INSERT_POSITION } from '../../util/dnetChart'
 import { TIME_PANEL_INPUT_WIDTH as TPIW ,
     TIME_TIMELINE_ELEMENT 
@@ -38,8 +38,8 @@ export default class TimePanel extends React.Component {
             elementColorPickerDisplay: tempArr
         })
     }
-    handleTimeOptionsInput = (e, option, key) => {
-        const { value } = e.target
+    handleTimeOptionsInput = (value, option, key) => {
+        // const { value } = e.target
         const optionObject = this.props.options[option]
         optionObject[key] = Number(value)
         this.props.onSubmit({ [option]: optionObject })
@@ -102,9 +102,11 @@ export default class TimePanel extends React.Component {
                             <div className="item-right-container">
                                 <div className="item-right-option">
                                     <div>xDistance:</div>
-                                    <Input
+                                    <InputNumber
+                                        size="small"
+                                        min={1}
+                                        max={1000}
                                         value={options.timeLine.xDistance}
-                                        type="number"
                                         onChange={(e) =>
                                             this.handleTimeOptionsInput(e, 'timeLine', 'xDistance')
                                         }
@@ -113,9 +115,11 @@ export default class TimePanel extends React.Component {
                                 </div>
                                 <div className="item-right-option">
                                     <div>yDistance:</div>
-                                    <Input
+                                    <InputNumber
+                                        size="small"
+                                        min={1}
+                                        max={1000}
                                         value={options.timeLine.yDistance}
-                                        type="number"
                                         onChange={(e) =>
                                             this.handleTimeOptionsInput(e, 'timeLine', 'yDistance')
                                         }
@@ -127,6 +131,7 @@ export default class TimePanel extends React.Component {
                                     <Select
                                         value={options.timeLine.element}
                                         style={{ width: TPIW }}
+                                        size="small"
                                         onChange={(e) =>
                                             this.handleTimeOptionsSelect(e, 'timeLine', 'element')}
                                     >   {
@@ -170,9 +175,11 @@ export default class TimePanel extends React.Component {
                             <div className="item-right-container">
                                 <div className="item-right-option">
                                     <div>Speed:</div>
-                                    <Input
+                                    <InputNumber
+                                        size="small"
+                                        min={1}
+                                        max={1000}
                                         value={options.animation.speed}
-                                        type="number"
                                         onChange={(e) =>
                                             this.handleTimeOptionsInput(e, 'animation', 'speed')
                                         }
@@ -211,9 +218,11 @@ export default class TimePanel extends React.Component {
                             <div className="item-right-container">
                                 <div className="item-right-option">
                                     <div>Number:</div>
-                                    <Input
+                                    <InputNumber
+                                        size="small"
+                                        min={1}
+                                        max={1000}
                                         value={options.color.number}
-                                        type="number"
                                         onChange={(e) =>
                                             this.handleTimeOptionsInput(e, 'color', 'number')
                                         }
@@ -302,9 +311,11 @@ export default class TimePanel extends React.Component {
                             <div className="item-right-container">
                                 <div className="item-right-option">
                                     <div>Margin:</div>
-                                    <Input
+                                    <InputNumber
+                                        size="small"
+                                        min={1}
+                                        max={1000}
                                         value={options.insert.margin}
-                                        type="number"
                                         onChange={(e) =>
                                             this.handleTimeOptionsInput(e, 'insert', 'margin')
                                         }
@@ -316,6 +327,7 @@ export default class TimePanel extends React.Component {
                                     <Select
                                         value={options.insert.position}
                                         style={{ width: TPIW }}
+                                        size="small"
                                         onChange={(e) =>
                                             this.handleTimeOptionsSelect(e, 'insert', 'position')}
                                     >   {

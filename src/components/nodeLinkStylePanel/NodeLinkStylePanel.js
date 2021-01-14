@@ -55,6 +55,7 @@ export default function NodeLinkStylePanel(props) {
                             <div>Shape:</div>
                             <Select
                                 value={changeOptions.shape}
+                                size="small"
                                 onChange={(value) => handleStyleChange('shape', value)}
                                 style={{ width: 120 }}
                             >
@@ -70,6 +71,7 @@ export default function NodeLinkStylePanel(props) {
                         <div className="change-option-item">
                             <div>Shape:</div>
                             <Select
+                                size="small"
                                 value={changeOptions.shape}
                                 onChange={(value) => handleStyleChange('shape', value)}
                                 style={{ width: 120 }}
@@ -87,6 +89,7 @@ export default function NodeLinkStylePanel(props) {
                     <div className="change-option-item">
                         <div>StrokeType:</div>
                         <Select
+                            size="small"
                             value={changeOptions.strokeType}
                             style={{ width: 120 }}
                             onChange={(value) => handleStyleChange('strokeType', value)}
@@ -101,6 +104,7 @@ export default function NodeLinkStylePanel(props) {
                         <Input
                             value={changeOptions.strokeWidth}
                             type="number"
+                            size="small"
                             onChange={(e) =>
                                 handleStyleChange('strokeWidth', Number(e.target.value))
                             }
@@ -113,6 +117,7 @@ export default function NodeLinkStylePanel(props) {
                         <Input
                             value={changeOptions.opacity}
                             type="number"
+                            size="small"
                             onChange={(e) => handleStyleChange('opacity', Number(e.target.value))}
                             style={{ width: '120px' }}
                         />
@@ -124,6 +129,7 @@ export default function NodeLinkStylePanel(props) {
                             <Input
                                 value={changeOptions.radius}
                                 type="number"
+                                size="small"
                                 onChange={(e) =>
                                     handleStyleChange('radius', Number(e.target.value))
                                 }
@@ -141,7 +147,7 @@ export default function NodeLinkStylePanel(props) {
                                     style={{
                                         backgroundColor: changeOptions.strokeColor,
                                         width: '120px',
-                                        height: '32px'
+                                        height: '24px'
                                     }}
                                 ></div>
                             </div>
@@ -164,7 +170,7 @@ export default function NodeLinkStylePanel(props) {
                                     style={{
                                         backgroundColor: changeOptions.fillColor,
                                         width: '120px',
-                                        height: '32px'
+                                        height: '24px'
                                     }}
                                 ></div>
                             </div>
@@ -187,7 +193,7 @@ export default function NodeLinkStylePanel(props) {
                                     style={{
                                         backgroundColor: changeOptions.textColor,
                                         width: '120px',
-                                        height: '32px'
+                                        height: '24px'
                                     }}
                                 ></div>
                             </div>
