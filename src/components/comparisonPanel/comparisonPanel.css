@@ -130,3 +130,7 @@
     display: block;
     background-color: #fff;
 }
+
+.ant-checkbox-wrapper{
+    font-size: 13px !important;
+}

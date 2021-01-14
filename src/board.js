@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React from 'react'
 import Data from './components/data/data.js'
 import TimePanel from './components/timePanel/timePanel.js'
 import Grammar from './components/grammar.js'
@@ -7,6 +7,7 @@ import ComparisonPanel from './components/comparisonPanel/comparisonPanel.js'
 import BasicPanel from './components/basicPanel/basicPanel.js'
 import LayoutPanel from './components/layoutPanel/layoutPanel.js'
 import ExampleBoard from './components/exampleBoard/exampleBoard.js'
+import { COMPARISON_CONFIG } from './util/defaultConfig.js'
 
 export default class Board extends React.Component {
     constructor(props) {
@@ -36,7 +37,8 @@ export default class Board extends React.Component {
                     strokeColor: '#908F8F',
                     strokeType: 'solid',
                     strokeWidth: 2,
-                    opacity: 1
+                    opacity: 1,
+                    strokeDasharray: '3,3'
                 }
             },
             time: {
@@ -65,7 +67,8 @@ export default class Board extends React.Component {
                         strokeColor: '#ffcc00',
                         strokeType: 'solid',
                         strokeWidth: 2,
-                        opacity: 1
+                        opacity: 1,
+                        strokeDasharray: '3,3'
                     }
                 },
                 color: {
@@ -77,10 +80,12 @@ export default class Board extends React.Component {
                     speed: 1800
                 },
                 markLine: {
-                    strokeType: 'solid',
+                    shape: 'line',
+                    strokeType: 'dashed',
                     strokeColor: '#FD8F8F',
                     strokeWidth: 1,
-                    strokeDasharray: '5,5'
+                    strokeDasharray: '5,5',
+                    opacity:1,
                 }
             },
             layout: {
@@ -107,7 +112,7 @@ export default class Board extends React.Component {
             comparison: {
                 isOn: true,
                 chooseItem: 'stable-Node',
-                chooseTypes:['shape', 'fillColor', 'strokeColor', 'strokeWidth', 'strokeType', 'color', 'radius'],
+                chooseTypes: COMPARISON_CONFIG,
                 // keyFrame可为上一帧、下一帧、具体某一帧
                 keyFrame: 'next',
                 elements: 'all',
@@ -146,21 +151,24 @@ export default class Board extends React.Component {
                     strokeColor: '#FD8F8F',
                     strokeType: 'solid',
                     strokeWidth: 3,
-                    opacity: 1
+                    opacity: 1,
+                    strokeDasharray: '3,3'
                 },
                 stableLink: {
                     shape: 'line',
                     strokeColor: '#908F8F',
                     strokeType: 'solid',
                     strokeWidth: 1,
-                    opacity: 1
+                    opacity: 1,
+                    strokeDasharray: '3,3'
                 },
                 disappearLink: {
                     shape: 'curve',
                     strokeColor: '#90B5FB',
                     strokeType: 'solid',
                     strokeWidth: 3,
-                    opacity: 1
+                    opacity: 1,
+                    strokeDasharray: '3,3'
                 }
             }
         }

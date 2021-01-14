@@ -2,10 +2,13 @@ import React from 'react'
 import { Button, Select, Input, InputNumber } from 'antd'
 import { INSERT_POSITION } from '../../util/dnetChart'
 import { TIME_PANEL_INPUT_WIDTH as TPIW ,
+    MARK_LINK_SOURCE as MLS,
+    MARK_LINK_TARGET as MLT,
     TIME_TIMELINE_ELEMENT 
 } from '../../util/const'
 import NodeLinkStylePanel from '../nodeLinkStylePanel/nodeLinkStylePanel.js'
 import NodeLinkSample from '../nodeLinkSample/nodeLinkSample.js'
+import SampleItem from '../sampleItem/sampleItem.js'
 import './timePanel.css'
 
 const { Option } = Select
@@ -281,6 +284,22 @@ export default class TimePanel extends React.Component {
                                 </div> */}
                             </div>
                         </div>
+                        <div className="encoding-item-content sample-item-border">
+                            <SampleItem 
+                                config={options.markLine} 
+                                type={'link'} 
+                                width = {258}
+                                height = {42}
+                                source = {MLS}
+                                target = {MLT}
+                            />
+                        </div> 
+                        <NodeLinkStylePanel
+                            type={'Link'}
+                            optionKey={'markLine'}
+                            changeOptions={options.markLine}
+                            onSubmit={(value)=>this.props.onSubmit(value)}
+                        />  
                     </div>
                 
                     {/* insert */}

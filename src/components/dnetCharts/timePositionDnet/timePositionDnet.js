@@ -10,6 +10,7 @@ export default function TimePositionDnet(props) {
     if (len === 0) return null
     
     const {svgWidth, svgHeight} = getSvgWidthHeight(config, len)
+    const markLineOptions = props.config.time.markLine
     return (
         <div
             style={{
@@ -35,10 +36,13 @@ export default function TimePositionDnet(props) {
                                           return (
                                               <path
                                                   d={v}
-                                                  stroke={props.config.time.markLine.strokeColor}
-                                                  strokeWidth={`${props.config.time.markLine.strokeWidth}px`}
+                                                  stroke={markLineOptions.strokeColor}
+                                                  strokeWidth={`${markLineOptions.strokeWidth}px`}
+                                                  opacity={markLineOptions.opacity}
                                                   strokeDasharray={
-                                                      props.config.time.markLine.strokeDasharray
+                                                    markLineOptions.strokeType === 'solid'
+                                                        ?''
+                                                        :markLineOptions.strokeDasharray
                                                   }
                                                   key={`curve-link-${index}`}
                                               />

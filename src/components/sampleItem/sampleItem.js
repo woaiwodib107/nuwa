@@ -10,7 +10,7 @@ import { SAMPLE_LINK_SOURCE as SLS,
         } from '../../util/const.js'
 
 export default function SampleItem(props) {
-    const { config, width = SIW, height = SIH, index = -1, type } = props
+    const { config, source = SLS, target = SLT, width = SIW, height = SIH, index = -1, type } = props
 
     return (
         <svg
@@ -24,12 +24,12 @@ export default function SampleItem(props) {
                 config.shape === 'line' ?
                 <LinkItem
                     {...config}
-                    source={SLS}
-                    target={SLT}
+                    source={source}
+                    target={target}
                 />:
                 <ArcLinkItem
                     {...config}
-                    data = {getArcPathData(SLS, SLT)}
+                    data = {getArcPathData(source, target)}
                 />
             ) : (
                 <NodeItem {...config} x={width / 2} y={height / 2} />

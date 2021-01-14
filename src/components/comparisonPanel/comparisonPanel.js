@@ -1,10 +1,20 @@
 import React from 'react'
-import { ChromePicker } from 'react-color'
 import SampleItem from '../sampleItem/sampleItem.js'
-import { Radio, Select, Input, Switch } from 'antd'
+import { Radio, Select, Collapse, Switch, Checkbox, Col, Row } from 'antd'
 import NodeLinkStylePanel from '../nodeLinkStylePanel/nodeLinkStylePanel.js'
+import { 
+    TIME_PANEL_INPUT_WIDTH as TPIW ,
+    TIME_TIMELINE_ELEMENT,
+    KEYFRAM_OPTIONS
+} from '../../util/const'
+import {
+    COMPARISON_CONFIG
+} from '../../util/defaultConfig.js'
 import './comparisonPanel.css'
 
+
+const { Option } = Select
+const { Panel } = Collapse
 // Trend或者 Diff 配置
 // 下面是trend配置
 
@@ -38,12 +48,16 @@ const index2chooseItem = [
 export default class ComparisonPanel extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            indeterminate: true,
+            checkAll: false
+        }
     }
     handleOptionChange = (value) => {
         this.props.onSubmit({ ...value })
     }
-    handleTaskChange = (e) => {
-        this.props.onSubmit({ taskType: e.target.value })
+    handleSelectChange = (value, key) => {
+        this.props.onSubmit({ [key]: value })
     }
     handleColumnChange = (e) => {
         const nodeOrLink = this.props.options.chooseItem.split('-')[1]
@@ -60,10 +74,24 @@ export default class ComparisonPanel extends React.Component {
         this.props.onSubmit({ isOn: value })
     }
 
+    handleCheckChange = list => {
+        this.props.onSubmit({'chooseTypes': list})
+        this.setState({'indeterminate': !!list.length && list.length < COMPARISON_CONFIG.length})
+        this.setState({'checkAll': list.length === COMPARISON_CONFIG.length})
+    }
+    handleAllCheckChange = e => {
+        this.props.onSubmit({'chooseTypes': e.target.checked ? COMPARISON_CONFIG : []})
+        this.setState({'indeterminate': false})
+        this.setState({'checkAll': e.target.checked})
+    }
+
     render() {
         const {
             isOn,
             chooseItem,
+            keyFrame,
+            elements,
+            chooseTypes,
             appearNode,
             appearLink,
             stableNode,
@@ -87,7 +115,109 @@ export default class ComparisonPanel extends React.Component {
                         />
                     </div>
                 </div>
+                
                 <div className="encoding-table-container">
+                <div 
+                    className="change-option-item"
+                >
+                    <Collapse
+                        expandIconPosition={'right'}
+                        style={{
+                            backgroundColor: '#ffffff',
+                            width: '100%'
+                        }}
+                        defaultActiveKey={['1']}
+                    >
+                        <Panel 
+                            key ='1' 
+                            className="nlsp-panel" 
+                            header={'chooseTypes'}
+                        >
+                            <Col style={{
+                                width: '50%',
+                                display: 'flex',
+                                flexDirection: 'flex-start',
+                                paddingLeft: '10px'
+                                
+                            }}>
+                                <Checkbox 
+                                    indeterminate={this.state.indeterminate} onChange={this.handleAllCheckChange} checked={this.state.checkAll}
+                                >all</Checkbox>
+                            </Col>
+                            <Checkbox.Group 
+                                style={{
+                                    textAlign:'left',
+                                    width: '100%',
+                                    paddingLeft: '10px'
+                                }}
+                                value={chooseTypes} 
+                                onChange={this.handleCheckChange} 
+                            >
+                                {
+                                    [0, 2, 4, 6].map(v=>{
+                                        return (
+                                            <Row 
+                                                style={{
+                                                    width: '100%',
+                                                }}
+                                            >
+                                                <Col style={{
+                                                    width: '55%',
+                                                    display: 'flex',
+                                                    flexDirection: 'flex-start',
+                                                }}>
+                                                    <Checkbox 
+                                                        value={COMPARISON_CONFIG[v]}>{COMPARISON_CONFIG[v]}</Checkbox>
+                                                </Col>
+                                                <Col style={{
+                                                    width: '45%',
+                                                    display: 'flex',
+                                                    flexDirection: 'flex-start',
+                                                }}>
+                                                     <Checkbox value={COMPARISON_CONFIG[v+1]}>{COMPARISON_CONFIG[v+1]}</Checkbox>
+                                                </Col>
+                                            </Row>
+                                        )
+                                    })
+                                }
+                            </Checkbox.Group>
+                        </Panel>
+                    </Collapse>
+                </div>
+                    <div className="change-option-item">
+                        <div>KeyFrame:</div>
+                        <Select
+                            value={keyFrame}
+                            style={{ width: TPIW }}
+                            size="small"
+                            onChange={(value) =>
+                                this.handleSelectChange(value, 'keyFrame')}
+                        >   {
+                                KEYFRAM_OPTIONS.map(v=>{
+                                    return (
+                                        <Option key={v} value={v}>{v}</Option>
+                                    )
+                                })
+                            }
+                        </Select>
+                    </div>
+                    <div className="change-option-item">
+                        <div>Elements:</div>
+                        <Select
+                            value={elements}
+                            style={{ width: TPIW }}
+                            size="small"
+                            onChange={(value) =>
+                                this.handleSelectChange(value, 'elements')}
+                        >   {
+                                TIME_TIMELINE_ELEMENT.map(v=>{
+                                    return (
+                                        <Option key={v} value={v}>{v}</Option>
+                                    )
+                                })
+                            }
+                        </Select>
+                    </div>
                     <div className="comparison-table-container">
                         <div className="table-first-line">
                             <div className="blank-icon"></div>
@@ -182,6 +312,7 @@ export default class ComparisonPanel extends React.Component {
                         changeOptions={changeOptions}
                         onSubmit={this.props.onSubmit}
                     />
+
                 </div>
             </div>
         )

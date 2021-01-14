@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Radio, Select, Input, Collapse } from 'antd'
+import { Radio, Select, Input, Collapse, InputNumber } from 'antd'
 import { ChromePicker } from 'react-color'
 import './nodeLinkStylePanel.css'
 
@@ -9,13 +9,21 @@ const { Panel } = Collapse
 
 export default function NodeLinkStylePanel(props) {
     const [colorPickerDisplay, setColorPickerDisplay] = useState([false, false, false])
-
+    const { changeOptions, type } = props
+    const strokeDasharrayOption = changeOptions.strokeDasharray
+        ? changeOptions.strokeDasharray.split(',').map(v=>parseInt(v))
+        : null
     const changeElementStyle = (option) => {
         const changeOptions = { ...props.changeOptions, ...option }
         props.onSubmit({ [props.optionKey]: { ...changeOptions, ...option } })
     }
     const handleStyleChange = (key, value) => {
         changeElementStyle({ [key]: value })
+    }
+    const handleStrokeDashChange = (index, value) => {
+        const tempArr = [...strokeDasharrayOption]
+        tempArr[index] = value
+        changeElementStyle({ strokeDasharray: tempArr.join(',') })
     }
 
     const handleElementColorClick = (index) => {
@@ -27,9 +35,9 @@ export default function NodeLinkStylePanel(props) {
     const handleElementColorChange = (colorCode, index) => {
         changeElementStyle({ [colorIndexToName[index]]: colorCode.hex })
     }
-    const { changeOptions, type } = props
+
     return (
-        <div 
+        <div
             className="change-option-panel"
             style={{
                 margin: '10px'
@@ -39,17 +47,14 @@ export default function NodeLinkStylePanel(props) {
                 节点：圆形、三角形、方形 
                 链接：直线、曲线
             */}
-            <Collapse 
+            <Collapse
                 // bordered={false}
                 expandIconPosition={'right'}
                 style={{
-                    backgroundColor:'#ffffff'
+                    backgroundColor: '#ffffff'
                 }}
             >
-                <Panel 
-                    className = "nlsp-panel"
-                    header={props.optionKey}
-                >
+                <Panel className="nlsp-panel" header={props.optionKey}>
                     {type === 'Node' ? (
                         <div className="change-option-item">
                             <div>Shape:</div>
@@ -114,11 +119,14 @@ export default function NodeLinkStylePanel(props) {
                     {/* 输入透明度 */}
                     <div className="change-option-item">
                         <div>Opacity:</div>
-                        <Input
+                        <InputNumber
                             value={changeOptions.opacity}
                             type="number"
                             size="small"
-                            onChange={(e) => handleStyleChange('opacity', Number(e.target.value))}
+                            min={0}
+                            max={1}
+                            step={0.1}
+                            onChange={(e) => handleStyleChange('opacity', e)}
                             style={{ width: '120px' }}
                         />
                     </div>
@@ -135,6 +143,35 @@ export default function NodeLinkStylePanel(props) {
                                 }
                                 style={{ width: '120px' }}
                             />
+                        </div>
+                    ) : null}
+                    {/* 链接虚线的设置 */}
+                    {strokeDasharrayOption ? (
+                        <div className="change-option-item">
+                            <div>StrokeDasharray:</div>
+                            <div>
+                                <Input
+                                    value={strokeDasharrayOption[0]}
+                                    type="number"
+                                    size="small"
+                                    onChange={(e) =>
+                                        handleStrokeDashChange(0, Number(e.target.value))
+                                    }
+                                    style={{ width: '55px' }}
+                                />
+                                <Input
+                                    value={strokeDasharrayOption[1]}
+                                    type="number"
+                                    size="small"
+                                    onChange={(e) =>
+                                        handleStrokeDashChange(1, Number(e.target.value))
+                                    }
+                                    style={{
+                                        width: '55px',
+                                        marginLeft: '10px'
+                                    }}
+                                />
+                            </div>
                         </div>
                     ) : null}
                     {/* 节点的外边颜色或 线型颜色 */}

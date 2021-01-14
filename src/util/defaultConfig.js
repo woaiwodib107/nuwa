@@ -1,4 +1,4 @@
-// import {COMPARISON_CONFIG} from './dnetChart.js'
+
 
 export const COMPARISON_CONFIG = [
     'shape',
@@ -6,7 +6,9 @@ export const COMPARISON_CONFIG = [
     'strokeColor',
     'strokeWidth',
     'strokeType',
-    'radius'
+    'radius',
+    'strokeDasharray',
+    'textColor'
 ]
 
 export const defaultConfigs = {
@@ -29,7 +31,8 @@ export const defaultConfigs = {
             shape: 'curve',
             strokeColor: '#908F8F',
             strokeType: 'solid',
-            strokeWidth: 2
+            strokeWidth: 2,
+            strokeDasharray: '3,3'
         }
     },
     layout: {
@@ -69,7 +72,8 @@ export const defaultConfigs = {
                 strokeColor: '#ffcc00',
                 strokeType: 'solid',
                 strokeWidth: 2,
-                opacity :1
+                opacity :1,
+                strokeDasharray: '3,3'
             }
         },
         color: {
@@ -82,7 +86,8 @@ export const defaultConfigs = {
             speed: 1800
         },
         markLine: {
-            strokeType: 'solid',
+            shape: 'line',
+            strokeType: 'dashed',
             strokeColor: '#FD8F8F',
             strokeWidth: 1,
             strokeDasharray: '5,5'
@@ -135,21 +140,24 @@ export const defaultConfigs = {
             strokeColor: '#FD8F8F',
             strokeType: 'solid',
             strokeWidth: 3,
-            opacity: 1
+            opacity: 1,
+            strokeDasharray: '3,3'
         },
         stableLink: {
             shape: 'line',
             strokeColor: '#908F8F',
             strokeType: 'solid',
             strokeWidth: 1,
-            opacity: 1
+            opacity: 1,
+            strokeDasharray: '3,3'
         },
         disappearLink: {
             shape: 'curve',
             strokeColor: '#90B5FB',
             strokeType: 'solid',
             strokeWidth: 3,
-            opacity: 1
+            opacity: 1,
+            strokeDasharray: '3,3'
         }
     }
 }
