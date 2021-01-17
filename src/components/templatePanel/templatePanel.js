@@ -2,83 +2,45 @@ import React, { useState, useEffect } from 'react'
 import './templatePanel.css'
 import PreviewItem from '../previewItem/previewItem.js'
 import ReactJson from "react-json-view"
+import FileSaver from "file-saver"
 import { DNET_SAMPLE_WIDTH, DNET_SAMPLE_HEIGHT, REACT_JSON_OPTIONS } from '../../util/const'
 import { getStorageKeyArr } from '../../util/template'
 import deleteSvg from '../../assets/delete.svg'
 import checkSvg from '../../assets/check.svg'
-
-const data = [
-    {
-        title: 'Ant Design Title 1'
-    },
-    {
-        title: 'Ant Design Title 2'
-    },
-    {
-        title: 'Ant Design Title 3'
-    },
-    {
-        title: 'Ant Design Title 4'
-    },
-    {
-        title: 'Ant Design Title 5'
-    },
-    {
-        title: 'Ant Design Title 6'
-    },
-    {
-        title: 'Ant Design Title 6'
-    },
-    {
-        title: 'Ant Design Title 4'
-    },
-    {
-        title: 'Ant Design Title 4'
-    },
-    {
-        title: 'Ant Design Title 1'
-    },
-    {
-        title: 'Ant Design Title 2'
-    },
-    {
-        title: 'Ant Design Title 3'
-    },
-    {
-        title: 'Ant Design Title 4'
-    }
-]
-// 设置一个全局变量
-
+import { defaultTemplates } from '../../data/template.js'
+import * as testData from '../../data/import/test1.json'
 
 export default function TemplatePanel(props) {
-    const [templateIndex, setTemplateIndex] = useState(0)
     const [localStorage, setLocalStorage] = useState(window.localStorage)
     const [storageLength, setStorageLength] = useState(0)
     const [storageKeyArr, setStorageKeyArr] = useState(getStorageKeyArr(localStorage))
+    
     useEffect(()=>{
-        console.log("localStorage.length",localStorage.length)
+        // 初始化，判断该电脑的localStorage是否加载过默认的模板，没有先加载
+        if (localStorage.lastIndex === undefined) {
+            // 没有加载过模板
+            localStorage.lastIndex = 0
+            for(let i =defaultTemplates.length-1;i>0;i--){
+                const item = defaultTemplates[i]
+                const lastIndex = localStorage.lastIndex
+                const key = `DnetG-${lastIndex}`
+                const content = JSON.stringify({
+                    config: item.template,
+                    name: item.name,
+                    index: lastIndex
+                })
+                localStorage.setItem(key, content)
+                localStorage.lastIndex = 1+ Number(lastIndex)
+            }
+            setStorageLength(localStorage.length)
+        }
+    }, [])
+
+    useEffect(()=>{
         setStorageKeyArr(getStorageKeyArr(localStorage))
     }, [storageLength])
+   
     function handleTemplateAdd() {
-        console.log('---before--handleAddTemplate',localStorage,localStorage.length)
-        // let content = JSON.stringify(props.config)
-        // let type = 'data:application/json;charset=utf-8'
-        // let blob = new Blob([content], { type: type })
-
-        // let isFileSaverSupported = false
-        // try {
-        //     isFileSaverSupported = !!new Blob()
-        // } catch (e) {
-        //     console.log(e)
-        // }
-
-        // if (isFileSaverSupported) {
-        //     FileSaver.saveAs(blob, 'template.js')
-        // } else {
-        //     FileSaver.open(encodeURI(type + ',' + content))
-        // }
-        // const localStorage = window.localStorage
         if (localStorage.lastIndex === undefined) {
             // 初始化
             localStorage.lastIndex = 0
@@ -99,28 +61,39 @@ export default function TemplatePanel(props) {
             localStorage.lastIndex = 1+ Number(lastIndex)
             setStorageLength(localStorage.length)
         }
-        console.log('---after---handleAddTemplate',localStorage,localStorage.length)
     }
-    function handleTemplateUse() {
-        for (var i = 0; i < localStorage.length; i++) {
-            var key = localStorage.key(i)
-            console.log(key, JSON.parse(localStorage[key]))
+    
+    function handleTemplateSave() {
+        let content = JSON.stringify(props.config)
+        let type = 'data:application/json;charset=utf-8'
+        let blob = new Blob([content], { type: type })
+
+        let isFileSaverSupported = false
+        try {
+            isFileSaverSupported = !!new Blob()
+        } catch (e) {
+            console.log(e)
+        }
+
+        if (isFileSaverSupported) {
+            FileSaver.saveAs(blob, 'template.json')
+        } else {
+            FileSaver.open(encodeURI(type + ',' + content))
         }
     }
+    
     function handleTemplateCheck(v){
         const vContent = JSON.parse(localStorage.getItem(v))
         if(vContent&&vContent.config){
             props.onSubmit(vContent.config)
         }
-
     }
+   
     function handleTemplateRemove(storeKey){
-      console.log("handleTemplateRemove", storeKey)
       localStorage.removeItem(storeKey)
       setStorageLength(localStorage.length)
     }
     
-    // return null
     return (
         <div
             style={{
@@ -134,7 +107,7 @@ export default function TemplatePanel(props) {
                 <svg className="icon" onClick={handleTemplateAdd} aria-hidden="true">
                     <use xlinkHref="#icon-add"></use>
                 </svg>
-                <svg className="icon" onClick={handleTemplateUse} aria-hidden="true">
+                <svg className="icon" onClick={handleTemplateSave} aria-hidden="true">
                     <use xlinkHref="#icon-download"></use>
                 </svg>
             </div>
@@ -172,7 +145,7 @@ export default function TemplatePanel(props) {
                                         height: DNET_SAMPLE_HEIGHT
                                     }}
                                 >
-                                    <PreviewItem data={props.data} config={vContent.config} />
+                                    <PreviewItem data={props.data ? props.data : testData.graphs} config={vContent.config} />
                                 </div>
                                 <div
                                     className="sample-item-icon"
