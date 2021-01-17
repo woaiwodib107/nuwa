@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import FileSaver from 'file-saver'
 import './templatePanel.css'
 import PreviewItem from '../previewItem/previewItem.js'
-import { DNET_SAMPLE_WIDTH, DNET_SAMPLE_HEIGHT } from '../../util/const'
+import ReactJson from "react-json-view"
+import { DNET_SAMPLE_WIDTH, DNET_SAMPLE_HEIGHT, REACT_JSON_OPTIONS } from '../../util/const'
 import { getStorageKeyArr } from '../../util/template'
 import deleteSvg from '../../assets/delete.svg'
 import checkSvg from '../../assets/check.svg'
@@ -142,6 +142,11 @@ export default function TemplatePanel(props) {
                 <div className="template-grammar-container">
                     <div className="template-grammar-title">grammar</div>
                     <div className="template-grammar-wrap simple_scrollbar">
+                        <ReactJson
+                            className="json-box"
+                            {...REACT_JSON_OPTIONS}
+                            src={props.config}
+                        />
                     </div>
                 </div>
                 <div className="template-sample-container simple_scrollbar">

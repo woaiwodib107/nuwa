@@ -38,3 +38,13 @@ export const ROW_BUTTON_STYLE = {
   lineHeight: '64px',
   alighItems: 'center'
 }
+
+export const REACT_JSON_OPTIONS = {
+  displayDataTypes: false,
+  name: null,
+  indentWidth: 2,
+  collapseStringsAfterLength: 20,
+//               iconStyle: "circle",
+  enableClipboard: false,
+  displayObjectSize: false
+}
