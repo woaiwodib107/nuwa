@@ -1,13 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { converObject2Array } from '../../util/preview.js'
-import TimePositionDnet from '../dnetCharts/timePositionDnet/timePositionDnet.js'
-import TimeAnimationDnet from '../dnetCharts/timeAnimationDnet/timeAnimationDnet.js'
-import TimeColorDnet from '../dnetCharts/timeColorDnet/timeColorDnet.js'
-import TimeChartDnet from '../dnetCharts/timeChartDnet/timeChartDnet.js'
-import TimeLinkDnet from '../dnetCharts/timeLinkDnet/timeLinkDnet.js'
-import ComparisonPositionDnet from '../dnetCharts/comparisonPositionDnet/comparisonPositionDnet.js'
-import ComparisonAnimationDnet from '../dnetCharts/comparisonAnimationDnet/comparisonAnimationDnet.js'
-import dnetv from './dnetv'
+import DnetChartContainer from '../dnetCharts/dnetChartContainer/dnetChartContainer.js'
+import dnetv from '../../util/dnetv.js'
 import { getRenderType } from '../../util/dnetChart'
 
 export default function Preview(props) {
@@ -43,7 +37,7 @@ export default function Preview(props) {
         <div
             style={{
                 width: `${props.width ? props.width : 1035}px`,
-                height: `${props.height ? props.height : 600}px`
+                height: `${props.height ? props.height : 600}px`,
             }}
             className="preview-box"
         >
@@ -53,38 +47,23 @@ export default function Preview(props) {
                     <use xlinkHref="#icon-play"></use>
                 </svg>
             </div>
-            {(() => {
-                switch (renderType) {
-                    case 'timeLine':
-                        return (
-                            <TimePositionDnet
-                                markLine={markLine}
-                                data={subGraphs}
-                                config={props.config}
-                            />
-                        )
-                    case 'animation':
-                        return <TimeAnimationDnet data={subGraphs} config={props.config} />
-                    case 'color':
-                        return (
-                            <TimeColorDnet
-                                len={subGraphs.length}
-                                data={sumGraphs}
-                                config={props.config}
-                            />
-                        )
-                    case 'other':
-                        return (
-                            <TimeLinkDnet
-                                data={subGraphs}
-                                config={props.config}
-                                markLine={markLine}
-                            />
-                        )
-                    default:
-                        return null
-                }
-            })()}
+            <div
+                style={{
+                    width: '100%',
+                    height: '730px',
+                    overflowX: 'auto'
+                }}
+            >
+                <DnetChartContainer
+                    renderType= {renderType}
+                    subGraphs = {subGraphs}
+                    sumGraphs = {sumGraphs}
+                    config = {props.config}
+                    len = {subGraphs.length}
+                    markLine = {markLine}
+                />
+            </div>
+           
         </div>
     )
 }

@@ -160,6 +160,7 @@ export default class ComparisonPanel extends React.Component {
                                                 style={{
                                                     width: '100%',
                                                 }}
+                                                key = {`row-${v}`}
                                             >
                                                 <Col style={{
                                                     width: '55%',

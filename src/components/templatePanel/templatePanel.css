@@ -1,0 +1,119 @@
+
+/*template-panel-box view*/
+.template-panel-box {
+  background: #fff;
+  border: 1px solid rgb(68, 67, 67);
+  border-radius: 8px;
+  width: 1035px;
+  height: 380px;
+  /* display: flex;
+  flex-direction: row;
+  justify-content: flex-start; */
+  padding: 0;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.template-content-box {
+  width: 1035px;
+  height: 350px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 0;
+  text-align: center;
+  overflow: hidden;
+}
+
+.template-grammar-container{
+  width: 270px;
+  height: 100%;
+  border-right: 2px solid rgba(0, 0, 0, 0.15);
+}
+
+.template-grammar-title {
+  box-sizing: border-box;
+  height: 35px;
+  line-height: 35px;
+  font-size: 14px;
+  font-weight: 600;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.15);
+  /* border-right: 2px solid rgba(0, 0, 0, 0.15); */
+}
+
+.template-grammar-wrap{
+  width: 100%;
+  height: calc(100% - 35px);
+  overflow-y: auto;
+}
+
+.template-sample-container{
+  position: relative;
+  width: 760px;
+  height: 100%;
+ 
+  margin: 0 auto;
+  align-items: center;
+}
+
+.template-left-item{
+  padding: 0px 10px;
+  height: 30px;
+  line-height: 25px;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+
+
+.sample-item-wrap {
+  width: 100%;
+  height: 65px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.15);
+  display: grid;
+  grid-template-columns: 190px 415px 155px;
+  grid-template-rows: 65px;
+}
+
+.sample-item-name{
+  box-sizing: border-box;
+  /* height: 65px; */
+  line-height: 65px;
+  font-size: 14px;
+  font-weight: 400;
+  border-right: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.sample-item-name:hover{
+  font-size: 13px;
+  color: #1890ff;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.sample-item-chart{
+  border-right: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.sample-item-icon{
+  box-sizing: border-box;
+  /* height: 65px; */
+  line-height: 65px;
+  display: grid;
+  grid-template-columns: 75px 75px;
+  grid-template-rows: 65px;
+}
+
+.item-image-wrap{
+  /* width: 30px;
+  height: 65px; */
+  align-items: center;
+}
+.sample-item-svg{
+  width: 20px;
+  height: 22px;
+  margin : 0 audio;
+  cursor: pointer;
+}

@@ -7,6 +7,7 @@ import ComparisonPanel from './components/comparisonPanel/comparisonPanel.js'
 import BasicPanel from './components/basicPanel/basicPanel.js'
 import LayoutPanel from './components/layoutPanel/layoutPanel.js'
 import ExampleBoard from './components/exampleBoard/exampleBoard.js'
+import TemplatePanel from './components/templatePanel/templatePanel.js'
 import { COMPARISON_CONFIG } from './util/defaultConfig.js'
 
 export default class Board extends React.Component {
@@ -64,7 +65,7 @@ export default class Board extends React.Component {
                     },
                     linkStyle: {
                         shape: 'curve',
-                        strokeColor: '#ffcc00',
+                        strokeColor: '#FF5F00',
                         strokeType: 'solid',
                         strokeWidth: 2,
                         opacity: 1,
@@ -83,7 +84,7 @@ export default class Board extends React.Component {
                     shape: 'line',
                     strokeType: 'dashed',
                     strokeColor: '#FD8F8F',
-                    strokeWidth: 1,
+                    strokeWidth: 2,
                     strokeDasharray: '5,5',
                     opacity:1,
                 }
@@ -206,6 +207,11 @@ export default class Board extends React.Component {
             }
         })
     }
+    handleSubmitFromTemplate = (value) => {
+        this.setState({
+            ...value
+        })
+    }
     handleSubmitFromBasic = (value) => {
         this.setState({
             basic: {
@@ -287,9 +293,19 @@ export default class Board extends React.Component {
                         </div>
 
                         <div className="col">
-                            <Grammar
+                            {/* <Grammar
                                 options={combineConfigs}
                                 onSubmit={this.handleSubmitFromGrammar}
+                            /> */}
+                            <TemplatePanel
+                                data={this.state.jsonfile.graphs}
+                                config={{
+                                    basic: this.state.basic,
+                                    layout: this.state.layout,
+                                    comparison: this.state.comparison,
+                                    time: this.state.time
+                                }}
+                                onSubmit={this.handleSubmitFromTemplate}
                             />
                             <Preview
                                 data={this.state.jsonfile.graphs}

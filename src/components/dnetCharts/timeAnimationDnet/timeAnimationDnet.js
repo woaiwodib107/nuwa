@@ -14,11 +14,11 @@ export default function TimeAnimationDnet(props) {
     const speed = config.time.animation.speed
     let timeout
 
-    useEffect(()=>{
-        const result  = getSvgWidthHeight(config, data.length)
+    useEffect(() => {
+        const result = getSvgWidthHeight(config, data.length)
         setSvgWidth(result.svgWidth)
         setSvgHeight(result.svgHeight)
-    },[data.length, config.basic, config.time])
+    }, [data.length, config.basic, config.time])
 
     useEffect(() => {
         if (timeout) {
@@ -62,40 +62,41 @@ export default function TimeAnimationDnet(props) {
             }
         }, speed)
     }
-    // console.log("-----comparisonOptions---", props.comparisonOptions)
     return data[frameIndex] ? (
-        <div
-            style={{
-                width: '100%',
-                height: '730px',
-                overflowX: 'auto'
-            }}
-            className="TimeAnimationDnet graph"
-        >
-            <NodeLinkGraph
-                data={props.data[frameIndex]}
-                height={svgHeight}
-                width={svgWidth}
-            />
-            <div className="tad-control-container">
-                {playOrPause ? (
-                    <PauseCircleOutlined className="tad-control-icon" onClick={handlePlayOrPause} />
-                ) : (
-                    <PlayCircleOutlined className="tad-control-icon" onClick={handlePlayOrPause} />
-                )}
-                <Slider
-                    style={{
-                        width: '150px',
-                        marginLeft: '20px'
-                    }}
-                    included={false}
-                    value={frameIndex}
-                    min={0}
-                    max={props.data.length - 1}
-                    tooltipVisible
-                    tooltipPlacement={'bottom'}
-                />
-            </div>
-        </div>
+        <>
+            <NodeLinkGraph 
+                data={props.data[frameIndex]} 
+                height={svgHeight} 
+                sampleWidth={props.sampleWidth}
+                sampleHeight={props.sampleHeight}
+                width={svgWidth} />
+            {!props.isSample ? (
+                <div className="tad-control-container">
+                    {playOrPause ? (
+                        <PauseCircleOutlined
+                            className="tad-control-icon"
+                            onClick={handlePlayOrPause}
+                        />
+                    ) : (
+                        <PlayCircleOutlined
+                            className="tad-control-icon"
+                            onClick={handlePlayOrPause}
+                        />
+                    )}
+                    <Slider
+                        style={{
+                            width: '150px',
+                            marginLeft: '20px'
+                        }}
+                        included={false}
+                        value={frameIndex}
+                        min={0}
+                        max={props.data.length - 1}
+                        tooltipVisible
+                        tooltipPlacement={'bottom'}
+                    />
+                </div>
+            ) : null}
+        </>
     ) : null
 }

@@ -157,7 +157,7 @@ export default function NodeLinkStylePanel(props) {
                                     onChange={(e) =>
                                         handleStrokeDashChange(0, Number(e.target.value))
                                     }
-                                    style={{ width: '55px' }}
+                                    style={{ width: '50px' }}
                                 />
                                 <Input
                                     value={strokeDasharrayOption[1]}
@@ -167,7 +167,7 @@ export default function NodeLinkStylePanel(props) {
                                         handleStrokeDashChange(1, Number(e.target.value))
                                     }
                                     style={{
-                                        width: '55px',
+                                        width: '50px',
                                         marginLeft: '10px'
                                     }}
                                 />

@@ -7,62 +7,61 @@ export default function TimeColorDnet(props) {
     if (props.len === 0) return null
     const legendData = new Array(props.len).fill(0)
     const singleLegendWidth = 15
-    let colorScale = getPiePathColor(props.len,'#FD8F8F', '#90B5FB')
-    const {width, height, nodeStyle, linkStyle} = props.config.basic
+    let colorScale = getPiePathColor(props.len, '#FD8F8F', '#90B5FB')
+    const { width, height, nodeStyle, linkStyle } = props.config.basic
     return (
-        <div
-            style={{
-                width: '100%',
-                height: '730px',
-                overflowX: 'auto'
-            }}
-            className="TimePositionDnet graph"
-        >   
-            <div
-                style={{
-                    width: '100%',
-                    height: '20px',
-                    display: 'flex',
-                    justifyContent: 'flex-start',
-                    margin: '10px'
-                }}
-            >
+        <>
+            {!props.isSample ? (
                 <div
-                    className="legend-text"
                     style={{
-                        margin: '0 10px'
+                        width: '100%',
+                        height: '20px',
+                        display: 'flex',
+                        justifyContent: 'flex-start',
+                        margin: '10px'
                     }}
-                >0</div>
-                <svg
-                    className="legend-svg"
-                    width={`${singleLegendWidth*props.len}px`}
-                    height={'20px'}
-                    viewBox={`0 0 ${singleLegendWidth*props.len} 20`}
-                    preserveAspectRatio="xMinYMin"
-                >   
-                    {legendData.map((dataItem, index) => {
-                        return (
-                            <rect
-                                key={`tc-legend-${index}`}
-                                x={index*singleLegendWidth}
-                                y={0}
-                                fill={colorScale(index)}
-                                width={singleLegendWidth}
-                                height={singleLegendWidth}
-                            ></rect>
-                        )
-                    })}
-                </svg>
-                <div
-                   style={{
-                        margin: '0 10px'
-                    }}
-                >{props.len-1}</div>
-            </div>
+                >
+                    <div
+                        className="legend-text"
+                        style={{
+                            margin: '0 10px'
+                        }}
+                    >
+                        0
+                    </div>
+                    <svg
+                        className="legend-svg"
+                        width={`${singleLegendWidth * props.len}px`}
+                        height={'20px'}
+                        viewBox={`0 0 ${singleLegendWidth * props.len} 20`}
+                        preserveAspectRatio="xMinYMin"
+                    >
+                        {legendData.map((dataItem, index) => {
+                            return (
+                                <rect
+                                    key={`tc-legend-${index}`}
+                                    x={index * singleLegendWidth}
+                                    y={0}
+                                    fill={colorScale(index)}
+                                    width={singleLegendWidth}
+                                    height={singleLegendWidth}
+                                ></rect>
+                            )
+                        })}
+                    </svg>
+                    <div
+                        style={{
+                            margin: '0 10px'
+                        }}
+                    >
+                        {props.len - 1}
+                    </div>
+                </div>
+            ) : null}
             <svg
                 className="nlg-container-svg"
-                width={`${width}px`}
-                height={`${height}px`}
+                width={`${props.sampleWidth? props.sampleWidth:width}px`}
+                height={`${props.sampleHeight? props.sampleHeight:height}px`}
                 viewBox={`0 0 ${width} ${height}`}
                 preserveAspectRatio="xMinYMin"
             >
@@ -90,8 +89,7 @@ export default function TimeColorDnet(props) {
                         />
                     )
                 })}
-                
             </svg>
-        </div>
+        </>
     )
 }
