@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, Select, Input, InputNumber } from 'antd'
+import { ChromePicker } from 'react-color'
 import { INSERT_POSITION } from '../../util/dnetChart'
 import { TIME_PANEL_INPUT_WIDTH as TPIW ,
     MARK_LINK_SOURCE as MLS,
@@ -34,12 +35,18 @@ export default class TimePanel extends React.Component {
             chooseTypes: tempArr
         })
     }
-    handleElementColorClick = (e, index) => {
+    handleElementColorClick = (index) => {
+        console.log("handleElementColorClick",index)
         const tempArr = this.state.elementColorPickerDisplay
         tempArr[index] = !tempArr[index]
         this.setState({
             elementColorPickerDisplay: tempArr
         })
+    }
+    handleElementColorChange = (colorCode, option, key) => {
+        const optionObject = this.props.options[option]
+        optionObject[key] = colorCode.hex
+        this.props.onSubmit({ [option]: optionObject })
     }
     handleTimeOptionsInput = (value, option, key) => {
         // const { value } = e.target
@@ -209,6 +216,46 @@ export default class TimePanel extends React.Component {
                             >
                                 Color
                             </Button>
+                        </div>
+                        <div>
+                            <div className="change-option-item">
+                                <div>startColor</div>
+                                <div
+                                    onClick={() => this.handleElementColorClick(0)}
+                                    style={{
+                                        backgroundColor: options.color.startColor,
+                                        width: '120px',
+                                        height: '24px'
+                                    }}
+                                ></div>
+                            </div>
+                            {this.state.elementColorPickerDisplay[0] ? (
+                                <ChromePicker
+                                    className="item-color-picker"
+                                    color={options.color.startColor}
+                                    onChange={(colorCode) => this.handleElementColorChange(colorCode, 'color', 'startColor')}
+                                />
+                            ) : null}
+                        </div>
+                        <div>
+                            <div className="change-option-item">
+                                <div>endColor</div>
+                                <div
+                                    onClick={() => this.handleElementColorClick(1)}
+                                    style={{
+                                        backgroundColor: options.color.endColor,
+                                        width: '120px',
+                                        height: '24px'
+                                    }}
+                                ></div>
+                            </div>
+                            {this.state.elementColorPickerDisplay[1] ? (
+                                <ChromePicker
+                                    className="item-color-picker"
+                                    color={options.color.endColor}
+                                    onChange={(colorCode) => this.handleElementColorChange(colorCode, 'color', 'endColor')}
+                                />
+                            ) : null}
                         </div>
                         <div className="encoding-item-content">
                             <div className="color-ctrl item-ctrl">

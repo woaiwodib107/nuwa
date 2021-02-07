@@ -30,7 +30,7 @@ export default function Preview(props) {
     }, [props.data, props.config.time.chooseTypes])
 
     // console.log("--props.config--", props.config)
-    // console.log("--subGraphs--", subGraphs)
+    // console.log("----preview-subGraphs--", subGraphs)
     // console.log("--sumGraphs--", sumGraphs)
     // console.log("--markLine--", markLine)
     return (

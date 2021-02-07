@@ -434,6 +434,8 @@ export const assignConfigs = (setConfigs) => {
 export function getRenderType(arr) {
     if (arr.indexOf('animation') > -1) {
         return 'animation'
+    } else if (arr.indexOf('timeLine') > -1) {
+        return 'timeLine'
     } else if (arr.indexOf('color') > -1) {
         return 'color'
     } else {

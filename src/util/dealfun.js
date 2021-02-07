@@ -364,7 +364,7 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
     } = getChooseComparisonStyle(configs)
     const basicNodeStyle = configs.basic.nodeStyle
     const basicLinkStyle = configs.basic.linkStyle
-
+    const isChooseColor = !!(configs.time.chooseTypes.indexOf('color') > -1)
     Object.values(timeGraphs).forEach((graph) => {
         Object.values(graph.nodes).forEach((node) => {
             if (node.type === 'time') {
@@ -373,18 +373,19 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
                 } else {
                     node.style.nodeStyle = _.cloneDeep(basicNodeStyle)
                 }
-                if (configs.time.chooseTypes.indexOf('color') > -1) {
-                    node.style.nodeStyle.fillColor = timeColorObj[node.time]
-                }
                 return
             }
-            node.style.nodeStyle = basicNodeStyle
+            node.style.nodeStyle =  basicNodeStyle
+            // 如果用color编码了时间，则修改其填充颜色
+            if (isChooseColor) {
+                // 此处需要深复制
+                node.style.nodeStyle =  _.cloneDeep(basicNodeStyle)
+                node.style.nodeStyle.fillColor = timeColorObj[node.time]
+            }
             node.status.forEach((d) => {
                 node.style[d] = _.cloneDeep(comparisonNode[d])
             })
-            if (!Object.values(node.style).length) {
-                node.style.nodeStyle = _.cloneDeep(basicNodeStyle)
-            }
+            
         })
         Object.values(graph.links).forEach((link) => {
             if (link.type === 'time') {
@@ -393,19 +394,18 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
                 } else {
                     link.style.linkStyle = _.cloneDeep(basicLinkStyle)
                 }
-                if (configs.time.chooseTypes.indexOf('color') > -1) {
-                    link.style.linkStyle.strokeColor = timeColorObj[link.time]
-                }
                 return
             }
             link.style.linkStyle = basicLinkStyle
+            if (isChooseColor) {
+                link.style.linkStyle = _.cloneDeep(basicLinkStyle)
+                link.style.linkStyle.strokeColor = timeColorObj[link.time]
+            }
             link.status.forEach((d) => {
                 // 该style是用于comparison这种方式
                 link.style[d] = _.cloneDeep(comparisonLink[d])
             })
-            if (!Object.values(link.style).length) {
-                link.style.linkStyle = _.cloneDeep(basicLinkStyle)
-            }
+            
         })
     })
 }

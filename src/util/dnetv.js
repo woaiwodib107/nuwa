@@ -54,7 +54,7 @@ class DNetV {
         
         // 根据配置信息中：样式，以及time，以及comparison信息，去设定样式
         u.setStyle(this.timeGraphs, this.sumGraphs, this.configs)
-
+        
         this.subGraphs = Object.values(this.timeGraphs).map((v) => ({
             links: Object.values(v.links),
             nodes: Object.values(v.nodes)

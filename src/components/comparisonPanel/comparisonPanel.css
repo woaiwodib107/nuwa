@@ -129,6 +129,7 @@
 .item-color-picker {
     display: block;
     background-color: #fff;
+    margin-left: 10px;
 }
 
 .ant-checkbox-wrapper{

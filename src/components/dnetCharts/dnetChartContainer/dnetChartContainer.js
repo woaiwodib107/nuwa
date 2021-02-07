@@ -6,7 +6,6 @@ import TimeColorDnet from '../timeColorDnet/timeColorDnet.js'
 export default function DnetChartContainer(props) {
 
     const { sampleWidth, sampleHeight,renderType, markLine, subGraphs, config, len, sumGraphs, isSample = false } = props
-
     switch (renderType) {
         case 'timeLine':
             return <TimePositionDnet 
