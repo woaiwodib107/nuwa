@@ -64,6 +64,7 @@ class DNetV {
     }
     dealLayout(layout = 'offLine') {
         // 先根据sumGraphs获得布局信息
+        console.log("this.sumGraphs, this.configs")
         if (layout === 'offLine') {
             this.sumGraphs = u.offLineLayout(this.sumGraphs, this.configs) 
         }

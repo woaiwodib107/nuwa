@@ -1,9 +1,9 @@
 import * as d3 from 'd3'
 import { defaultConfigs } from './defaultConfig'
 import * as assign from 'assign-deep'
-import {getInsertPosition} from './dnetChart.js'
+import { getInsertPosition } from './dnetChart.js'
 import * as _ from 'lodash'
-// import { link } from '../NetV'
+import G6 from '@antv/g6'
 export const _intersection = (setA, setB) => {
     let intersection = new Set(setA)
     for (let elem of setA) {
@@ -188,6 +188,103 @@ export const verticalLayout = (sumGraphs, configs) => {
 
     return sumGraphs
 }
+export const dagreLayout = (sumGraphs, configs) => {
+    let { nodes, links } = sumGraphs
+    // console.log('---sumGraphs---nodes--links', nodes, links)
+    const gNodes = nodes.map((node) => {
+        return {
+            id: node.id
+        }
+    })
+    const gEdges = links.map((link) => {
+        return {
+            source: link.source,
+            target: link.target
+        }
+    })
+    const data = {
+        nodes: gNodes,
+        edges: gEdges
+    }
+    const { eachWidth, eachHeight} = configs.basic
+    var graph = new G6.Graph({
+        container: 'g6-graph-container',
+        width: eachWidth,
+        height: eachHeight,
+        // fitView: true,
+        // fitViewPadding: 20,
+        layout: {
+            type: 'dagre',
+            rankdir: 'TB',     
+            nodeSize: [2,30],      
+            nodesep: 1,             // 可选
+            ranksep: 1,             // 可选
+            // controlPoints: true      // 可选
+          }
+    })
+    graph.data(data)
+    graph.render()
+    const { nodes: rNodes, edges: rLinks } = graph.cfg.data
+    let nodesObj = {}
+    console.log("rNodes--rLinks",rNodes , rLinks)
+    nodes.forEach((node, i) => {
+        node.x = rNodes[i].x
+        node.y = rNodes[i].y
+        nodesObj[node.id] = { ...node }
+    })
+    links.forEach((link) => {
+        link.source = nodesObj[link.source]
+        link.target = nodesObj[link.target]
+    })
+
+}
+
+export const circularLayout = (sumGraphs, configs) => {
+    let { nodes, links } = sumGraphs
+    const gNodes = nodes.map((node) => {
+        return {
+            id: node.id
+        }
+    })
+    const gEdges = links.map((link) => {
+        return {
+            source: link.source,
+            target: link.target
+        }
+    })
+    const data = {
+        nodes: gNodes,
+        edges: gEdges
+    }
+    const { eachWidth, eachHeight, margin } = configs.basic
+    const radius = Math.min(eachWidth, eachHeight) / 2
+    var graph = new G6.Graph({
+        container: 'g6-graph-container',
+        width: radius * 2,
+        height: radius * 2,
+        // fitView: true,
+        // fitViewPadding: 20,
+        layout: {
+            type: 'circular',
+            radius: radius,
+            center: [radius, radius]
+        }
+    })
+    graph.data(data)
+    graph.render()
+    const { nodes: rNodes, edges: rLinks } = graph.cfg.data
+    let nodesObj = {}
+    nodes.forEach((node, i) => {
+        node.x = rNodes[i].x
+        node.y = rNodes[i].y
+        nodesObj[node.id] = { ...node }
+    })
+    links.forEach((link) => {
+        link.source = nodesObj[link.source]
+        link.target = nodesObj[link.target]
+    })
+}
+
 export const timeASnode = (graphs) => {
     // 建立时间节点，在每一个图中，与每个节点都建立连接
     graphs.forEach((graph) => {
@@ -340,7 +437,7 @@ function getChooseComparisonStyle(configs) {
     comparisonLink.disappearLink = { ...comparisonLink.disappearLink, ...basicLinkStyle }
     return {
         comparisonNode,
-        comparisonLink,
+        comparisonLink
     }
 }
 
@@ -358,10 +455,7 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
             timeColorObj[time] = colorScale(i)
         })
     }
-    const {
-        comparisonNode,
-        comparisonLink,
-    } = getChooseComparisonStyle(configs)
+    const { comparisonNode, comparisonLink } = getChooseComparisonStyle(configs)
     const basicNodeStyle = configs.basic.nodeStyle
     const basicLinkStyle = configs.basic.linkStyle
     const isChooseColor = !!(configs.time.chooseTypes.indexOf('color') > -1)
@@ -369,28 +463,33 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
         Object.values(graph.nodes).forEach((node) => {
             if (node.type === 'time') {
                 if (_.hasIn(configs.time.insert, 'nodeStyle')) {
-                    node.style.nodeStyle = _.cloneDeep({...basicNodeStyle, ...configs.time.insert.nodeStyle})
+                    node.style.nodeStyle = _.cloneDeep({
+                        ...basicNodeStyle,
+                        ...configs.time.insert.nodeStyle
+                    })
                 } else {
                     node.style.nodeStyle = _.cloneDeep(basicNodeStyle)
                 }
                 return
             }
-            node.style.nodeStyle =  basicNodeStyle
+            node.style.nodeStyle = basicNodeStyle
             // 如果用color编码了时间，则修改其填充颜色
             if (isChooseColor) {
                 // 此处需要深复制
-                node.style.nodeStyle =  _.cloneDeep(basicNodeStyle)
+                node.style.nodeStyle = _.cloneDeep(basicNodeStyle)
                 node.style.nodeStyle.fillColor = timeColorObj[node.time]
             }
             node.status.forEach((d) => {
                 node.style[d] = _.cloneDeep(comparisonNode[d])
             })
-            
         })
         Object.values(graph.links).forEach((link) => {
             if (link.type === 'time') {
                 if (_.hasIn(configs.time.insert, 'linkStyle')) {
-                    link.style.linkStyle = _.cloneDeep({...basicLinkStyle, ...configs.time.insert.linkStyle})
+                    link.style.linkStyle = _.cloneDeep({
+                        ...basicLinkStyle,
+                        ...configs.time.insert.linkStyle
+                    })
                 } else {
                     link.style.linkStyle = _.cloneDeep(basicLinkStyle)
                 }
@@ -405,7 +504,6 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
                 // 该style是用于comparison这种方式
                 link.style[d] = _.cloneDeep(comparisonLink[d])
             })
-            
         })
     })
 }
@@ -442,15 +540,15 @@ export const getGraphLayout = (timeGraphs, sumGraphs, configs) => {
                 x = node.x
                 y = node.y
                 node.x = node.x + node.timeIndex * xDistance
-                node.y = node.y + node.timeIndex * yDistance 
-            }else if(tempElement === 'link'){
+                node.y = node.y + node.timeIndex * yDistance
+            } else if (tempElement === 'link') {
                 // 只是链接进行偏移.
                 x = node.x + node.timeIndex * xDistance
-                y = node.y + node.timeIndex * yDistance 
-            }else{
+                y = node.y + node.timeIndex * yDistance
+            } else {
                 // 都进行偏移
                 node.x = node.x + node.timeIndex * xDistance
-                node.y = node.y + node.timeIndex * yDistance 
+                node.y = node.y + node.timeIndex * yDistance
                 x = node.x
                 y = node.y
             }

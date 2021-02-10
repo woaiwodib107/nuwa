@@ -34,7 +34,7 @@ export default class Board extends React.Component {
                     opacity: 1
                 },
                 linkStyle: {
-                    shape: 'curve',
+                    shape: 'line',
                     strokeColor: '#908F8F',
                     strokeType: 'solid',
                     strokeWidth: 2,
@@ -43,9 +43,9 @@ export default class Board extends React.Component {
                 }
             },
             time: {
-                chooseTypes:['timeLine', 'insert'],
+                chooseTypes:['timeLine'],
                 timeLine: {
-                    xDistance: 250,
+                    xDistance: 370,
                     yDistance: 0,
                     // 有可能只对节点进行该操作
                     element: 'all',
@@ -90,7 +90,7 @@ export default class Board extends React.Component {
                 }
             },
             layout: {
-                chooseType: 'offLine',
+                chooseType: 'dagre',
                 vertical: {
                     yDistance: 40,
                     linkStyle: {
@@ -106,9 +106,12 @@ export default class Board extends React.Component {
                 bipartite: {
         
                 },
-                circle: {
+                circular: {
         
-                } 
+                },
+                dagre: {
+
+                }
             },
             comparison: {
                 isOn: true,
@@ -319,6 +322,7 @@ export default class Board extends React.Component {
                         </div>
                     </div>
                 )}
+                <div id="g6-graph-container" style={{display:"none"}}></div>
             </div>
         )
     }

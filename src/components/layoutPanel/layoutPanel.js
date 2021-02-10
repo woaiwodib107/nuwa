@@ -28,6 +28,8 @@ export default class LayoutPanel extends React.Component {
                         >   
                             <Option value="offLine">offLine</Option>
                             <Option value="vertical">vertical</Option>
+                            <Option value="circular">circular</Option>
+                            <Option value="circular">dagre</Option>
                         </Select>
                     </div>
                 </div>

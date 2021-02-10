@@ -59,19 +59,24 @@ class DNetV {
             links: Object.values(v.links),
             nodes: Object.values(v.nodes)
         }))
-        
     }
     dealLayout(layout = 'offLine') {
         // 先根据sumGraphs获得布局信息
+        // console.log("this.sumGraphs, this.configs", this.sumGraphs, this.configs)
         if (layout === 'offLine') {
             this.sumGraphs = u.offLineLayout(this.sumGraphs, this.configs) 
-        }
-        if (layout === 'vertical') {
+        }else if (layout === 'vertical') {
             this.sumGraphs = u.verticalLayout(this.sumGraphs, this.configs)
+        }else if (layout === 'circular') {
+            u.circularLayout(this.sumGraphs, this.configs)
+            // this.sumGraphs = u.verticalLayout(this.sumGraphs, this.configs)
+        }else if( layout === 'dagre') {
+            u.dagreLayout(this.sumGraphs, this.configs)
         }
         // 将位置信息放入每个子图中，并根据time调整位置
         u.getGraphLayout(this.timeGraphs, this.sumGraphs, this.configs)
     }
+
     dealCompareData(configs) {
         configs.forEach((d) => {
             const { times, nodes, links, keyFrame } = d
