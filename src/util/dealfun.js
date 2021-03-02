@@ -219,14 +219,12 @@ export const dagreLayout = (sumGraphs, configs) => {
             nodeSize: [2,30],      
             nodesep: 1,             // 可选
             ranksep: 1,             // 可选
-            // controlPoints: true      // 可选
           }
     })
     graph.data(data)
     graph.render()
     const { nodes: rNodes, edges: rLinks } = graph.cfg.data
     let nodesObj = {}
-    console.log("rNodes--rLinks",rNodes , rLinks)
     nodes.forEach((node, i) => {
         node.x = rNodes[i].x
         node.y = rNodes[i].y

@@ -58,7 +58,7 @@ export default class BasicPanel extends React.Component {
                             size="small"
                             min={1}
                             max={1000}
-                            value={this.props.options.width}
+                            value={this.props.options.eachWidth}
                             style={{ width: 120 }}
                             onChange={(e) => this.handleConfigChange(e, 'eachWidth')}
                         />
@@ -70,7 +70,7 @@ export default class BasicPanel extends React.Component {
                             min={1}
                             max={750}
                             style={{ width: 120 }}
-                            value={this.props.options.height}
+                            value={this.props.options.eachHeight}
                             onChange={(e) => this.handleConfigChange(e, 'eachHeight')}
                         />
                     </div>
