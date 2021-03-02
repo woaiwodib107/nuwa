@@ -1,5 +1,3 @@
-
-
 export const COMPARISON_CONFIG = [
     'shape',
     'fillColor',
@@ -18,6 +16,30 @@ export const defaultConfigs = {
         eachWidth: 250,
         eachHeight: 250,
         margin: 30,
+        layout: {
+            chooseType: 'offLine',
+            vertical: {},
+            offLine: {},
+            forceDirect: {
+                tickCount: 10
+            },
+            grid: {
+                columnCount: 1
+            },
+            onLine: {},
+            bipartite: {},
+            circle: {
+                applyDefault: true,
+                startRadius: 50,
+                endRadius: 200,
+                rotateAngle: 720
+            },
+            dagre: {
+                rankdir: 'TB',
+                nodeSep: 5,
+                rankSep: 5
+            }
+        },
         nodeStyle: {
             shape: 'circle',
             fillColor: '#DAD5D5',
@@ -33,45 +55,37 @@ export const defaultConfigs = {
             strokeType: 'solid',
             strokeWidth: 2,
             strokeDasharray: '3,3'
+        },
+        
+    },
+    layout: {
+        chooseType: 'offLine',
+        vertical: {},
+        offLine: {},
+        forceDirect: {
+            tickCount: 10
+        },
+        grid: {
+            columnCount: 1
+        },
+        onLine: {},
+        bipartite: {},
+        circle: {
+            applyDefault: true,
+            startRadius: 50,
+            endRadius: 200,
+            rotateAngle: 720
+        },
+        dagre: {
+            rankdir: 'TB',
+            nodeSep: 5,
+            rankSep: 5
         }
     },
-layout: {
-    chooseType: 'offLine',
-    vertical: {
-
-    },
-    offLine:{
-
-    },
-    forceDirect:{
-        tickCount: 10,
-    },
-    grid: {
-        columnCount: 1,
-    },
-    onLine: {
-
-    },
-    bipartite: {
-
-    },
-    circle: {
-        applyDefault: true,
-        startRadius: 50,
-        endRadius: 200,
-        rotateAngle: 720,
-    },
-    dagre: {
-        rankdir: 'TB',
-        nodeSep: 5,
-        rankSep: 5,
-    } 
-    
-},
     time: {
-        chooseTypes:[],
+        chooseTypes: [],
         insert: {
-            position:'bottom',
+            position: 'bottom',
             margin: 10,
             nodeStyle: {
                 shape: 'circle',
@@ -81,14 +95,14 @@ layout: {
                 radius: 6,
                 strokeType: 'solid',
                 textColor: 'white',
-                opcity: 1,
+                opcity: 1
             },
             linkStyle: {
                 shape: 'curve',
                 strokeColor: '#ffcc00',
                 strokeType: 'solid',
                 strokeWidth: 2,
-                opacity :1,
+                opacity: 1,
                 strokeDasharray: '3,3'
             }
         },
@@ -112,68 +126,68 @@ layout: {
             xDistance: 250,
             yDistance: 0,
             // 有可能只对节点进行该操作
-            element: 'all',
+            element: 'all'
         }
     },
-comparison: {
-    isOn: true,
-    keyFrame: 'next',
-    elements: 'all',
-    chooseTypes: COMPARISON_CONFIG,
-    // keyFrame可为上一帧、下一帧、具体某一帧
-    appearNode: {
-        shape: 'circle',
-        fillColor: '#FD8F8F',
-        strokeColor: '#000000',
-        strokeWidth: 1,
-        strokeType: 'solid',
-        textColor: 'white',
-        radius: 8,
-        opacity: 1
-    },
-    stableNode: {
-        shape: 'circle',
-        fillColor: '#DAD5D5',
-        strokeColor: '#000000',
-        strokeWidth: 1,
-        radius: 6,
-        strokeType: 'solid',
-        textColor: 'white',
-        opacity: 1
-    },
-    disappearNode: {
-    shape: 'circle',
-    fillColor: '#90B5FB',
-    strokeColor: '#000000',
-    strokeWidth: 1,
-    radius: 8,
-    strokeType: 'solid',
-    textColor: 'white',
-    opacity: 1
-    },
-    appearLink: {
-        shape: 'curve',
-        strokeColor: '#FD8F8F',
-        strokeType: 'solid',
-        strokeWidth: 3,
-        opacity: 1,
-        strokeDasharray: '3,3'
-    },
-    stableLink: {
-        shape: 'line',
-        strokeColor: '#908F8F',
-        strokeType: 'solid',
-        strokeWidth: 1,
-        opacity: 1,
-        strokeDasharray: '3,3'
-    },
-    disappearLink: {
-        shape: 'curve',
-        strokeColor: '#90B5FB',
-        strokeType: 'solid',
-        strokeWidth: 3,
-        opacity: 1,
-        strokeDasharray: '3,3'
+    comparison: {
+        isOn: true,
+        keyFrame: 'next',
+        elements: 'all',
+        chooseTypes: COMPARISON_CONFIG,
+        // keyFrame可为上一帧、下一帧、具体某一帧
+        appearNode: {
+            shape: 'circle',
+            fillColor: '#FD8F8F',
+            strokeColor: '#000000',
+            strokeWidth: 1,
+            strokeType: 'solid',
+            textColor: 'white',
+            radius: 8,
+            opacity: 1
+        },
+        stableNode: {
+            shape: 'circle',
+            fillColor: '#DAD5D5',
+            strokeColor: '#000000',
+            strokeWidth: 1,
+            radius: 6,
+            strokeType: 'solid',
+            textColor: 'white',
+            opacity: 1
+        },
+        disappearNode: {
+            shape: 'circle',
+            fillColor: '#90B5FB',
+            strokeColor: '#000000',
+            strokeWidth: 1,
+            radius: 8,
+            strokeType: 'solid',
+            textColor: 'white',
+            opacity: 1
+        },
+        appearLink: {
+            shape: 'curve',
+            strokeColor: '#FD8F8F',
+            strokeType: 'solid',
+            strokeWidth: 3,
+            opacity: 1,
+            strokeDasharray: '3,3'
+        },
+        stableLink: {
+            shape: 'line',
+            strokeColor: '#908F8F',
+            strokeType: 'solid',
+            strokeWidth: 1,
+            opacity: 1,
+            strokeDasharray: '3,3'
+        },
+        disappearLink: {
+            shape: 'curve',
+            strokeColor: '#90B5FB',
+            strokeType: 'solid',
+            strokeWidth: 3,
+            opacity: 1,
+            strokeDasharray: '3,3'
+        }
     }
-}
 }

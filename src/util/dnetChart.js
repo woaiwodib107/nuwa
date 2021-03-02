@@ -196,7 +196,7 @@ function isLayoutConfig(item) {
 // 获取svg画布的长宽大小
 export function getSvgWidthHeight(configs, len) {
     let svgWidth, svgHeight
-    const { eachWidth, eachHeight, margin } = configs.basic
+    const { eachWidth, eachHeight, margin } = configs.graph
     const { xDistance, yDistance } = configs.time.timeLine
     if (configs.time.chooseTypes.indexOf('timeLine') > -1) {
         svgWidth = margin * 2 + eachWidth + xDistance * (len - 1)
@@ -212,7 +212,7 @@ export function getSvgWidthHeight(configs, len) {
 // 获取插入节点的位置
 export function getInsertPosition(configs){
     let x,y
-    const {eachWidth, eachHeight} = configs.basic
+    const {eachWidth, eachHeight} = configs.graph
     const {margin, position} = configs.time.insert
     switch (position){
         case 'top':

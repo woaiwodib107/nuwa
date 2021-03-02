@@ -45,6 +45,15 @@ export default class GraphPanel extends React.Component {
         })
     }
 
+    handleLayoutTypeChange = (value)=>{
+        const layoutItem = this.props.options.layout
+        const displayItem = {
+            ...layoutItem, 
+            chooseType:value
+        }
+        this.props.onSubmit({layout: displayItem})
+    }
+
     render() {
         const optionKey = this.state.chooseItem === 'Node' ? 'nodeStyle' : 'linkStyle'
         const changeOptions = this.props.options[optionKey]
@@ -84,6 +93,19 @@ export default class GraphPanel extends React.Component {
                             value={this.props.options.margin}
                             onChange={(e) => this.handleConfigChange(e, 'margin')}
                         />
+                    </div>
+                    <div className="change-option-item">
+                        <div>Layout:</div>
+                        <Select
+                            value={this.props.options.layout.chooseType}
+                            style={{ width: 120 }}
+                            onChange={this.handleLayoutTypeChange}
+                        >   
+                            <Option value="offLine">offLine</Option>
+                            <Option value="vertical">vertical</Option>
+                            <Option value="circular">circular</Option>
+                            <Option value="dagre">dagre</Option>
+                        </Select>
                     </div>
                     <div className="basic-panel-line">
                         <NodeLinkSample

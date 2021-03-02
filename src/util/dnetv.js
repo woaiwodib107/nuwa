@@ -45,7 +45,7 @@ class DNetV {
         this.sumGraphs.links = Object.values(this.sumGraphs.links)
 
         // 依据layout的配置去赋予位置信息
-        this.dealLayout(this.configs.layout.chooseType ? this.configs.layout.chooseType : 'offLine')
+        this.dealLayout(this.configs.graph.layout.chooseType ? this.configs.graph.layout.chooseType : 'offLine')
         // console.log("------this.sumGraphs.----",this.sumGraphs)
         // 根据time中的是否选择了markLine而决定是否要去计算markLine的数据
         this.markLine = this.configs.time.chooseTypes.indexOf('markLine') > -1

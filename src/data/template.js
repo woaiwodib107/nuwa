@@ -2,12 +2,18 @@ export const defaultTemplates =  [
   {
     name: 'timeLine',
     template: {
-      "basic": {
-        "width": 250,
-        "height": 250,
+      "graph": {
         "eachWidth": 250,
         "eachHeight": 250,
         "margin": 30,
+        "layout": {
+          "chooseType": "offLine",
+          "vertical": { "yDistance": 40, "linkStyle": { "shape": "curve" } },
+          "offLine": {},
+          "onLine": {},
+          "bipartite": {},
+          "circle": {}
+        },
         "nodeStyle": {
           "shape": "circle",
           "fillColor": "#DAD5D5",
@@ -150,12 +156,20 @@ export const defaultTemplates =  [
   {
     name: 'timeLine-animation',
     template: {
-      "basic": {
+      "graph": {
         "width": 250,
         "height": 250,
         "eachWidth": 250,
         "eachHeight": 250,
         "margin": 30,
+        "layout": {
+          "chooseType": "offLine",
+          "vertical": { "yDistance": 40, "linkStyle": { "shape": "curve" } },
+          "offLine": {},
+          "onLine": {},
+          "bipartite": {},
+          "circle": {}
+        },
         "nodeStyle": {
           "shape": "circle",
           "fillColor": "#DAD5D5",
@@ -298,12 +312,20 @@ export const defaultTemplates =  [
   {
     name: 'timeLine-markLine',
     template: {
-      "basic": {
+      "graph": {
         "width": 250,
         "height": 250,
         "eachWidth": 250,
         "eachHeight": 250,
         "margin": 30,
+        "layout": {
+          "chooseType": "offLine",
+          "vertical": { "yDistance": 40, "linkStyle": { "shape": "curve" } },
+          "offLine": {},
+          "onLine": {},
+          "bipartite": {},
+          "circle": {}
+        },
         "nodeStyle": {
           "shape": "circle",
           "fillColor": "#DAD5D5",
@@ -323,14 +345,7 @@ export const defaultTemplates =  [
           "strokeDasharray": "3,3"
         }
       },
-      "layout": {
-        "chooseType": "offLine",
-        "vertical": { "yDistance": 40, "linkStyle": { "shape": "curve" } },
-        "offLine": {},
-        "onLine": {},
-        "bipartite": {},
-        "circle": {}
-      },
+     
       "comparison": {
         "isOn": true,
         "chooseItem": "stable-Node",
@@ -446,12 +461,20 @@ export const defaultTemplates =  [
   {
     name: 'timeLine-insert',
     template: {
-      "basic": {
+      "graph": {
         "width": 250,
         "height": 250,
         "eachWidth": 250,
         "eachHeight": 250,
         "margin": 30,
+        "layout": {
+          "chooseType": "offLine",
+          "vertical": { "yDistance": 40, "linkStyle": { "shape": "curve" } },
+          "offLine": {},
+          "onLine": {},
+          "bipartite": {},
+          "circle": {}
+        },
         "nodeStyle": {
           "shape": "circle",
           "fillColor": "#DAD5D5",
@@ -471,14 +494,7 @@ export const defaultTemplates =  [
           "strokeDasharray": "3,3"
         }
       },
-      "layout": {
-        "chooseType": "offLine",
-        "vertical": { "yDistance": 40, "linkStyle": { "shape": "curve" } },
-        "offLine": {},
-        "onLine": {},
-        "bipartite": {},
-        "circle": {}
-      },
+      
       "comparison": {
         "isOn": true,
         "chooseItem": "stable-Node",
@@ -594,12 +610,20 @@ export const defaultTemplates =  [
   {
     name: 'no-comparison',
     template: {
-      "basic": {
+      "graph": {
         "width": 250,
         "height": 250,
         "eachWidth": 250,
         "eachHeight": 250,
         "margin": 30,
+        "layout": {
+          "chooseType": "offLine",
+          "vertical": { "yDistance": 40, "linkStyle": { "shape": "curve" } },
+          "offLine": {},
+          "onLine": {},
+          "bipartite": {},
+          "circle": {}
+        },
         "nodeStyle": {
           "shape": "circle",
           "fillColor": "#DAD5D5",
@@ -619,14 +643,7 @@ export const defaultTemplates =  [
           "strokeDasharray": "3,3"
         }
       },
-      "layout": {
-        "chooseType": "offLine",
-        "vertical": { "yDistance": 40, "linkStyle": { "shape": "curve" } },
-        "offLine": {},
-        "onLine": {},
-        "bipartite": {},
-        "circle": {}
-      },
+      
       "comparison": {
         "isOn": false,
         "chooseItem": "stable-Node",
@@ -742,12 +759,20 @@ export const defaultTemplates =  [
   {
     name: 'vertical-layout',
     template: {
-      "basic": {
+      "graph": {
         "width": 250,
         "height": 250,
         "eachWidth": 250,
         "eachHeight": 250,
         "margin": 30,
+        "layout": {
+          "chooseType": "vertical",
+          "vertical": { "yDistance": 40, "linkStyle": { "shape": "curve" } },
+          "offLine": {},
+          "onLine": {},
+          "bipartite": {},
+          "circle": {}
+        },
         "nodeStyle": {
           "shape": "circle",
           "fillColor": "#DAD5D5",

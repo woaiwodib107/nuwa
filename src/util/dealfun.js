@@ -172,7 +172,7 @@ export function adjustLayout2Svg(nodes, links, width, height) {
 
 export const verticalLayout = (sumGraphs, configs) => {
     let { nodes, links } = sumGraphs
-    const { eachWidth, eachHeight } = configs.basic
+    const { eachWidth, eachHeight } = configs.graph
     const l = nodes.length
     let nodesObj = {}
     nodes.forEach((node, index) => {
@@ -190,7 +190,6 @@ export const verticalLayout = (sumGraphs, configs) => {
 }
 export const dagreLayout = (sumGraphs, configs) => {
     let { nodes, links } = sumGraphs
-    // console.log('---sumGraphs---nodes--links', nodes, links)
     const gNodes = nodes.map((node) => {
         return {
             id: node.id
@@ -206,7 +205,7 @@ export const dagreLayout = (sumGraphs, configs) => {
         nodes: gNodes,
         edges: gEdges
     }
-    const { eachWidth, eachHeight} = configs.basic
+    const { eachWidth, eachHeight} = configs.graph
     var graph = new G6.Graph({
         container: 'g6-graph-container',
         width: eachWidth,
@@ -254,7 +253,7 @@ export const circularLayout = (sumGraphs, configs) => {
         nodes: gNodes,
         edges: gEdges
     }
-    const { eachWidth, eachHeight, margin } = configs.basic
+    const { eachWidth, eachHeight, margin } = configs.graph
     const radius = Math.min(eachWidth, eachHeight) / 2
     var graph = new G6.Graph({
         container: 'g6-graph-container',
@@ -296,7 +295,7 @@ export const timeASnode = (graphs) => {
 }
 export const offLineLayout = (sumGraphs, configs) => {
     let { nodes, links } = sumGraphs
-    const { eachWidth, eachHeight } = configs.basic
+    const { eachWidth, eachHeight } = configs.graph
     d3.forceSimulation(nodes)
         .force(
             'link',
@@ -416,13 +415,13 @@ function getChooseComparisonStyle(configs) {
         appearNode: configs.comparison.appearNode,
         disappearNode: configs.comparison.disappearNode
     })
-    const basicNodeStyle = _.cloneDeep(configs.basic.nodeStyle)
+    const basicNodeStyle = _.cloneDeep(configs.graph.nodeStyle)
     const comparisonLink = _.cloneDeep({
         appearLink: configs.comparison.appearLink,
         stableLink: configs.comparison.stableLink,
         disappearLink: configs.comparison.disappearLink
     })
-    const basicLinkStyle = _.cloneDeep(configs.basic.linkStyle)
+    const basicLinkStyle = _.cloneDeep(configs.graph.linkStyle)
     configs.comparison.chooseTypes.forEach((v) => {
         delete basicNodeStyle[v]
         delete basicLinkStyle[v]
@@ -454,8 +453,8 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
         })
     }
     const { comparisonNode, comparisonLink } = getChooseComparisonStyle(configs)
-    const basicNodeStyle = configs.basic.nodeStyle
-    const basicLinkStyle = configs.basic.linkStyle
+    const basicNodeStyle = configs.graph.nodeStyle
+    const basicLinkStyle = configs.graph.linkStyle
     const isChooseColor = !!(configs.time.chooseTypes.indexOf('color') > -1)
     Object.values(timeGraphs).forEach((graph) => {
         Object.values(graph.nodes).forEach((node) => {
@@ -508,7 +507,7 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
 
 export const getGraphLayout = (timeGraphs, sumGraphs, configs) => {
     let { nodes, links } = sumGraphs
-    const { eachWidth, eachHeight, margin } = configs.basic
+    const { eachWidth, eachHeight, margin } = configs.graph
     let { xDistance, yDistance } = configs.time.timeLine
     const layoutNodes = Object.fromEntries(nodes.map((d) => [d.id, d]))
     const layoutLinks = Object.fromEntries(links.map((d) => [d.id, d]))
@@ -521,7 +520,7 @@ export const getGraphLayout = (timeGraphs, sumGraphs, configs) => {
             // 将位置信息复制到各个子图上
             assign(node, layoutNodes[node.id])
             let { x, y, timeId, id } = node
-            if (node.type === 'time' && configs.layout.chooseType === 'offLine') {
+            if (node.type === 'time' && configs.graph.layout.chooseType === 'offLine') {
                 // 对代表time的节点的位置特殊处理
                 const result = getInsertPosition(configs)
                 node.x = result.x

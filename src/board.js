@@ -17,12 +17,36 @@ export default class Board extends React.Component {
             board: 'system',
             jsonfile: {},
             filename: '',
-            basic: {
-                width: 250,
-                height: 250,
+            graph: {
+                // width: 250,
+                // height: 250,
                 eachWidth: 250,
                 eachHeight: 250,
                 margin: 30,
+                layout: {
+                    chooseType: 'dagre',
+                    vertical: {
+                        yDistance: 40,
+                        linkStyle: {
+                            shape: 'curve'
+                        }
+                    },
+                    offLine:{
+    
+                    },
+                    onLine: {
+            
+                    },
+                    bipartite: {
+            
+                    },
+                    circular: {
+            
+                    },
+                    dagre: {
+    
+                    }
+                },
                 nodeStyle: {
                     shape: 'circle',
                     fillColor: '#DAD5D5',
@@ -45,7 +69,7 @@ export default class Board extends React.Component {
             time: {
                 chooseTypes:['timeLine'],
                 timeLine: {
-                    xDistance: 370,
+                    xDistance: 270,
                     yDistance: 0,
                     // 有可能只对节点进行该操作
                     element: 'all',
@@ -87,30 +111,6 @@ export default class Board extends React.Component {
                     strokeWidth: 2,
                     strokeDasharray: '5,5',
                     opacity:1,
-                }
-            },
-            layout: {
-                chooseType: 'dagre',
-                vertical: {
-                    yDistance: 40,
-                    linkStyle: {
-                        shape: 'curve'
-                    }
-                },
-                offLine:{
-
-                },
-                onLine: {
-        
-                },
-                bipartite: {
-        
-                },
-                circular: {
-        
-                },
-                dagre: {
-
                 }
             },
             comparison: {
@@ -215,10 +215,10 @@ export default class Board extends React.Component {
             ...value
         })
     }
-    handleSubmitFromBasic = (value) => {
+    handleSubmitFromGraph = (value) => {
         this.setState({
-            basic: {
-                ...this.state.basic,
+            graph: {
+                ...this.state.graph,
                 ...value
             }
         })
@@ -274,8 +274,8 @@ export default class Board extends React.Component {
                         <div className="col">
                             <Data onSubmit={this.handleSubmitFromData} />
                             <GraphPanel
-                                options={this.state.basic}
-                                onSubmit={this.handleSubmitFromBasic}
+                                options={this.state.graph}
+                                onSubmit={this.handleSubmitFromGraph}
                             />
                         </div>
                         <div className="col">
@@ -285,10 +285,10 @@ export default class Board extends React.Component {
                             />
                         </div>
                         <div className="col">
-                            <LayoutPanel
+                            {/* <LayoutPanel
                                 options={this.state.layout}
                                 onSubmit={this.handleSubmitFromLayout}
-                            />
+                            /> */}
                             <ComparisonPanel
                                 options={this.state.comparison}
                                 onSubmit={this.handleSubmitFromComparison}
@@ -303,7 +303,7 @@ export default class Board extends React.Component {
                             <TemplatePanel
                                 data={this.state.jsonfile.graphs}
                                 config={{
-                                    basic: this.state.basic,
+                                    graph: this.state.graph,
                                     layout: this.state.layout,
                                     comparison: this.state.comparison,
                                     time: this.state.time
@@ -313,7 +313,7 @@ export default class Board extends React.Component {
                             <Preview
                                 data={this.state.jsonfile.graphs}
                                 config={{
-                                    basic: this.state.basic,
+                                    graph: this.state.graph,
                                     layout: this.state.layout,
                                     comparison: this.state.comparison,
                                     time: this.state.time
