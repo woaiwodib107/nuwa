@@ -79,8 +79,8 @@
     margin-right: 10px;
     margin-bottom: 5px;
     
-    display: flex;
-    justify-content: space-between;
+    /* display: flex;
+    justify-content: space-between; */
 }
 
 .item-ctrl {

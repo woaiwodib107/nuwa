@@ -2,10 +2,11 @@ import React from 'react'
 import { Button, Select, Input, InputNumber } from 'antd'
 import { ChromePicker } from 'react-color'
 import { INSERT_POSITION } from '../../util/dnetChart'
-import { TIME_PANEL_INPUT_WIDTH as TPIW ,
+import {
+    TIME_PANEL_INPUT_WIDTH as TPIW,
     MARK_LINK_SOURCE as MLS,
     MARK_LINK_TARGET as MLT,
-    TIME_TIMELINE_ELEMENT 
+    TIME_TIMELINE_ELEMENT
 } from '../../util/const'
 import NodeLinkStylePanel from '../nodeLinkStylePanel/nodeLinkStylePanel.js'
 import NodeLinkSample from '../nodeLinkSample/nodeLinkSample.js'
@@ -36,7 +37,7 @@ export default class TimePanel extends React.Component {
         })
     }
     handleElementColorClick = (index) => {
-        console.log("handleElementColorClick",index)
+        console.log('handleElementColorClick', index)
         const tempArr = this.state.elementColorPickerDisplay
         tempArr[index] = !tempArr[index]
         this.setState({
@@ -60,8 +61,8 @@ export default class TimePanel extends React.Component {
         this.props.onSubmit({ [option]: optionObject })
     }
 
-    handleTimeOptionsChange = ( option, value) => {
-        const optionObject = {...this.props.options[option], ...value}
+    handleTimeOptionsChange = (option, value) => {
+        const optionObject = { ...this.props.options[option], ...value }
         // optionObject[key] = value
         this.props.onSubmit({ [option]: optionObject })
     }
@@ -105,54 +106,55 @@ export default class TimePanel extends React.Component {
                             </Button>
                         </div>
                         <div className="encoding-item-content">
-                            <div className="position-ctrl item-ctrl">
+                            {/* <div className="position-ctrl item-ctrl">
                                 <div className="position-circle1 item-circle1"></div>
                                 <div className="position-circle2 item-circle2"></div>
+                            </div> */}
+                            <div className="item-right-option">
+                                <div>xDistance:</div>
+                                <InputNumber
+                                    size="small"
+                                    min={1}
+                                    max={1000}
+                                    value={options.timeLine.xDistance}
+                                    onChange={(e) =>
+                                        this.handleTimeOptionsInput(e, 'timeLine', 'xDistance')
+                                    }
+                                    style={{ width: TPIW }}
+                                />
                             </div>
-                            <div className="item-right-container">
-                                <div className="item-right-option">
-                                    <div>xDistance:</div>
-                                    <InputNumber
-                                        size="small"
-                                        min={1}
-                                        max={1000}
-                                        value={options.timeLine.xDistance}
-                                        onChange={(e) =>
-                                            this.handleTimeOptionsInput(e, 'timeLine', 'xDistance')
-                                        }
-                                        style={{ width: TPIW }}
-                                    />
-                                </div>
-                                <div className="item-right-option">
-                                    <div>yDistance:</div>
-                                    <InputNumber
-                                        size="small"
-                                        min={1}
-                                        max={1000}
-                                        value={options.timeLine.yDistance}
-                                        onChange={(e) =>
-                                            this.handleTimeOptionsInput(e, 'timeLine', 'yDistance')
-                                        }
-                                        style={{ width: TPIW }}
-                                    />
-                                </div>
-                                <div className="item-right-option">
-                                    <div>Element:</div>
-                                    <Select
-                                        value={options.timeLine.element}
-                                        style={{ width: TPIW }}
-                                        size="small"
-                                        onChange={(e) =>
-                                            this.handleTimeOptionsSelect(e, 'timeLine', 'element')}
-                                    >   {
-                                            TIME_TIMELINE_ELEMENT.map(v=>{
-                                                return (
-                                                    <Option key={v} value={v}>{v}</Option>
-                                                )
-                                            })
-                                        }
-                                    </Select>
-                                </div>
+                            <div className="item-right-option">
+                                <div>yDistance:</div>
+                                <InputNumber
+                                    size="small"
+                                    min={1}
+                                    max={1000}
+                                    value={options.timeLine.yDistance}
+                                    onChange={(e) =>
+                                        this.handleTimeOptionsInput(e, 'timeLine', 'yDistance')
+                                    }
+                                    style={{ width: TPIW }}
+                                />
+                            </div>
+                            <div className="item-right-option">
+                                <div>Element:</div>
+                                <Select
+                                    value={options.timeLine.element}
+                                    style={{ width: TPIW }}
+                                    size="small"
+                                    onChange={(e) =>
+                                        this.handleTimeOptionsSelect(e, 'timeLine', 'element')
+                                    }
+                                >
+                                    {' '}
+                                    {TIME_TIMELINE_ELEMENT.map((v) => {
+                                        return (
+                                            <Option key={v} value={v}>
+                                                {v}
+                                            </Option>
+                                        )
+                                    })}
+                                </Select>
                             </div>
                         </div>
                     </div>
@@ -175,27 +177,18 @@ export default class TimePanel extends React.Component {
                             </Button>
                         </div>
                         <div className="encoding-item-content">
-                            <div className="animation-ctrl item-ctrl">
-                                <div className="animation-circle1 item-circle1"></div>
-                                <div className="ellipse1"></div>
-                                <div className="ellipse2"></div>
-                                <div className="ellipse3"></div>
-                                <div className="animation-circle2 item-circle2"></div>
-                            </div>
-                            <div className="item-right-container">
-                                <div className="item-right-option">
-                                    <div>Speed:</div>
-                                    <InputNumber
-                                        size="small"
-                                        min={1}
-                                        max={1000}
-                                        value={options.animation.speed}
-                                        onChange={(e) =>
-                                            this.handleTimeOptionsInput(e, 'animation', 'speed')
-                                        }
-                                        style={{ width: TPIW }}
-                                    />
-                                </div>
+                            <div className="item-right-option">
+                                <div>Speed:</div>
+                                <InputNumber
+                                    size="small"
+                                    min={1}
+                                    max={1000}
+                                    value={options.animation.speed}
+                                    onChange={(e) =>
+                                        this.handleTimeOptionsInput(e, 'animation', 'speed')
+                                    }
+                                    style={{ width: TPIW }}
+                                />
                             </div>
                         </div>
                     </div>
@@ -233,7 +226,13 @@ export default class TimePanel extends React.Component {
                                 <ChromePicker
                                     className="item-color-picker"
                                     color={options.color.startColor}
-                                    onChange={(colorCode) => this.handleElementColorChange(colorCode, 'color', 'startColor')}
+                                    onChange={(colorCode) =>
+                                        this.handleElementColorChange(
+                                            colorCode,
+                                            'color',
+                                            'startColor'
+                                        )
+                                    }
                                 />
                             ) : null}
                         </div>
@@ -253,19 +252,17 @@ export default class TimePanel extends React.Component {
                                 <ChromePicker
                                     className="item-color-picker"
                                     color={options.color.endColor}
-                                    onChange={(colorCode) => this.handleElementColorChange(colorCode, 'color', 'endColor')}
+                                    onChange={(colorCode) =>
+                                        this.handleElementColorChange(
+                                            colorCode,
+                                            'color',
+                                            'endColor'
+                                        )
+                                    }
                                 />
                             ) : null}
                         </div>
                         <div className="encoding-item-content">
-                            <div className="color-ctrl item-ctrl">
-                                <div className="color-circle1 item-circle1"></div>
-                                <div
-                                    className="color-circle2 item-circle2"
-                                    style={{ backgroundColor: this.state.color }}
-                                ></div>
-                            </div>
-                            <div className="item-right-container">
                                 <div className="item-right-option">
                                     <div>Number:</div>
                                     <InputNumber
@@ -279,7 +276,6 @@ export default class TimePanel extends React.Component {
                                         style={{ width: TPIW }}
                                     />
                                 </div>
-                            </div>
                         </div>
                     </div>
 
@@ -300,55 +296,33 @@ export default class TimePanel extends React.Component {
                                 MarkLine
                             </Button>
                         </div>
-                        <div className="encoding-item-content">
+                        {/* <div className="encoding-item-content">
                             <div className="link-ctrl item-ctrl">
                                 <div className="link-circle1 item-circle1"></div>
                                 <div className="wavy"></div>
                                 <div className="link-circle2 item-circle2"></div>
                             </div>
                             <div className="item-right-container">
-                                {/* <div className="item-right-option">
-                                    <div>xDistance:</div>
-                                    <Input
-                                        value={options.link.xDistance}
-                                        type="number"
-                                        onChange={(e) =>
-                                            this.handleTimeOptionsInput(e, 'link', 'xDistance')
-                                        }
-                                        style={{ width: TPIW }}
-                                    />
-                                </div>
-                                <div className="item-right-option">
-                                    <div>yDistance:</div>
-                                    <Input
-                                        value={options.link.yDistance}
-                                        type="number"
-                                        onChange={(e) =>
-                                            this.handleTimeOptionsInput(e, 'link', 'yDistance')
-                                        }
-                                        style={{ width: TPIW }}
-                                    />
-                                </div> */}
                             </div>
-                        </div>
+                        </div> */}
                         <div className="encoding-item-content sample-item-border">
-                            <SampleItem 
-                                config={options.markLine} 
-                                type={'link'} 
-                                width = {258}
-                                height = {42}
-                                source = {MLS}
-                                target = {MLT}
+                            <SampleItem
+                                config={options.markLine}
+                                type={'link'}
+                                width={258}
+                                height={42}
+                                source={MLS}
+                                target={MLT}
                             />
-                        </div> 
+                        </div>
                         <NodeLinkStylePanel
                             type={'Link'}
                             optionKey={'markLine'}
                             changeOptions={options.markLine}
-                            onSubmit={(value)=>this.props.onSubmit(value)}
-                        />  
+                            onSubmit={(value) => this.props.onSubmit(value)}
+                        />
                     </div>
-                
+
                     {/* insert */}
                     <div className="encoding-item">
                         <div className="encoding-item-title">
@@ -367,14 +341,6 @@ export default class TimePanel extends React.Component {
                             </Button>
                         </div>
                         <div className="encoding-item-content">
-                            <div className="color-ctrl item-ctrl">
-                                <div className="color-circle1 item-circle1"></div>
-                                <div
-                                    className="color-circle2 item-circle2"
-                                    style={{ backgroundColor: this.state.color }}
-                                ></div>
-                            </div>
-                            <div className="item-right-container">
                                 <div className="item-right-option">
                                     <div>Margin:</div>
                                     <InputNumber
@@ -395,35 +361,35 @@ export default class TimePanel extends React.Component {
                                         style={{ width: TPIW }}
                                         size="small"
                                         onChange={(e) =>
-                                            this.handleTimeOptionsSelect(e, 'insert', 'position')}
-                                    >   {
-                                            INSERT_POSITION.map(v=>{
-                                                return (
-                                                    <Option key={v} value={v}>{v}</Option>
-                                                )
-                                            })
+                                            this.handleTimeOptionsSelect(e, 'insert', 'position')
                                         }
+                                    >
+                                        {' '}
+                                        {INSERT_POSITION.map((v) => {
+                                            return (
+                                                <Option key={v} value={v}>
+                                                    {v}
+                                                </Option>
+                                            )
+                                        })}
                                     </Select>
                                 </div>
-                            </div>
                         </div>
                         <div className="encoding-item-content">
                             <NodeLinkSample
-                                nodeStyle = {options.insert.nodeStyle}
-                                linkStyle = {options.insert.linkStyle}
-                                chooseItem = {this.state.chooseItem}
-                                onSubmit = {this.handleIconsClick}
+                                nodeStyle={options.insert.nodeStyle}
+                                linkStyle={options.insert.linkStyle}
+                                chooseItem={this.state.chooseItem}
+                                onSubmit={this.handleIconsClick}
                             />
-                            
                         </div>
                         <NodeLinkStylePanel
-                                type={this.state.chooseItem}
-                                optionKey={optionKey}
-                                changeOptions={changeOptions}
-                                onSubmit={(value)=>this.handleTimeOptionsChange('insert', value)}
-                            />
+                            type={this.state.chooseItem}
+                            optionKey={optionKey}
+                            changeOptions={changeOptions}
+                            onSubmit={(value) => this.handleTimeOptionsChange('insert', value)}
+                        />
                     </div>
-                
                 </div>
             </div>
         )

@@ -1,4 +1,4 @@
-export const TIME_PANEL_INPUT_WIDTH = 85
+export const TIME_PANEL_INPUT_WIDTH = 120
 export const SAMPLE_LINK_SOURCE = {
   x: 5,
   y: 5
