@@ -2,16 +2,13 @@ import React from 'react'
 import SampleItem from '../sampleItem/sampleItem.js'
 import { Radio, Select, Collapse, Switch, Checkbox, Col, Row } from 'antd'
 import NodeLinkStylePanel from '../nodeLinkStylePanel/nodeLinkStylePanel.js'
-import { 
-    TIME_PANEL_INPUT_WIDTH as TPIW ,
+import {
+    TIME_PANEL_INPUT_WIDTH as TPIW,
     TIME_TIMELINE_ELEMENT,
     KEYFRAM_OPTIONS
 } from '../../util/const'
-import {
-    COMPARISON_CONFIG
-} from '../../util/defaultConfig.js'
+import { COMPARISON_CONFIG } from '../../util/defaultConfig.js'
 import './comparisonPanel.css'
-
 
 const { Option } = Select
 const { Panel } = Collapse
@@ -45,7 +42,7 @@ const index2chooseItem = [
     'stable-Link',
     'disappear-Link'
 ]
-export default class ComparisonPanel extends React.Component {
+export default class TaskPanel extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -54,38 +51,55 @@ export default class ComparisonPanel extends React.Component {
         }
     }
     handleOptionChange = (value) => {
-        this.props.onSubmit({ ...value })
+        this.handleComparisonChange({ ...value })
     }
     handleSelectChange = (value, key) => {
-        this.props.onSubmit({ [key]: value })
+        this.handleComparisonChange({ [key]: value })
     }
     handleColumnChange = (e) => {
         const nodeOrLink = this.props.options.chooseItem.split('-')[1]
-        this.props.onSubmit({ chooseItem: `${e.target.value}-${nodeOrLink}` })
+        this.handleComparisonChange({ chooseItem: `${e.target.value}-${nodeOrLink}` })
     }
     handleRowChange = (e) => {
         const changeAttr = this.props.options.chooseItem.split('-')[0]
-        this.props.onSubmit({ chooseItem: `${changeAttr}-${e.target.value}` })
+        this.handleComparisonChange({ chooseItem: `${changeAttr}-${e.target.value}` })
     }
     handleIconsClick = (index) => {
-        this.props.onSubmit({ chooseItem: index2chooseItem[Number(index)] })
+        this.handleComparisonChange({ chooseItem: index2chooseItem[Number(index)] })
     }
     handleIsOnChange = (value) => {
-        this.props.onSubmit({ isOn: value })
+        this.handleComparisonChange({ isOn: value })
     }
 
-    handleCheckChange = list => {
-        this.props.onSubmit({'chooseTypes': list})
-        this.setState({'indeterminate': !!list.length && list.length < COMPARISON_CONFIG.length})
-        this.setState({'checkAll': list.length === COMPARISON_CONFIG.length})
+    handleCheckChange = (list) => {
+        this.handleComparisonChange({ chooseTypes: list })
+        this.setState({ indeterminate: !!list.length && list.length < COMPARISON_CONFIG.length })
+        this.setState({ checkAll: list.length === COMPARISON_CONFIG.length })
     }
-    handleAllCheckChange = e => {
-        this.props.onSubmit({'chooseTypes': e.target.checked ? COMPARISON_CONFIG : []})
-        this.setState({'indeterminate': false})
-        this.setState({'checkAll': e.target.checked})
+    handleAllCheckChange = (e) => {
+        this.handleComparisonChange({ chooseTypes: e.target.checked ? COMPARISON_CONFIG : [] })
+        this.setState({ indeterminate: false })
+        this.setState({ checkAll: e.target.checked })
+    }
+
+    handleComparisonChange = (value) => {
+        console.log("handleComparisonChange", value)
+        this.props.onSubmit({
+            comparison:{
+                ...this.props.options.comparison,
+                ...value
+            }
+        })
+    }
+
+    handleTaskPanelChange = (key ,value) => {
+        this.props.onSubmit({
+            [key]: value
+        })
     }
 
     render() {
+        const comparison = this.props.options.comparison
         const {
             isOn,
             chooseItem,
@@ -98,108 +112,136 @@ export default class ComparisonPanel extends React.Component {
             stableLink,
             disappearNode,
             disappearLink
-        } = this.props.options
+        } = comparison
         let changeKey = chooseItem.split('-')
         changeKey = changeKey.join('')
-        const changeOptions = this.props.options[changeKey]
+        const changeOptions = comparison[changeKey]
         return (
             <div className="Comparison-box">
                 <div className="sub-title">
-                    &nbsp;Comparison
-                    <div className="comparison-switch ">
+                    &nbsp;Task
+                    {/* <div className="comparison-switch ">
                         <Switch
                             checkedChildren="ON"
                             unCheckedChildren="OFF"
                             defaultChecked={isOn}
                             onChange={this.handleIsOnChange}
                         />
-                    </div>
+                    </div> */}
                 </div>
-                
+
                 <div className="encoding-table-container">
-                <div 
-                    className="change-option-item"
-                >
-                    <Collapse
-                        expandIconPosition={'right'}
-                        style={{
-                            backgroundColor: '#ffffff',
-                            width: '100%'
-                        }}
-                        defaultActiveKey={['1']}
-                    >
-                        <Panel 
-                            key ='1' 
-                            className="nlsp-panel" 
-                            header={'chooseTypes'}
+                    <div className="change-option-item">
+                        <div>taskType:</div>
+                        <Select
+                            value={this.props.options.taskType}
+                            style={{ width: 120 }}
+                            onChange={(value)=>this.handleTaskPanelChange('taskType', value)}
                         >
-                            <Col style={{
-                                width: '50%',
-                                display: 'flex',
-                                flexDirection: 'flex-start',
-                                paddingLeft: '10px'
-                                
-                            }}>
-                                <Checkbox 
-                                    indeterminate={this.state.indeterminate} onChange={this.handleAllCheckChange} checked={this.state.checkAll}
-                                >all</Checkbox>
-                            </Col>
-                            <Checkbox.Group 
-                                style={{
-                                    textAlign:'left',
-                                    width: '100%',
-                                    paddingLeft: '10px'
-                                }}
-                                value={chooseTypes} 
-                                onChange={this.handleCheckChange} 
-                            >
-                                {
-                                    [0, 2, 4, 6].map(v=>{
+                            <Option value="comparison">comparison</Option>
+                            <Option value="find">find</Option>
+                            <Option value="none">none</Option>
+                        </Select>
+                    </div>
+                    <div className="change-option-item">
+                        <div>basedType:</div>
+                        <Select
+                            value={this.props.options.basedType}
+                            style={{ width: 120 }}
+                            onChange={(value)=>this.handleTaskPanelChange('basedType', value)}
+                        >
+                            <Option value="attr">attr</Option>
+                            <Option value="structure">structure</Option>
+                        </Select>
+                    </div>
+                    <div className="change-option-item">
+                        <Collapse
+                            expandIconPosition={'right'}
+                            style={{
+                                backgroundColor: '#ffffff',
+                                width: '100%'
+                            }}
+                            defaultActiveKey={['1']}
+                        >
+                            <Panel key="1" className="nlsp-panel" header={'chooseTypes'}>
+                                <Col
+                                    style={{
+                                        width: '50%',
+                                        display: 'flex',
+                                        flexDirection: 'flex-start',
+                                        paddingLeft: '10px'
+                                    }}
+                                >
+                                    <Checkbox
+                                        indeterminate={this.state.indeterminate}
+                                        onChange={this.handleAllCheckChange}
+                                        checked={this.state.checkAll}
+                                    >
+                                        all
+                                    </Checkbox>
+                                </Col>
+                                <Checkbox.Group
+                                    style={{
+                                        textAlign: 'left',
+                                        width: '100%',
+                                        paddingLeft: '10px'
+                                    }}
+                                    value={chooseTypes}
+                                    onChange={this.handleCheckChange}
+                                >
+                                    {[0, 2, 4, 6].map((v) => {
                                         return (
-                                            <Row 
+                                            <Row
                                                 style={{
-                                                    width: '100%',
+                                                    width: '100%'
                                                 }}
-                                                key = {`row-${v}`}
+                                                key={`row-${v}`}
                                             >
-                                                <Col style={{
-                                                    width: '55%',
-                                                    display: 'flex',
-                                                    flexDirection: 'flex-start',
-                                                }}>
-                                                    <Checkbox 
-                                                        value={COMPARISON_CONFIG[v]}>{COMPARISON_CONFIG[v]}</Checkbox>
+                                                <Col
+                                                    style={{
+                                                        width: '55%',
+                                                        display: 'flex',
+                                                        flexDirection: 'flex-start'
+                                                    }}
+                                                >
+                                                    <Checkbox value={COMPARISON_CONFIG[v]}>
+                                                        {COMPARISON_CONFIG[v]}
+                                                    </Checkbox>
                                                 </Col>
-                                                <Col style={{
-                                                    width: '45%',
-                                                    display: 'flex',
-                                                    flexDirection: 'flex-start',
-                                                }}>
-                                                     <Checkbox value={COMPARISON_CONFIG[v+1]}>{COMPARISON_CONFIG[v+1]}</Checkbox>
+                                                <Col
+                                                    style={{
+                                                        width: '45%',
+                                                        display: 'flex',
+                                                        flexDirection: 'flex-start'
+                                                    }}
+                                                >
+                                                    <Checkbox value={COMPARISON_CONFIG[v + 1]}>
+                                                        {COMPARISON_CONFIG[v + 1]}
+                                                    </Checkbox>
                                                 </Col>
                                             </Row>
                                         )
-                                    })
-                                }
-                            </Checkbox.Group>
-                        </Panel>
-                    </Collapse>
-                </div>
+                                    })}
+                                </Checkbox.Group>
+                            </Panel>
+                        </Collapse>
+                    </div>
                     <div className="change-option-item">
                         <div>KeyFrame:</div>
                         <Select
                             value={keyFrame}
                             style={{ width: TPIW }}
                             size="small"
-                            onChange={(value) =>
-                                this.handleSelectChange(value, 'keyFrame')}
-                        >   {
-                                KEYFRAM_OPTIONS.map(v=>{
-                                    return (
-                                        <Option key={v} value={v}>{v}</Option>
-                                    )
-                                })
-                            }
+                            onChange={(value) => this.handleSelectChange(value, 'keyFrame')}
+                        >
+                            {' '}
+                            {KEYFRAM_OPTIONS.map((v) => {
+                                return (
+                                    <Option key={v} value={v}>
+                                        {v}
+                                    </Option>
+                                )
+                            })}
                         </Select>
                     </div>
                     <div className="change-option-item">
@@ -208,15 +250,16 @@ export default class ComparisonPanel extends React.Component {
                             value={elements}
                             style={{ width: TPIW }}
                             size="small"
-                            onChange={(value) =>
-                                this.handleSelectChange(value, 'elements')}
-                        >   {
-                                TIME_TIMELINE_ELEMENT.map(v=>{
-                                    return (
-                                        <Option key={v} value={v}>{v}</Option>
-                                    )
-                                })
-                            }
+                            onChange={(value) => this.handleSelectChange(value, 'elements')}
+                        >
+                            {' '}
+                            {TIME_TIMELINE_ELEMENT.map((v) => {
+                                return (
+                                    <Option key={v} value={v}>
+                                        {v}
+                                    </Option>
+                                )
+                            })}
                         </Select>
                     </div>
                     <div className="comparison-table-container">
@@ -226,7 +269,7 @@ export default class ComparisonPanel extends React.Component {
                                 buttonStyle="solid"
                                 onChange={this.handleColumnChange}
                                 value={chooseItem.split('-')[0]}
-                                className='first-line-right'
+                                className="first-line-right"
                             >
                                 <Radio.Button style={columnButtonStyle} value="appear">
                                     appear
@@ -311,9 +354,8 @@ export default class ComparisonPanel extends React.Component {
                         type={chooseItem.split('-')[1]}
                         optionKey={chooseItem.split('-').join('')}
                         changeOptions={changeOptions}
-                        onSubmit={this.props.onSubmit}
+                        onSubmit={this.handleComparisonChange}
                     />
-
                 </div>
             </div>
         )

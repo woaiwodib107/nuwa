@@ -26,7 +26,7 @@ export default class LayoutPanel extends React.Component {
                             style={{ width: 120 }}
                             onChange={this.handleStrokeTypeChange}
                         >   
-                            <Option value="offLine">offLine</Option>
+                            <Option value="forceDirect">forceDirect</Option>
                             <Option value="vertical">vertical</Option>
                             <Option value="circular">circular</Option>
                             <Option value="circular">dagre</Option>

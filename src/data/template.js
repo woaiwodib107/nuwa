@@ -7,7 +7,7 @@ export const defaultTemplates =  [
         "eachHeight": 250,
         "margin": 30,
         "layout": {
-          "chooseType": "offLine",
+          "chooseType": "forceDirect",
           "vertical": { "yDistance": 40, "linkStyle": { "shape": "curve" } },
           "offLine": {},
           "onLine": {},
@@ -33,84 +33,80 @@ export const defaultTemplates =  [
           "strokeDasharray": "3,3"
         }
       },
-      "layout": {
-        "chooseType": "offLine",
-        "vertical": { "yDistance": 40, "linkStyle": { "shape": "curve" } },
-        "offLine": {},
-        "onLine": {},
-        "bipartite": {},
-        "circle": {}
+      "task": {
+          "taskType": 'comparison',
+          "basedType": 'structure',
+          "comparison": {
+            "chooseItem": "stable-Node",
+            "chooseTypes": [
+              "shape",
+              "fillColor",
+              "strokeColor",
+              "strokeWidth",
+              "strokeType",
+              "radius",
+              "strokeDasharray",
+              "textColor"
+            ],
+            "keyFrame": "next",
+            "elements": "all",
+            "appearNode": {
+              "shape": "rect",
+              "fillColor": "#FD8F8F",
+              "strokeColor": "#000000",
+              "strokeWidth": 1,
+              "strokeType": "solid",
+              "textColor": "white",
+              "radius": 8,
+              "opacity": 1
+            },
+            "stableNode": {
+              "shape": "circle",
+              "fillColor": "#DAD5D5",
+              "strokeColor": "#000000",
+              "strokeWidth": 1,
+              "radius": 6,
+              "strokeType": "solid",
+              "textColor": "white",
+              "opacity": 1
+            },
+            "disappearNode": {
+              "shape": "circle",
+              "fillColor": "#90B5FB",
+              "strokeColor": "#000000",
+              "strokeWidth": 1,
+              "radius": 8,
+              "strokeType": "solid",
+              "textColor": "white",
+              "opacity": 1
+            },
+            "appearLink": {
+              "shape": "curve",
+              "strokeColor": "#FD8F8F",
+              "strokeType": "solid",
+              "strokeWidth": 3,
+              "opacity": 1,
+              "strokeDasharray": "3,3"
+            },
+            "stableLink": {
+              "shape": "line",
+              "strokeColor": "#908F8F",
+              "strokeType": "solid",
+              "strokeWidth": 1,
+              "opacity": 1,
+              "strokeDasharray": "3,3"
+            },
+            "disappearLink": {
+              "shape": "curve",
+              "strokeColor": "#90B5FB",
+              "strokeType": "solid",
+              "strokeWidth": 3,
+              "opacity": 1,
+              "strokeDasharray": "3,3"
+            }
+          },
       },
-      "comparison": {
-        "isOn": true,
-        "chooseItem": "stable-Node",
-        "chooseTypes": [
-          "shape",
-          "fillColor",
-          "strokeColor",
-          "strokeWidth",
-          "strokeType",
-          "radius",
-          "strokeDasharray",
-          "textColor"
-        ],
-        "keyFrame": "next",
-        "elements": "all",
-        "appearNode": {
-          "shape": "rect",
-          "fillColor": "#FD8F8F",
-          "strokeColor": "#000000",
-          "strokeWidth": 1,
-          "strokeType": "solid",
-          "textColor": "white",
-          "radius": 8,
-          "opacity": 1
-        },
-        "stableNode": {
-          "shape": "circle",
-          "fillColor": "#DAD5D5",
-          "strokeColor": "#000000",
-          "strokeWidth": 1,
-          "radius": 6,
-          "strokeType": "solid",
-          "textColor": "white",
-          "opacity": 1
-        },
-        "disappearNode": {
-          "shape": "circle",
-          "fillColor": "#90B5FB",
-          "strokeColor": "#000000",
-          "strokeWidth": 1,
-          "radius": 8,
-          "strokeType": "solid",
-          "textColor": "white",
-          "opacity": 1
-        },
-        "appearLink": {
-          "shape": "curve",
-          "strokeColor": "#FD8F8F",
-          "strokeType": "solid",
-          "strokeWidth": 3,
-          "opacity": 1,
-          "strokeDasharray": "3,3"
-        },
-        "stableLink": {
-          "shape": "line",
-          "strokeColor": "#908F8F",
-          "strokeType": "solid",
-          "strokeWidth": 1,
-          "opacity": 1,
-          "strokeDasharray": "3,3"
-        },
-        "disappearLink": {
-          "shape": "curve",
-          "strokeColor": "#90B5FB",
-          "strokeType": "solid",
-          "strokeWidth": 3,
-          "opacity": 1,
-          "strokeDasharray": "3,3"
-        }
-      },
+      
       "time": {
         "chooseTypes": ["timeLine"],
         "timeLine": { "xDistance": 250, "yDistance": 0, "element": "all" },
@@ -163,7 +159,7 @@ export const defaultTemplates =  [
         "eachHeight": 250,
         "margin": 30,
         "layout": {
-          "chooseType": "offLine",
+          "chooseType": "forceDirect",
           "vertical": { "yDistance": 40, "linkStyle": { "shape": "curve" } },
           "offLine": {},
           "onLine": {},
@@ -189,84 +185,80 @@ export const defaultTemplates =  [
           "strokeDasharray": "3,3"
         }
       },
-      "layout": {
-        "chooseType": "offLine",
-        "vertical": { "yDistance": 40, "linkStyle": { "shape": "curve" } },
-        "offLine": {},
-        "onLine": {},
-        "bipartite": {},
-        "circle": {}
-      },
-      "comparison": {
-        "isOn": true,
-        "chooseItem": "stable-Node",
-        "chooseTypes": [
-          "shape",
-          "fillColor",
-          "strokeColor",
-          "strokeWidth",
-          "strokeType",
-          "radius",
-          "strokeDasharray",
-          "textColor"
-        ],
-        "keyFrame": "next",
-        "elements": "all",
-        "appearNode": {
-          "shape": "rect",
-          "fillColor": "#FD8F8F",
-          "strokeColor": "#000000",
-          "strokeWidth": 1,
-          "strokeType": "solid",
-          "textColor": "white",
-          "radius": 8,
-          "opacity": 1
+      "task": {
+        "taskType": 'comparison',
+        "basedType": 'structure',
+        "comparison": {
+          "chooseItem": "stable-Node",
+          "chooseTypes": [
+            "shape",
+            "fillColor",
+            "strokeColor",
+            "strokeWidth",
+            "strokeType",
+            "radius",
+            "strokeDasharray",
+            "textColor"
+          ],
+          "keyFrame": "next",
+          "elements": "all",
+          "appearNode": {
+            "shape": "rect",
+            "fillColor": "#FD8F8F",
+            "strokeColor": "#000000",
+            "strokeWidth": 1,
+            "strokeType": "solid",
+            "textColor": "white",
+            "radius": 8,
+            "opacity": 1
+          },
+          "stableNode": {
+            "shape": "circle",
+            "fillColor": "#DAD5D5",
+            "strokeColor": "#000000",
+            "strokeWidth": 1,
+            "radius": 6,
+            "strokeType": "solid",
+            "textColor": "white",
+            "opacity": 1
+          },
+          "disappearNode": {
+            "shape": "circle",
+            "fillColor": "#90B5FB",
+            "strokeColor": "#000000",
+            "strokeWidth": 1,
+            "radius": 8,
+            "strokeType": "solid",
+            "textColor": "white",
+            "opacity": 1
+          },
+          "appearLink": {
+            "shape": "curve",
+            "strokeColor": "#FD8F8F",
+            "strokeType": "solid",
+            "strokeWidth": 3,
+            "opacity": 1,
+            "strokeDasharray": "3,3"
+          },
+          "stableLink": {
+            "shape": "line",
+            "strokeColor": "#908F8F",
+            "strokeType": "solid",
+            "strokeWidth": 1,
+            "opacity": 1,
+            "strokeDasharray": "3,3"
+          },
+          "disappearLink": {
+            "shape": "curve",
+            "strokeColor": "#90B5FB",
+            "strokeType": "solid",
+            "strokeWidth": 3,
+            "opacity": 1,
+            "strokeDasharray": "3,3"
+          }
         },
-        "stableNode": {
-          "shape": "circle",
-          "fillColor": "#DAD5D5",
-          "strokeColor": "#000000",
-          "strokeWidth": 1,
-          "radius": 6,
-          "strokeType": "solid",
-          "textColor": "white",
-          "opacity": 1
-        },
-        "disappearNode": {
-          "shape": "circle",
-          "fillColor": "#90B5FB",
-          "strokeColor": "#000000",
-          "strokeWidth": 1,
-          "radius": 8,
-          "strokeType": "solid",
-          "textColor": "white",
-          "opacity": 1
-        },
-        "appearLink": {
-          "shape": "curve",
-          "strokeColor": "#FD8F8F",
-          "strokeType": "solid",
-          "strokeWidth": 3,
-          "opacity": 1,
-          "strokeDasharray": "3,3"
-        },
-        "stableLink": {
-          "shape": "line",
-          "strokeColor": "#908F8F",
-          "strokeType": "solid",
-          "strokeWidth": 1,
-          "opacity": 1,
-          "strokeDasharray": "3,3"
-        },
-        "disappearLink": {
-          "shape": "curve",
-          "strokeColor": "#90B5FB",
-          "strokeType": "solid",
-          "strokeWidth": 3,
-          "opacity": 1,
-          "strokeDasharray": "3,3"
-        }
-      },
+    },
+      
       "time": {
         "chooseTypes": ["timeLine", "animation"],
         "timeLine": { "xDistance": 250, "yDistance": 0, "element": "all" },
@@ -319,7 +311,7 @@ export const defaultTemplates =  [
         "eachHeight": 250,
         "margin": 30,
         "layout": {
-          "chooseType": "offLine",
+          "chooseType": "forceDirect",
           "vertical": { "yDistance": 40, "linkStyle": { "shape": "curve" } },
           "offLine": {},
           "onLine": {},
@@ -345,77 +337,80 @@ export const defaultTemplates =  [
           "strokeDasharray": "3,3"
         }
       },
-     
-      "comparison": {
-        "isOn": true,
-        "chooseItem": "stable-Node",
-        "chooseTypes": [
-          "shape",
-          "fillColor",
-          "strokeColor",
-          "strokeWidth",
-          "strokeType",
-          "radius",
-          "strokeDasharray",
-          "textColor"
-        ],
-        "keyFrame": "next",
-        "elements": "all",
-        "appearNode": {
-          "shape": "rect",
-          "fillColor": "#FD8F8F",
-          "strokeColor": "#000000",
-          "strokeWidth": 1,
-          "strokeType": "solid",
-          "textColor": "white",
-          "radius": 8,
-          "opacity": 1
+      "task": {
+        "taskType": 'comparison',
+        "basedType": 'structure',
+        "comparison": {
+          "chooseItem": "stable-Node",
+          "chooseTypes": [
+            "shape",
+            "fillColor",
+            "strokeColor",
+            "strokeWidth",
+            "strokeType",
+            "radius",
+            "strokeDasharray",
+            "textColor"
+          ],
+          "keyFrame": "next",
+          "elements": "all",
+          "appearNode": {
+            "shape": "rect",
+            "fillColor": "#FD8F8F",
+            "strokeColor": "#000000",
+            "strokeWidth": 1,
+            "strokeType": "solid",
+            "textColor": "white",
+            "radius": 8,
+            "opacity": 1
+          },
+          "stableNode": {
+            "shape": "circle",
+            "fillColor": "#DAD5D5",
+            "strokeColor": "#000000",
+            "strokeWidth": 1,
+            "radius": 6,
+            "strokeType": "solid",
+            "textColor": "white",
+            "opacity": 1
+          },
+          "disappearNode": {
+            "shape": "circle",
+            "fillColor": "#90B5FB",
+            "strokeColor": "#000000",
+            "strokeWidth": 1,
+            "radius": 8,
+            "strokeType": "solid",
+            "textColor": "white",
+            "opacity": 1
+          },
+          "appearLink": {
+            "shape": "curve",
+            "strokeColor": "#FD8F8F",
+            "strokeType": "solid",
+            "strokeWidth": 3,
+            "opacity": 1,
+            "strokeDasharray": "3,3"
+          },
+          "stableLink": {
+            "shape": "line",
+            "strokeColor": "#908F8F",
+            "strokeType": "solid",
+            "strokeWidth": 1,
+            "opacity": 1,
+            "strokeDasharray": "3,3"
+          },
+          "disappearLink": {
+            "shape": "curve",
+            "strokeColor": "#90B5FB",
+            "strokeType": "solid",
+            "strokeWidth": 3,
+            "opacity": 1,
+            "strokeDasharray": "3,3"
+          }
         },
-        "stableNode": {
-          "shape": "circle",
-          "fillColor": "#DAD5D5",
-          "strokeColor": "#000000",
-          "strokeWidth": 1,
-          "radius": 6,
-          "strokeType": "solid",
-          "textColor": "white",
-          "opacity": 1
-        },
-        "disappearNode": {
-          "shape": "circle",
-          "fillColor": "#90B5FB",
-          "strokeColor": "#000000",
-          "strokeWidth": 1,
-          "radius": 8,
-          "strokeType": "solid",
-          "textColor": "white",
-          "opacity": 1
-        },
-        "appearLink": {
-          "shape": "curve",
-          "strokeColor": "#FD8F8F",
-          "strokeType": "solid",
-          "strokeWidth": 3,
-          "opacity": 1,
-          "strokeDasharray": "3,3"
-        },
-        "stableLink": {
-          "shape": "line",
-          "strokeColor": "#908F8F",
-          "strokeType": "solid",
-          "strokeWidth": 1,
-          "opacity": 1,
-          "strokeDasharray": "3,3"
-        },
-        "disappearLink": {
-          "shape": "curve",
-          "strokeColor": "#90B5FB",
-          "strokeType": "solid",
-          "strokeWidth": 3,
-          "opacity": 1,
-          "strokeDasharray": "3,3"
-        }
-      },
+    },
+      
       "time": {
         "chooseTypes": ["timeLine", "markLine"],
         "timeLine": { "xDistance": 250, "yDistance": 0, "element": "all" },
@@ -468,7 +463,7 @@ export const defaultTemplates =  [
         "eachHeight": 250,
         "margin": 30,
         "layout": {
-          "chooseType": "offLine",
+          "chooseType": "forceDirect",
           "vertical": { "yDistance": 40, "linkStyle": { "shape": "curve" } },
           "offLine": {},
           "onLine": {},
@@ -494,77 +489,81 @@ export const defaultTemplates =  [
           "strokeDasharray": "3,3"
         }
       },
+      "task": {
+        "taskType": 'comparison',
+        "basedType": 'structure',
+        "comparison": {
+          "isOn": true,
+          "chooseItem": "stable-Node",
+          "chooseTypes": [
+            "shape",
+            "fillColor",
+            "strokeColor",
+            "strokeWidth",
+            "strokeType",
+            "radius",
+            "strokeDasharray",
+            "textColor"
+          ],
+          "keyFrame": "next",
+          "elements": "all",
+          "appearNode": {
+            "shape": "rect",
+            "fillColor": "#FD8F8F",
+            "strokeColor": "#000000",
+            "strokeWidth": 1,
+            "strokeType": "solid",
+            "textColor": "white",
+            "radius": 8,
+            "opacity": 1
+          },
+          "stableNode": {
+            "shape": "circle",
+            "fillColor": "#DAD5D5",
+            "strokeColor": "#000000",
+            "strokeWidth": 1,
+            "radius": 6,
+            "strokeType": "solid",
+            "textColor": "white",
+            "opacity": 1
+          },
+          "disappearNode": {
+            "shape": "circle",
+            "fillColor": "#90B5FB",
+            "strokeColor": "#000000",
+            "strokeWidth": 1,
+            "radius": 8,
+            "strokeType": "solid",
+            "textColor": "white",
+            "opacity": 1
+          },
+          "appearLink": {
+            "shape": "curve",
+            "strokeColor": "#FD8F8F",
+            "strokeType": "solid",
+            "strokeWidth": 3,
+            "opacity": 1,
+            "strokeDasharray": "3,3"
+          },
+          "stableLink": {
+            "shape": "line",
+            "strokeColor": "#908F8F",
+            "strokeType": "solid",
+            "strokeWidth": 1,
+            "opacity": 1,
+            "strokeDasharray": "3,3"
+          },
+          "disappearLink": {
+            "shape": "curve",
+            "strokeColor": "#90B5FB",
+            "strokeType": "solid",
+            "strokeWidth": 3,
+            "opacity": 1,
+            "strokeDasharray": "3,3"
+          }
+        },
+    },
       
-      "comparison": {
-        "isOn": true,
-        "chooseItem": "stable-Node",
-        "chooseTypes": [
-          "shape",
-          "fillColor",
-          "strokeColor",
-          "strokeWidth",
-          "strokeType",
-          "radius",
-          "strokeDasharray",
-          "textColor"
-        ],
-        "keyFrame": "next",
-        "elements": "all",
-        "appearNode": {
-          "shape": "rect",
-          "fillColor": "#FD8F8F",
-          "strokeColor": "#000000",
-          "strokeWidth": 1,
-          "strokeType": "solid",
-          "textColor": "white",
-          "radius": 8,
-          "opacity": 1
-        },
-        "stableNode": {
-          "shape": "circle",
-          "fillColor": "#DAD5D5",
-          "strokeColor": "#000000",
-          "strokeWidth": 1,
-          "radius": 6,
-          "strokeType": "solid",
-          "textColor": "white",
-          "opacity": 1
-        },
-        "disappearNode": {
-          "shape": "circle",
-          "fillColor": "#90B5FB",
-          "strokeColor": "#000000",
-          "strokeWidth": 1,
-          "radius": 8,
-          "strokeType": "solid",
-          "textColor": "white",
-          "opacity": 1
-        },
-        "appearLink": {
-          "shape": "curve",
-          "strokeColor": "#FD8F8F",
-          "strokeType": "solid",
-          "strokeWidth": 3,
-          "opacity": 1,
-          "strokeDasharray": "3,3"
-        },
-        "stableLink": {
-          "shape": "line",
-          "strokeColor": "#908F8F",
-          "strokeType": "solid",
-          "strokeWidth": 1,
-          "opacity": 1,
-          "strokeDasharray": "3,3"
-        },
-        "disappearLink": {
-          "shape": "curve",
-          "strokeColor": "#90B5FB",
-          "strokeType": "solid",
-          "strokeWidth": 3,
-          "opacity": 1,
-          "strokeDasharray": "3,3"
-        }
-      },
       "time": {
         "chooseTypes": ["timeLine", "markLine", "insert"],
         "timeLine": { "xDistance": 250, "yDistance": 0, "element": "all" },
@@ -617,7 +616,7 @@ export const defaultTemplates =  [
         "eachHeight": 250,
         "margin": 30,
         "layout": {
-          "chooseType": "offLine",
+          "chooseType": "forceDirect",
           "vertical": { "yDistance": 40, "linkStyle": { "shape": "curve" } },
           "offLine": {},
           "onLine": {},
@@ -643,77 +642,80 @@ export const defaultTemplates =  [
           "strokeDasharray": "3,3"
         }
       },
-      
-      "comparison": {
-        "isOn": false,
-        "chooseItem": "stable-Node",
-        "chooseTypes": [
-          "shape",
-          "fillColor",
-          "strokeColor",
-          "strokeWidth",
-          "strokeType",
-          "radius",
-          "strokeDasharray",
-          "textColor"
-        ],
-        "keyFrame": "next",
-        "elements": "all",
-        "appearNode": {
-          "shape": "rect",
-          "fillColor": "#FD8F8F",
-          "strokeColor": "#000000",
-          "strokeWidth": 1,
-          "strokeType": "solid",
-          "textColor": "white",
-          "radius": 8,
-          "opacity": 1
+      "task": {
+        "taskType": 'find',
+        "basedType": 'structure',
+        "comparison": {
+          "chooseItem": "stable-Node",
+          "chooseTypes": [
+            "shape",
+            "fillColor",
+            "strokeColor",
+            "strokeWidth",
+            "strokeType",
+            "radius",
+            "strokeDasharray",
+            "textColor"
+          ],
+          "keyFrame": "next",
+          "elements": "all",
+          "appearNode": {
+            "shape": "rect",
+            "fillColor": "#FD8F8F",
+            "strokeColor": "#000000",
+            "strokeWidth": 1,
+            "strokeType": "solid",
+            "textColor": "white",
+            "radius": 8,
+            "opacity": 1
+          },
+          "stableNode": {
+            "shape": "circle",
+            "fillColor": "#DAD5D5",
+            "strokeColor": "#000000",
+            "strokeWidth": 1,
+            "radius": 6,
+            "strokeType": "solid",
+            "textColor": "white",
+            "opacity": 1
+          },
+          "disappearNode": {
+            "shape": "circle",
+            "fillColor": "#90B5FB",
+            "strokeColor": "#000000",
+            "strokeWidth": 1,
+            "radius": 8,
+            "strokeType": "solid",
+            "textColor": "white",
+            "opacity": 1
+          },
+          "appearLink": {
+            "shape": "curve",
+            "strokeColor": "#FD8F8F",
+            "strokeType": "solid",
+            "strokeWidth": 3,
+            "opacity": 1,
+            "strokeDasharray": "3,3"
+          },
+          "stableLink": {
+            "shape": "line",
+            "strokeColor": "#908F8F",
+            "strokeType": "solid",
+            "strokeWidth": 1,
+            "opacity": 1,
+            "strokeDasharray": "3,3"
+          },
+          "disappearLink": {
+            "shape": "curve",
+            "strokeColor": "#90B5FB",
+            "strokeType": "solid",
+            "strokeWidth": 3,
+            "opacity": 1,
+            "strokeDasharray": "3,3"
+          }
         },
-        "stableNode": {
-          "shape": "circle",
-          "fillColor": "#DAD5D5",
-          "strokeColor": "#000000",
-          "strokeWidth": 1,
-          "radius": 6,
-          "strokeType": "solid",
-          "textColor": "white",
-          "opacity": 1
-        },
-        "disappearNode": {
-          "shape": "circle",
-          "fillColor": "#90B5FB",
-          "strokeColor": "#000000",
-          "strokeWidth": 1,
-          "radius": 8,
-          "strokeType": "solid",
-          "textColor": "white",
-          "opacity": 1
-        },
-        "appearLink": {
-          "shape": "curve",
-          "strokeColor": "#FD8F8F",
-          "strokeType": "solid",
-          "strokeWidth": 3,
-          "opacity": 1,
-          "strokeDasharray": "3,3"
-        },
-        "stableLink": {
-          "shape": "line",
-          "strokeColor": "#908F8F",
-          "strokeType": "solid",
-          "strokeWidth": 1,
-          "opacity": 1,
-          "strokeDasharray": "3,3"
-        },
-        "disappearLink": {
-          "shape": "curve",
-          "strokeColor": "#90B5FB",
-          "strokeType": "solid",
-          "strokeWidth": 3,
-          "opacity": 1,
-          "strokeDasharray": "3,3"
-        }
-      },
+    },
+     
       "time": {
         "chooseTypes": ["timeLine", "markLine", "insert"],
         "timeLine": { "xDistance": 250, "yDistance": 0, "element": "all" },
@@ -792,84 +794,81 @@ export const defaultTemplates =  [
           "strokeDasharray": "3,3"
         }
       },
-      "layout": {
-        "chooseType": "vertical",
-        "vertical": { "yDistance": 40, "linkStyle": { "shape": "curve" } },
-        "offLine": {},
-        "onLine": {},
-        "bipartite": {},
-        "circle": {}
-      },
-      "comparison": {
-        "isOn": true,
-        "chooseItem": "stable-Node",
-        "chooseTypes": [
-          "shape",
-          "fillColor",
-          "strokeColor",
-          "strokeWidth",
-          "strokeType",
-          "radius",
-          "strokeDasharray",
-          "textColor"
-        ],
-        "keyFrame": "next",
-        "elements": "all",
-        "appearNode": {
-          "shape": "rect",
-          "fillColor": "#FD8F8F",
-          "strokeColor": "#000000",
-          "strokeWidth": 1,
-          "strokeType": "solid",
-          "textColor": "white",
-          "radius": 8,
-          "opacity": 1
+      "task": {
+        "taskType": 'comparison',
+        "basedType": 'structure',
+        "comparison": {
+          "isOn": true,
+          "chooseItem": "stable-Node",
+          "chooseTypes": [
+            "shape",
+            "fillColor",
+            "strokeColor",
+            "strokeWidth",
+            "strokeType",
+            "radius",
+            "strokeDasharray",
+            "textColor"
+          ],
+          "keyFrame": "next",
+          "elements": "all",
+          "appearNode": {
+            "shape": "rect",
+            "fillColor": "#FD8F8F",
+            "strokeColor": "#000000",
+            "strokeWidth": 1,
+            "strokeType": "solid",
+            "textColor": "white",
+            "radius": 8,
+            "opacity": 1
+          },
+          "stableNode": {
+            "shape": "circle",
+            "fillColor": "#DAD5D5",
+            "strokeColor": "#000000",
+            "strokeWidth": 1,
+            "radius": 6,
+            "strokeType": "solid",
+            "textColor": "white",
+            "opacity": 1
+          },
+          "disappearNode": {
+            "shape": "circle",
+            "fillColor": "#90B5FB",
+            "strokeColor": "#000000",
+            "strokeWidth": 1,
+            "radius": 8,
+            "strokeType": "solid",
+            "textColor": "white",
+            "opacity": 1
+          },
+          "appearLink": {
+            "shape": "curve",
+            "strokeColor": "#FD8F8F",
+            "strokeType": "solid",
+            "strokeWidth": 3,
+            "opacity": 1,
+            "strokeDasharray": "3,3"
+          },
+          "stableLink": {
+            "shape": "line",
+            "strokeColor": "#908F8F",
+            "strokeType": "solid",
+            "strokeWidth": 1,
+            "opacity": 1,
+            "strokeDasharray": "3,3"
+          },
+          "disappearLink": {
+            "shape": "curve",
+            "strokeColor": "#90B5FB",
+            "strokeType": "solid",
+            "strokeWidth": 3,
+            "opacity": 1,
+            "strokeDasharray": "3,3"
+          }
         },
-        "stableNode": {
-          "shape": "circle",
-          "fillColor": "#DAD5D5",
-          "strokeColor": "#000000",
-          "strokeWidth": 1,
-          "radius": 6,
-          "strokeType": "solid",
-          "textColor": "white",
-          "opacity": 1
-        },
-        "disappearNode": {
-          "shape": "circle",
-          "fillColor": "#90B5FB",
-          "strokeColor": "#000000",
-          "strokeWidth": 1,
-          "radius": 8,
-          "strokeType": "solid",
-          "textColor": "white",
-          "opacity": 1
-        },
-        "appearLink": {
-          "shape": "curve",
-          "strokeColor": "#FD8F8F",
-          "strokeType": "solid",
-          "strokeWidth": 3,
-          "opacity": 1,
-          "strokeDasharray": "3,3"
-        },
-        "stableLink": {
-          "shape": "line",
-          "strokeColor": "#908F8F",
-          "strokeType": "solid",
-          "strokeWidth": 1,
-          "opacity": 1,
-          "strokeDasharray": "3,3"
-        },
-        "disappearLink": {
-          "shape": "curve",
-          "strokeColor": "#90B5FB",
-          "strokeType": "solid",
-          "strokeWidth": 3,
-          "opacity": 1,
-          "strokeDasharray": "3,3"
-        }
-      },
+    },
+     
       "time": {
         "chooseTypes": ["timeLine", "markLine"],
         "timeLine": { "xDistance": 250, "yDistance": 0, "element": "all" },

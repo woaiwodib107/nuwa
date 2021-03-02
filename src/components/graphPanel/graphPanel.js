@@ -101,7 +101,7 @@ export default class GraphPanel extends React.Component {
                             style={{ width: 120 }}
                             onChange={this.handleLayoutTypeChange}
                         >   
-                            <Option value="offLine">offLine</Option>
+                            <Option value="forceDirect">forceDirect</Option>
                             <Option value="vertical">vertical</Option>
                             <Option value="circular">circular</Option>
                             <Option value="dagre">dagre</Option>

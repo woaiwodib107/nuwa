@@ -410,19 +410,20 @@ export const getPiePathColor = (len, startColor, endColor) => {
 }
 
 function getChooseComparisonStyle(configs) {
+    const tempComparison = configs.task.comparison
     const comparisonNode = _.cloneDeep({
-        stableNode: configs.comparison.stableNode,
-        appearNode: configs.comparison.appearNode,
-        disappearNode: configs.comparison.disappearNode
+        stableNode: tempComparison.stableNode,
+        appearNode: tempComparison.appearNode,
+        disappearNode: tempComparison.disappearNode
     })
     const basicNodeStyle = _.cloneDeep(configs.graph.nodeStyle)
     const comparisonLink = _.cloneDeep({
-        appearLink: configs.comparison.appearLink,
-        stableLink: configs.comparison.stableLink,
-        disappearLink: configs.comparison.disappearLink
+        appearLink: tempComparison.appearLink,
+        stableLink: tempComparison.stableLink,
+        disappearLink: tempComparison.disappearLink
     })
     const basicLinkStyle = _.cloneDeep(configs.graph.linkStyle)
-    configs.comparison.chooseTypes.forEach((v) => {
+    tempComparison.chooseTypes.forEach((v) => {
         delete basicNodeStyle[v]
         delete basicLinkStyle[v]
     })
