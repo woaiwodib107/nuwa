@@ -16,7 +16,7 @@ const rowButtonStyle = {
     alighItems: 'center'
 }
 
-export default class BasicPanel extends React.Component {
+export default class GraphPanel extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -50,7 +50,7 @@ export default class BasicPanel extends React.Component {
         const changeOptions = this.props.options[optionKey]
         return (
             <div className="basic-box">
-                <div className="sub-title">&nbsp;Basic</div>
+                <div className="sub-title">&nbsp;Graph</div>
                 <div className="encoding-table-container">
                     <div className="change-option-item">
                         <div>eachWidth:</div>

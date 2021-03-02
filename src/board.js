@@ -4,7 +4,7 @@ import TimePanel from './components/timePanel/timePanel.js'
 import Grammar from './components/grammar.js'
 import Preview from './components/preview/preview.js'
 import ComparisonPanel from './components/comparisonPanel/comparisonPanel.js'
-import BasicPanel from './components/basicPanel/basicPanel.js'
+import GraphPanel from './components/graphPanel/graphPanel.js'
 import LayoutPanel from './components/layoutPanel/layoutPanel.js'
 import ExampleBoard from './components/exampleBoard/exampleBoard.js'
 import TemplatePanel from './components/templatePanel/templatePanel.js'
@@ -273,7 +273,7 @@ export default class Board extends React.Component {
                     <div className="row">
                         <div className="col">
                             <Data onSubmit={this.handleSubmitFromData} />
-                            <BasicPanel
+                            <GraphPanel
                                 options={this.state.basic}
                                 onSubmit={this.handleSubmitFromBasic}
                             />
