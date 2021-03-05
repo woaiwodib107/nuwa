@@ -2,6 +2,7 @@ import React from 'react'
 import NodeItemContainer from '../../nodeItemContainer/nodeItemContainer.js'
 import LinkContainer from '../../linkContainer/linkContainer.js'
 import { getSvgWidthHeight } from '../../../util/dnetChart'
+import MarkLineItem from '../../markLineItem/markLineItem.js'
 
 export default function TimePositionDnet(props) {
     const { data, config, markLine } = props
@@ -17,7 +18,13 @@ export default function TimePositionDnet(props) {
             viewBox={`0 0 ${svgWidth} ${svgHeight}`}
             preserveAspectRatio="xMinYMin"
         >
-            <g>
+            {
+                markLine ? <MarkLineItem
+                    markLine = {markLine}
+                    markLineOptions = {markLineOptions}
+                />: null
+            }
+            {/* <g>
                 {markLine
                     ? markLine.map((links, index) => {
                           return (
@@ -42,7 +49,7 @@ export default function TimePositionDnet(props) {
                           )
                       })
                     : null}
-            </g>
+            </g> */}
             {data.map((dataItem, index) => {
                 return (
                     <g key={`subGraph-${index}`}>

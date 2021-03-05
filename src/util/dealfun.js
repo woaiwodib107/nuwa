@@ -268,7 +268,6 @@ export const mdsLayout = (sumGraphs, configs) => {
     })
     graph.data(data)
     graph.render()
-    console.log("graph.cfg.data", graph.cfg.data)
     const { nodes: rNodes, edges: rLinks } = graph.cfg.data
     let nodesObj = {}
     nodes.forEach((node, i) => {
@@ -282,6 +281,55 @@ export const mdsLayout = (sumGraphs, configs) => {
     })
     adjustLayout2Svg(nodes, links, eachWidth, eachHeight)
 }
+
+export const gridLayout = (sumGraphs, configs) => {
+    let { nodes, links } = sumGraphs
+    const gNodes = nodes.map((node) => {
+        return {
+            id: node.id
+        }
+    })
+    const gEdges = links.map((link) => {
+        return {
+            source: link.source,
+            target: link.target
+        }
+    })
+    const data = {
+        nodes: gNodes,
+        edges: gEdges
+    }
+    const { eachWidth, eachHeight, margin, layout } = configs.graph
+    var graph = new G6.Graph({
+        container: 'g6-graph-container',
+        width: eachWidth,
+        height: eachHeight,
+        // fitView: true,
+        // fitViewPadding: 20,
+        layout: {
+            type: 'grid',
+            begin: [ 0, 0 ],          // 可选，
+            condense: false,          // 可选
+            rows: layout.grid.rows,                  // 可选
+            sortBy: 'degree'
+        }
+    })
+    graph.data(data)
+    graph.render()
+    const { nodes: rNodes, edges: rLinks } = graph.cfg.data
+    let nodesObj = {}
+    nodes.forEach((node, i) => {
+        node.x = rNodes[i].x
+        node.y = rNodes[i].y
+        nodesObj[node.id] = { ...node }
+    })
+    links.forEach((link) => {
+        link.source = nodesObj[link.source]
+        link.target = nodesObj[link.target]
+    })
+    adjustLayout2Svg(nodes, links, eachWidth, eachHeight)
+}
+
 
 export const circularLayout = (sumGraphs, configs) => {
     let { nodes, links } = sumGraphs

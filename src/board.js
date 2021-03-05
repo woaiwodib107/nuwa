@@ -20,11 +20,11 @@ export default class Board extends React.Component {
             graph: {
                 // width: 250,
                 // height: 250,
-                eachWidth: 250,
-                eachHeight: 250,
+                eachWidth: 200,
+                eachHeight: 200,
                 margin: 30,
                 layout: {
-                    chooseType: 'mds',
+                    chooseType: 'grid',
                     vertical: {
                         yDistance: 40,
                         linkStyle: {
@@ -47,7 +47,10 @@ export default class Board extends React.Component {
     
                     },
                     mds: {
-                        
+
+                    },
+                    grid: {
+                        rows: 4
                     }
                 },
                 nodeStyle: {
@@ -70,9 +73,9 @@ export default class Board extends React.Component {
                 }
             },
             time: {
-                chooseTypes:['timeLine'],
+                chooseTypes:['timeLine', 'markLine', 'insert'],
                 timeLine: {
-                    xDistance: 270,
+                    xDistance: 200,
                     yDistance: 0,
                     // 有可能只对节点进行该操作
                     element: 'all',
@@ -82,7 +85,7 @@ export default class Board extends React.Component {
                     margin: 10,
                     nodeStyle: {
                         shape: 'circle',
-                        fillColor: '#ffcc00',
+                        fillColor: '#FF5F00',
                         strokeColor: '#000000',
                         strokeWidth: 1,
                         radius: 6,
@@ -111,7 +114,7 @@ export default class Board extends React.Component {
                     shape: 'line',
                     strokeType: 'dashed',
                     strokeColor: '#FD8F8F',
-                    strokeWidth: 2,
+                    strokeWidth: 1,
                     strokeDasharray: '5,5',
                     opacity:1,
                 }

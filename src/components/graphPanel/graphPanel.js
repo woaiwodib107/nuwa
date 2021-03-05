@@ -106,6 +106,7 @@ export default class GraphPanel extends React.Component {
                             <Option value="circular">circular</Option>
                             <Option value="dagre">dagre</Option>
                             <Option value="mds">mds</Option>
+                            <Option value="grid">grid</Option>
                         </Select>
                     </div>
                     <div className="basic-panel-line">
