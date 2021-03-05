@@ -18,6 +18,8 @@ export const MARK_LINK_TARGET = {
   y: 21
 }
 
+export const MARK_POINT_RADIUS = 4
+
 export const DNET_SAMPLE_WIDTH = 415
 export const DNET_SAMPLE_HEIGHT = 65
 

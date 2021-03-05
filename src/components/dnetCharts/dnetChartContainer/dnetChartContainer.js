@@ -21,7 +21,9 @@ export default function DnetChartContainer(props) {
             return <TimeAnimationDnet
                     sampleWidth={sampleWidth}
                     sampleHeight={sampleHeight} 
+                    markLine={markLine} 
                     data={subGraphs} 
+                    sumData={sumGraphs}
                     config={config} 
                     sampleWidth={sampleWidth}
                     isSample={isSample}

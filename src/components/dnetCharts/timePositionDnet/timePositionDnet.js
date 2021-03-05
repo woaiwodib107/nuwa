@@ -24,32 +24,6 @@ export default function TimePositionDnet(props) {
                     markLineOptions = {markLineOptions}
                 />: null
             }
-            {/* <g>
-                {markLine
-                    ? markLine.map((links, index) => {
-                          return (
-                              <g key={`curve-g-${index}`}>
-                                  {links.data.map((v, index) => {
-                                      return (
-                                          <path
-                                              d={v}
-                                              stroke={markLineOptions.strokeColor}
-                                              strokeWidth={`${markLineOptions.strokeWidth}px`}
-                                              opacity={markLineOptions.opacity}
-                                              strokeDasharray={
-                                                  markLineOptions.strokeType === 'solid'
-                                                      ? ''
-                                                      : markLineOptions.strokeDasharray
-                                              }
-                                              key={`curve-link-${index}`}
-                                          />
-                                      )
-                                  })}
-                              </g>
-                          )
-                      })
-                    : null}
-            </g> */}
             {data.map((dataItem, index) => {
                 return (
                     <g key={`subGraph-${index}`}>

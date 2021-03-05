@@ -6,7 +6,7 @@ import assign from 'assign-deep'
 
 const TIME_CONFIG = ['timeLine', 'animation', 'color', 'markLine', 'insert']
 const LAYOUT_CONFIG = ['offLine', 'vertical', 'onLine', 'circle', 'bipartite']
-export const INSERT_POSITION = ['top', 'bottom', 'left', 'right', 'center', 'topLeft', 'topRight', 'bottomRight', 'bottomLeft']
+export const INSERT_POSITION = [ 'origin', 'center', 'top', 'bottom', 'left', 'right', 'topLeft', 'topRight', 'bottomRight', 'bottomLeft']
 
 export const defaultConfigs_bak = {
     layout: {

@@ -3,6 +3,8 @@ import { Slider } from 'antd'
 import { PauseCircleOutlined, PlayCircleOutlined } from '@ant-design/icons'
 import NodeLinkGraph from '../../nodeLinkGraph/nodeLinkGraph.js'
 import { getSvgWidthHeight } from '../../../util/dnetChart'
+import MarkLineItem from '../../markLineItem/markLineItem.js'
+import MarkItemGraph from '../../markItemGraph/markItemGraph.js'
 import './timeAnimationDnet.css'
 
 export default function TimeAnimationDnet(props) {
@@ -10,8 +12,10 @@ export default function TimeAnimationDnet(props) {
     const [playOrPause, setPlayOrPause] = useState(false)
     const [svgWidth, setSvgWidth] = useState(0)
     const [svgHeight, setSvgHeight] = useState(0)
-    const { data, config } = props
-    const speed = config.time.animation.speed
+    const { data, config,sumData, markLine } = props
+    const timeConfig = config.time
+    const speed = timeConfig.animation.speed
+    const hasTimeLine = timeConfig.chooseTypes.indexOf('timeLine') > -1
     let timeout
 
     useEffect(() => {
@@ -64,12 +68,18 @@ export default function TimeAnimationDnet(props) {
     }
     return data[frameIndex] ? (
         <>
+            
             <NodeLinkGraph 
                 data={props.data[frameIndex]} 
                 height={svgHeight} 
                 sampleWidth={props.sampleWidth}
                 sampleHeight={props.sampleHeight}
-                width={svgWidth} />
+                width={svgWidth} 
+                sumData = {sumData}
+                markLine = {markLine}
+                markLineOptions = {timeConfig.markLine}
+                hasTimeLine = {hasTimeLine}
+            />
             {!props.isSample ? (
                 <div className="tad-control-container">
                     {playOrPause ? (

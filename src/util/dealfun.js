@@ -604,6 +604,7 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
 
 export const getGraphLayout = (timeGraphs, sumGraphs, configs) => {
     let { nodes, links } = sumGraphs
+
     const { eachWidth, eachHeight, margin } = configs.graph
     let { xDistance, yDistance } = configs.time.timeLine
     const layoutNodes = Object.fromEntries(nodes.map((d) => [d.id, d]))
@@ -612,26 +613,24 @@ export const getGraphLayout = (timeGraphs, sumGraphs, configs) => {
     // const l = timeGraphsValues.length
     const isCircular = configs.graph.layout.chooseType === 'circular'
     let timeNodeResult ={}
-    if(isCircular){
-        // 改变总图数据中time类型节点的位置
-        for(let node of nodes){
-            if(node.type === 'time') {
-                timeNodeResult = getInsertPosition(configs)
-                node.x = timeNodeResult.x
-                node.y = timeNodeResult.y
-                break
-            }
+    // 调整总图的图面边距
+    // 改变总图数据中time类型节点的位置
+    for(let node of nodes){
+        if(node.type === 'time'&&configs.time.insert.position!=='origin') {
+            timeNodeResult = getInsertPosition(configs)
+            node.x = timeNodeResult.x
+            node.y = timeNodeResult.y
         }
-        // console.log("outer---timeNodeResult",timeNodeResult)
-        for( let link of links) {
-            if(link.type === 'time') {
-                if(link.source.type === 'time'){
-                    link.source.x = timeNodeResult.x
-                    link.source.y = timeNodeResult.y
-                }else{
-                    link.target.x = timeNodeResult.x
-                    link.target.y = timeNodeResult.y
-                }
+    }
+    // console.log("outer---timeNodeResult",timeNodeResult)
+    for( let link of links) {
+        if(link.type === 'time') {
+            if(link.source.type === 'time'){
+                link.source.x = timeNodeResult.x
+                link.source.y = timeNodeResult.y
+            }else{
+                link.target.x = timeNodeResult.x
+                link.target.y = timeNodeResult.y
             }
         }
     }
@@ -681,12 +680,26 @@ export const getGraphLayout = (timeGraphs, sumGraphs, configs) => {
             assign(link, layoutLinks[link.id])
             link.source = graph.nodes[link.source.id]
             link.target = graph.nodes[link.target.id]
+
             if (configs.time.chooseTypes.indexOf('timeLine') > -1) {
                 link.source = { ...newNodes[link.sourceTimeId] }
                 link.target = { ...newNodes[link.targetTimeId] }
             }
         })
     })
+    for(let node of nodes){
+        node.x += margin
+        node.y += margin
+    }
+    // console.log("outer---timeNodeResult",timeNodeResult)
+    for( let link of links) {
+        if(link.type === 'time') {
+            link.source.x += margin
+            link.source.y += margin
+            link.target.x += margin
+            link.target.y += margin
+        }
+    }
     return timeGraphs
 }
 export const getComparison = () => {}

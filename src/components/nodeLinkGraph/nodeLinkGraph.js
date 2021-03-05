@@ -3,9 +3,11 @@ import NodeItemContainer from '../nodeItemContainer/nodeItemContainer.js'
 import LinkContainer from '../linkContainer/linkContainer.js'
 import Motion from '../motion/Motion'
 import { getLinkOpacity } from '../../util/dnetChart.js'
+import MarkLineItem from '../markLineItem/markLineItem.js'
+import MarkItemGraph from '../markItemGraph/markItemGraph.js'
 
 export default function NodeLinkGraph(props) {
-    const { data, width, height } = props
+    const { data, width, height,sumData, markLine, markLineOptions, hasTimeLine } = props
     return (
         <svg
             className="nlg-container-svg"
@@ -14,6 +16,16 @@ export default function NodeLinkGraph(props) {
             viewBox={`0 0 ${width} ${height}`}
             preserveAspectRatio="xMinYMin"
         >
+            {markLine ? 
+                (hasTimeLine ? <MarkLineItem
+                    markLine = {markLine}
+                    markLineOptions = {markLineOptions}
+                />:<MarkItemGraph
+                    data = {sumData}
+                    markLineOptions = {markLineOptions}
+                /> ):
+                null
+            }
             <g>
                 {data.links.map((v, i) => {
                     return (
