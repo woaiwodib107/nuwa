@@ -114,7 +114,7 @@ export default class TimePanel extends React.Component {
                                 <div>xDistance:</div>
                                 <InputNumber
                                     size="small"
-                                    min={1}
+                                    min={0}
                                     max={1000}
                                     value={options.timeLine.xDistance}
                                     onChange={(e) =>
@@ -127,7 +127,7 @@ export default class TimePanel extends React.Component {
                                 <div>yDistance:</div>
                                 <InputNumber
                                     size="small"
-                                    min={1}
+                                    min={0}
                                     max={1000}
                                     value={options.timeLine.yDistance}
                                     onChange={(e) =>

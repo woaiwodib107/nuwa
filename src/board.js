@@ -24,7 +24,7 @@ export default class Board extends React.Component {
                 eachHeight: 250,
                 margin: 30,
                 layout: {
-                    chooseType: 'dagre',
+                    chooseType: 'mds',
                     vertical: {
                         yDistance: 40,
                         linkStyle: {
@@ -45,6 +45,9 @@ export default class Board extends React.Component {
                     },
                     dagre: {
     
+                    },
+                    mds: {
+                        
                     }
                 },
                 nodeStyle: {
@@ -52,7 +55,7 @@ export default class Board extends React.Component {
                     fillColor: '#DAD5D5',
                     strokeColor: '#000000',
                     strokeWidth: 1,
-                    radius: 6,
+                    radius: 4,
                     strokeType: 'solid',
                     textColor: 'white',
                     opacity: 1
@@ -61,7 +64,7 @@ export default class Board extends React.Component {
                     shape: 'line',
                     strokeColor: '#908F8F',
                     strokeType: 'solid',
-                    strokeWidth: 2,
+                    strokeWidth: 1,
                     opacity: 1,
                     strokeDasharray: '3,3'
                 }
@@ -91,7 +94,7 @@ export default class Board extends React.Component {
                         shape: 'curve',
                         strokeColor: '#FF5F00',
                         strokeType: 'solid',
-                        strokeWidth: 2,
+                        strokeWidth: 1,
                         opacity: 1,
                         strokeDasharray: '3,3'
                     }
@@ -219,7 +222,7 @@ export default class Board extends React.Component {
                     shape: 'curve',
                     strokeColor: '#FD8F8F',
                     strokeType: 'solid',
-                    strokeWidth: 3,
+                    strokeWidth: 1,
                     opacity: 1,
                     strokeDasharray: '3,3'
                 },
@@ -235,7 +238,7 @@ export default class Board extends React.Component {
                     shape: 'curve',
                     strokeColor: '#90B5FB',
                     strokeType: 'solid',
-                    strokeWidth: 3,
+                    strokeWidth: 1,
                     opacity: 1,
                     strokeDasharray: '3,3'
                 }

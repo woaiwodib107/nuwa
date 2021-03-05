@@ -439,7 +439,7 @@ export function getRenderType(arr) {
     } else if (arr.indexOf('color') > -1) {
         return 'color'
     } else {
-        return 'timeLine'
+        return 'sumGraph'
     }
 }
 
@@ -574,6 +574,39 @@ export function getPiePathColor(len, startColor, endColor) {
     return colorScale
 }
 
+
+
+export function getCurveData(len, data ) {
+    const curveData = []
+    let lastStart = {
+        x: data.source.x,
+        y: data.source.y
+    }
+    const directFlag = data.source.y< data.target.y ? 1 : -1
+    const radius = Math.abs((data.source.y - data.target.y)/2)
+
+    const center = {
+        x: data.source.x,
+        y: (data.source.y + data.target.y)/2
+    }
+    
+    const stepAngle = Math.PI/len
+    let lastAngle = stepAngle
+
+    let i = 0
+    while (i < len) {
+        const newStart = {
+            x: center.x + directFlag*radius*Math.sin(lastAngle) ,
+            y: center.y - directFlag*radius*Math.cos(lastAngle) ,
+        }
+        curveData.push(`M ${lastStart.x} ${lastStart.y} A ${radius} ${radius} 0 0 1 ${newStart.x} ${newStart.y} `)
+        lastAngle += stepAngle
+        lastStart = newStart
+        i++
+    }
+    return curveData
+}
+
 export function getLineData(len, data) {
     const lineData = []
     let lastStart = {
@@ -597,6 +630,10 @@ export function getLineData(len, data) {
         i++
     }
     return lineData
+}
+
+export function getLinkData(len, data, shape) {
+    return shape === 'line' ?  getLineData(len, data): getCurveData(len, data)
 }
 
 // export function getArcPathData(y1, y2) {

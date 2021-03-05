@@ -71,6 +71,8 @@ class DNetV {
             // this.sumGraphs = u.verticalLayout(this.sumGraphs, this.configs)
         }else if( layout === 'dagre') {
             u.dagreLayout(this.sumGraphs, this.configs)
+        }else if( layout === 'mds') {
+            u.mdsLayout(this.sumGraphs, this.configs)
         }
         // 将位置信息放入每个子图中，并根据time调整位置
         u.getGraphLayout(this.timeGraphs, this.sumGraphs, this.configs)

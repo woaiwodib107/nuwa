@@ -76,7 +76,7 @@ body::-webkit-scrollbar-thumb {
     background: #fff;
     border: 1px solid rgb(68, 67, 67);
     border-radius: 8px;
-    height: 380px;
+    height: 480px;
     width: 280px;
     display: flex;
     flex-direction: column;
@@ -138,7 +138,7 @@ body::-webkit-scrollbar-thumb {
     background: #fff;
     border: 1px solid rgb(68, 67, 67);
     border-radius: 8px;
-    height: 600px;
+    height: 500px;
     width: 280px;
     display: flex;
     flex-direction: column;

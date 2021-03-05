@@ -98,7 +98,7 @@ export default function TemplatePanel(props) {
         <div
             style={{
                 width: `${props.width ? props.width : 1035}px`,
-                height: `${props.height ? props.height : 380}px`
+                height: `${props.height ? props.height : 480}px`
             }}
             className="template-panel-box"
         >

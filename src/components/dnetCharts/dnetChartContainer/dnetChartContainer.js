@@ -2,6 +2,7 @@ import React from 'react'
 import TimePositionDnet from '../timePositionDnet/timePositionDnet.js'
 import TimeAnimationDnet from '../timeAnimationDnet/timeAnimationDnet.js'
 import TimeColorDnet from '../timeColorDnet/timeColorDnet.js'
+import SumGraphDnet from '../sumGraphDnet/sumGraphDnet.js'
 
 export default function DnetChartContainer(props) {
 
@@ -27,6 +28,14 @@ export default function DnetChartContainer(props) {
                 />
         case 'color':
             return <TimeColorDnet 
+                    sampleWidth={sampleWidth}
+                    sampleHeight={sampleHeight}
+                    len={len} 
+                    data={sumGraphs} 
+                    config={config} 
+                    isSample={isSample}/>
+        case 'sumGraph':
+            return <SumGraphDnet 
                     sampleWidth={sampleWidth}
                     sampleHeight={sampleHeight}
                     len={len} 

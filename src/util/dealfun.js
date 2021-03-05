@@ -150,6 +150,7 @@ export function adjustLayout2Svg(nodes, links, width, height) {
     const translateX = minX - margin
     const translateY = minY - margin
     const nodeId2Coord = {}
+    // console.log("ratioX,ratioY, ratio,minX,maxX,minY, maxY", ratioX,ratioY, ratio,minX,maxX,minY, maxY)
     nodes.forEach((node) => {
         // 平移
         node.x -= translateX
@@ -172,19 +173,20 @@ export function adjustLayout2Svg(nodes, links, width, height) {
 
 export const verticalLayout = (sumGraphs, configs) => {
     let { nodes, links } = sumGraphs
-    const { eachWidth, eachHeight } = configs.graph
+    const { eachWidth, eachHeight, margin } = configs.graph
     const l = nodes.length
+    const step = (eachHeight - margin*2)/l
     let nodesObj = {}
     nodes.forEach((node, index) => {
-        node.y = (eachHeight / l) * index
-        node.x = 0
+        node.y = step * index + margin
+        node.x = eachWidth/2
         nodesObj[node.id] = { ...node }
     })
     links.forEach((link) => {
         link.source = nodesObj[link.source]
         link.target = nodesObj[link.target]
     })
-    adjustLayout2Svg(nodes, links, eachWidth, eachHeight)
+    // adjustLayout2Svg(nodes, links, eachWidth, eachHeight)
 
     return sumGraphs
 }
@@ -233,7 +235,52 @@ export const dagreLayout = (sumGraphs, configs) => {
         link.source = nodesObj[link.source]
         link.target = nodesObj[link.target]
     })
+    adjustLayout2Svg(nodes, links, eachWidth, eachHeight)
+}
 
+export const mdsLayout = (sumGraphs, configs) => {
+    let { nodes, links } = sumGraphs
+    const gNodes = nodes.map((node) => {
+        return {
+            id: node.id
+        }
+    })
+    const gEdges = links.map((link) => {
+        return {
+            source: link.source,
+            target: link.target
+        }
+    })
+    const data = {
+        nodes: gNodes,
+        edges: gEdges
+    }
+    const { eachWidth, eachHeight, margin } = configs.graph
+    var graph = new G6.Graph({
+        container: 'g6-graph-container',
+        width: eachWidth,
+        height: eachHeight,
+        // fitView: true,
+        // fitViewPadding: 20,
+        layout: {
+            type: 'mds'
+        }
+    })
+    graph.data(data)
+    graph.render()
+    console.log("graph.cfg.data", graph.cfg.data)
+    const { nodes: rNodes, edges: rLinks } = graph.cfg.data
+    let nodesObj = {}
+    nodes.forEach((node, i) => {
+        node.x = rNodes[i].x
+        node.y = rNodes[i].y
+        nodesObj[node.id] = { ...node }
+    })
+    links.forEach((link) => {
+        link.source = nodesObj[link.source]
+        link.target = nodesObj[link.target]
+    })
+    adjustLayout2Svg(nodes, links, eachWidth, eachHeight)
 }
 
 export const circularLayout = (sumGraphs, configs) => {
@@ -280,6 +327,7 @@ export const circularLayout = (sumGraphs, configs) => {
         link.source = nodesObj[link.source]
         link.target = nodesObj[link.target]
     })
+    adjustLayout2Svg(nodes, links, eachWidth, eachHeight)
 }
 
 export const timeASnode = (graphs) => {
@@ -514,6 +562,32 @@ export const getGraphLayout = (timeGraphs, sumGraphs, configs) => {
     const layoutLinks = Object.fromEntries(links.map((d) => [d.id, d]))
     let timeGraphsValues = Object.values(timeGraphs)
     // const l = timeGraphsValues.length
+    const isCircular = configs.graph.layout.chooseType === 'circular'
+    let timeNodeResult ={}
+    if(isCircular){
+        // 改变总图数据中time类型节点的位置
+        for(let node of nodes){
+            if(node.type === 'time') {
+                timeNodeResult = getInsertPosition(configs)
+                node.x = timeNodeResult.x
+                node.y = timeNodeResult.y
+                break
+            }
+        }
+        // console.log("outer---timeNodeResult",timeNodeResult)
+        for( let link of links) {
+            if(link.type === 'time') {
+                if(link.source.type === 'time'){
+                    link.source.x = timeNodeResult.x
+                    link.source.y = timeNodeResult.y
+                }else{
+                    link.target.x = timeNodeResult.x
+                    link.target.y = timeNodeResult.y
+                }
+            }
+        }
+    }
+    // 根据配置调整各帧图的位置
     let newNodes = {}
     const tempElement = configs.time.timeLine.element
     timeGraphsValues.forEach((graph) => {
@@ -521,11 +595,11 @@ export const getGraphLayout = (timeGraphs, sumGraphs, configs) => {
             // 将位置信息复制到各个子图上
             assign(node, layoutNodes[node.id])
             let { x, y, timeId, id } = node
-            if (node.type === 'time' && configs.graph.layout.chooseType === 'offLine') {
+            if (node.type === 'time' && isCircular) {
                 // 对代表time的节点的位置特殊处理
-                const result = getInsertPosition(configs)
-                node.x = result.x
-                node.y = result.y
+                node.x = timeNodeResult.x
+                node.y = timeNodeResult.y
+
             }
             if (configs.time.chooseTypes.indexOf('timeLine') === -1) {
                 xDistance = 0
