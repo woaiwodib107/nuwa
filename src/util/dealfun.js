@@ -605,35 +605,39 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
 export const getGraphLayout = (timeGraphs, sumGraphs, configs) => {
     let { nodes, links } = sumGraphs
 
-    const { eachWidth, eachHeight, margin } = configs.graph
+    const { margin } = configs.graph
     let { xDistance, yDistance } = configs.time.timeLine
     const layoutNodes = Object.fromEntries(nodes.map((d) => [d.id, d]))
     const layoutLinks = Object.fromEntries(links.map((d) => [d.id, d]))
     let timeGraphsValues = Object.values(timeGraphs)
-    // const l = timeGraphsValues.length
-    const isCircular = configs.graph.layout.chooseType === 'circular'
-    let timeNodeResult ={}
-    // 调整总图的图面边距
-    // 改变总图数据中time类型节点的位置
-    for(let node of nodes){
-        if(node.type === 'time'&&configs.time.insert.position!=='origin') {
-            timeNodeResult = getInsertPosition(configs)
-            node.x = timeNodeResult.x
-            node.y = timeNodeResult.y
+    
+    const isChangeInsertPosition = configs.time.chooseTypes.indexOf('insert')>-1 &&
+        configs.time.insert.position!='origin'
+    if(isChangeInsertPosition){
+        // 改变总图数据中time类型节点的位置
+        let timeNodeResult ={}
+        for(let node of nodes){
+            if(node.type === 'time') {
+                timeNodeResult = getInsertPosition(configs)
+                node.x = timeNodeResult.x
+                node.y = timeNodeResult.y
+                break
+            }
         }
-    }
-    // console.log("outer---timeNodeResult",timeNodeResult)
-    for( let link of links) {
-        if(link.type === 'time') {
-            if(link.source.type === 'time'){
-                link.source.x = timeNodeResult.x
-                link.source.y = timeNodeResult.y
-            }else{
-                link.target.x = timeNodeResult.x
-                link.target.y = timeNodeResult.y
+        // 改变总图数据中time类型链接的位置
+        for( let link of links) {
+            if(link.type === 'time') {
+                if(link.source.type === 'time'){
+                    link.source.x = timeNodeResult.x
+                    link.source.y = timeNodeResult.y
+                }else{
+                    link.target.x = timeNodeResult.x
+                    link.target.y = timeNodeResult.y
+                }
             }
         }
     }
+    
     // 根据配置调整各帧图的位置
     let newNodes = {}
     const tempElement = configs.time.timeLine.element
@@ -642,12 +646,7 @@ export const getGraphLayout = (timeGraphs, sumGraphs, configs) => {
             // 将位置信息复制到各个子图上
             assign(node, layoutNodes[node.id])
             let { x, y, timeId, id } = node
-            if (node.type === 'time' && isCircular) {
-                // 对代表time的节点的位置特殊处理
-                node.x = timeNodeResult.x
-                node.y = timeNodeResult.y
-
-            }
+            
             if (configs.time.chooseTypes.indexOf('timeLine') === -1) {
                 xDistance = 0
                 yDistance = 0
@@ -671,34 +670,36 @@ export const getGraphLayout = (timeGraphs, sumGraphs, configs) => {
                 x = node.x
                 y = node.y
             }
-            // 记录节点新的位置信息
+            // 记录偏移后链接端点的位置信息
             newNodes[node.timeId] = { timeId, x, y, id }
         })
     })
+    // 根据节点坐标调整链接坐标
     timeGraphsValues.forEach((graph) => {
         Object.values(graph.links).forEach((link) => {
             assign(link, layoutLinks[link.id])
-            link.source = graph.nodes[link.source.id]
-            link.target = graph.nodes[link.target.id]
-
-            if (configs.time.chooseTypes.indexOf('timeLine') > -1) {
-                link.source = { ...newNodes[link.sourceTimeId] }
-                link.target = { ...newNodes[link.targetTimeId] }
-            }
+            link.source = { ...newNodes[link.sourceTimeId] }
+            link.target = { ...newNodes[link.targetTimeId] }
         })
     })
+    // console.log("nodes---links", nodes, links, timeGraphs)
+    // 调整总图的图面边距
+    const id2xy = {}
     for(let node of nodes){
         node.x += margin
         node.y += margin
-    }
-    // console.log("outer---timeNodeResult",timeNodeResult)
-    for( let link of links) {
-        if(link.type === 'time') {
-            link.source.x += margin
-            link.source.y += margin
-            link.target.x += margin
-            link.target.y += margin
+        id2xy[node.id] = {
+            x: node.x,
+            y: node.y
         }
+    }
+    // links的各个link端点之间有重复，
+    // 且存在重复引用。因此不能直接给各个link的端点加margin
+    for(let link of links) {
+        link.source.x = id2xy[link.source.id].x
+        link.source.y = id2xy[link.source.id].y
+        link.target.x = id2xy[link.target.id].x
+        link.target.y = id2xy[link.target.id].y
     }
     return timeGraphs
 }

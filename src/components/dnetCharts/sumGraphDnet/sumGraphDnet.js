@@ -10,9 +10,11 @@ export default function SumGraphDnet(props) {
     const { data, config } = props
     const len = data.nodes.length
     if (len === 0) return null
-    const { eachWidth: svgWidth, eachHeight: svgHeight, nodeStyle, linkStyle } = config.graph
+    const { eachWidth, eachHeight, nodeStyle, linkStyle, margin } = config.graph
+    const svgWidth = eachWidth + margin*2
+    const svgHeight = eachHeight + margin*2
     const { nodeStyle: timeNodeStyle, linkStyle: timeLinkStyle} = config.time.insert
-    console.log("SumGraphDnet",data )
+    // console.log("SumGraphDnet",data )
     return (
         <svg
             className="nlg-container-svg"
