@@ -35,20 +35,19 @@ class DNetV {
         this.nodeSet = nodeSet
         this.linkSet = linkSet
 
-        // 依据配置，给数据赋予3种状态的信息。这个应该根据config去判断要不要赋予
-        if(this.configs.task.taskType === 'comparison'){
-            //函数里面直接改了timeGraphs、sumGraphs
-            this.dealCompareData([{ times: 'all', nodes: 'all', links: 'all', keyFrame: this.configs.task.comparison.keyFrame }]) 
-        }
+        const { graph, time, task} = this.configs
+
+        // 处理和任务分析相关的逻辑
+        this.dealTask(task)
 
         this.sumGraphs.nodes = Object.values(this.sumGraphs.nodes)
         this.sumGraphs.links = Object.values(this.sumGraphs.links)
 
         // 依据layout的配置去赋予位置信息
-        this.dealLayout(this.configs.graph.layout.chooseType ? this.configs.graph.layout.chooseType : 'forceDirect')
+        this.dealLayout(graph.layout.chooseType ? graph.layout.chooseType : 'forceDirect')
         // console.log("------this.sumGraphs.----",this.sumGraphs)
         // 根据time中的是否选择了markLine而决定是否要去计算markLine的数据
-        this.markLine = this.configs.time.chooseTypes.indexOf('markLine') > -1
+        this.markLine = time.chooseTypes.indexOf('markLine') > -1
             ? u.getmarkLine(this.sumGraphs, this.timeGraphs, this.configs)
             : undefined
         
@@ -59,6 +58,22 @@ class DNetV {
             links: Object.values(v.links),
             nodes: Object.values(v.nodes)
         }))
+    }
+
+    dealTask(task){
+        // 依据配置，给数据赋予3种状态的信息。这个应该根据config去判断要不要赋予
+        if(task.taskType === 'comparison'){
+            //函数里面直接改了timeGraphs、sumGraphs
+            if(task.basedType === 'structure'){
+                this.dealCompareData([{ times: 'all', nodes: 'all', links: 'all', keyFrame: task.comparison.keyFrame }]) 
+            }else if(task.basedType === 'attr'){
+                u.dealCompareAttr(this.timeGraphs, task)
+            }
+        }
+        if(task.taskType === 'find'){
+            //函数里面直接改了timeGraphs、sumGraphs
+            u.getFindData(this.timeGraphs, this.configs) //函数里面直接改了timeGraphs
+        }
     }
     dealLayout(layout = 'forceDirect') {
         // 先根据sumGraphs获得布局信息

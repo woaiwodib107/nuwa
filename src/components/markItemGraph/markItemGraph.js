@@ -10,8 +10,8 @@ export default function MarkItemGraph(props) {
                     <rect
                         key={`${node.id}-${index}`}
                         id={node.id}
-                        x={node.x - markRadius/2}
-                        y={node.y - markRadius/2}
+                        x={node.x - markRadius}
+                        y={node.y - markRadius}
                         fill={markLineOptions.strokeColor}
                         strokeWidth={`0px`}
                         width={markRadius * 2}

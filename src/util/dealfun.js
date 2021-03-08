@@ -42,6 +42,7 @@ export const getTimeId = (graphs, times) => {
         const timeIndex = times[time]
         timeGraphSet[time] = { nodes: new Set(), links: new Set() }
         timeGraphs[time] = { nodes: {}, links: {} }
+        let node2degree = {}
         graph.nodes.forEach((node) => {
             const id = node.id
             const timeId = `${time}-${id}`
@@ -53,7 +54,7 @@ export const getTimeId = (graphs, times) => {
                 time,
                 status: [],
                 timeIndex,
-                style: {}
+                style: {},
             }
             timeGraphSet[time].nodes.add(id)
             nodeSet.add(id)
@@ -78,6 +79,16 @@ export const getTimeId = (graphs, times) => {
             if (link.source < link.target) {
                 source = link.target
                 target = link.source
+            }
+            if(node2degree[source]==undefined){
+                node2degree[source] = 1 
+            }else{
+                node2degree[source]++
+            }
+            if(node2degree[target]==undefined){
+                node2degree[target] = 1 
+            }else{
+                node2degree[target]++
             }
             const id = `${source}-${target}`
             const timeId = `${time}-${id}`
@@ -117,7 +128,12 @@ export const getTimeId = (graphs, times) => {
             sumGraphs.links[id].existTimeIndex[times[time]] = 1
             sumGraphs.links[id].existTimes[times[time]] = time
         })
+        
+        for(let nodeId in timeGraphs[time].nodes) {
+            timeGraphs[time].nodes[nodeId].degree = node2degree[nodeId]
+        }
     })
+    // console.log("---getTimeId---timeGraphs",timeGraphs)
     return { timeGraphs, nodeSet, linkSet, timeGraphSet, sumGraphs }
 }
 
@@ -717,6 +733,8 @@ export const _dealCompare = (graph, compareGraph, nodeSet, linkSet) => {
         stable: { nodes: stableNodes, links: stableLinks }
     }
 }
+
+
 export const getCompareData = (
     timeGraphSet,
     nodeSet,
@@ -801,4 +819,85 @@ export const getCompareData = (
         })
     })
     return timeGraphs
+}
+
+export const getFindData = (
+    timeGraphs,
+    configs
+) => {
+    if(configs.task.basedType === 'structure'){
+        // 找结构，现在是假定是找这种类似于哑铃的形态结构。
+        for(let timeId in timeGraphs){
+            const graph = timeGraphs[timeId]
+            for(let linkId in graph.links){
+                const link = graph.links[linkId]
+                // console.log(",linkId,link,graph.nodes, link.source, link.target",linkId,link, graph.nodes, link.source, link.target)
+                if(graph.nodes[link.source].degree===1&&graph.nodes[link.target].degree===1){
+                    link.status.push('appearLink')
+                    graph.nodes[link.source].status.push('appearNode')
+                    graph.nodes[link.target].status.push('appearNode')
+                } 
+            }
+        }
+    }else{
+        for(let timeId in timeGraphs){
+            const graph = timeGraphs[timeId]
+            for(let nodeId in graph.nodes){
+                const node = graph.nodes[nodeId]
+                if(node.degree===3){
+                    node.status.push('appearNode')
+                } 
+            }
+        }
+    }
+    
+    return timeGraphs
+}
+
+
+export const compareTwoFrameAboutAttr = (localFrame, compareFrame)=>{
+    const compareNodesDegree = {}
+    for(let nodeId in compareFrame.nodes){
+        compareNodesDegree[nodeId] = compareFrame.nodes[nodeId].degree
+    }
+    for(let nodeId in localFrame.nodes){
+        const localDegree = localFrame.nodes[nodeId].degree
+        if(compareNodesDegree[nodeId]===undefined||compareNodesDegree[nodeId]<localDegree){
+            localFrame.nodes[nodeId].status.push('appearNode')
+        }else if(compareNodesDegree[nodeId]===localDegree){
+            localFrame.nodes[nodeId].status.push('stableNode')
+        }else if(compareNodesDegree[nodeId]>localDegree){
+            localFrame.nodes[nodeId].status.push('disappearNode')
+        }
+    }
+}
+
+export const dealCompareAttr = (
+    timeGraphs,
+    task
+) => {
+    const timeArr = Object.keys(timeGraphs)
+    const keyFrame = task.comparison.keyFrame
+    if (keyFrame === 'last') {
+        // 上一帧
+        timeArr.forEach((time, index) => {
+            // forEach中使用return终端本次循环，并不是所有的。相当于for中的continue
+            if (index === 0) return
+            compareTwoFrameAboutAttr(timeGraphs[time], timeGraphs[timeArr[index-1]])
+        })
+    } else if (keyFrame === 'next') {
+        // 下一帧
+        timeArr.forEach((time, index) => {
+            if (index === timeArr.length - 1) return
+            compareTwoFrameAboutAttr(timeGraphs[time], timeGraphs[timeArr[index+1]])
+        })
+    } else {
+        // 具体到某一帧
+        timeArr.forEach((time, index) => {
+            if(index === keyFrame){
+                return
+            }
+            compareTwoFrameAboutAttr(timeGraphs[time], timeGraphs[timeArr[keyFrame]])
+        })
+    }
 }

@@ -1,3 +1,4 @@
+
 import React from 'react'
 import TimePositionDnet from '../timePositionDnet/timePositionDnet.js'
 import TimeAnimationDnet from '../timeAnimationDnet/timeAnimationDnet.js'
@@ -7,7 +8,8 @@ import SumGraphDnet from '../sumGraphDnet/sumGraphDnet.js'
 export default function DnetChartContainer(props) {
 
     const { sampleWidth, sampleHeight,renderType, markLine, subGraphs, config, len, sumGraphs, isSample = false } = props
-    // console.log("sumGraphs",sumGraphs)
+    console.log("---sumGraphs----",sumGraphs)
+    console.log("---subGraphs----",subGraphs)
     switch (renderType) {
         case 'timeLine':
             return <TimePositionDnet 
