@@ -54,11 +54,11 @@ export default class Board extends React.Component {
                     }
                 },
                 nodeStyle: {
-                    shape: 'circle',
-                    fillColor: '#DAD5D5',
+                    shape: 'rect',
+                    fillColor: '#ffffff',
                     strokeColor: '#000000',
                     strokeWidth: 1,
-                    radius: 4,
+                    radius: 10,
                     strokeType: 'solid',
                     textColor: 'white',
                     opacity: 1
@@ -67,13 +67,13 @@ export default class Board extends React.Component {
                     shape: 'line',
                     strokeColor: '#908F8F',
                     strokeType: 'solid',
-                    strokeWidth: 1,
+                    strokeWidth: 2,
                     opacity: 1,
                     strokeDasharray: '3,3'
                 }
             },
             time: {
-                chooseTypes:['timeLine', 'markLine', 'insert'],
+                chooseTypes:['color','chart'],
                 timeLine: {
                     xDistance: 200,
                     yDistance: 0,
@@ -117,6 +117,9 @@ export default class Board extends React.Component {
                     strokeWidth: 1,
                     strokeDasharray: '5,5',
                     opacity:1,
+                },
+                chart: {
+
                 }
             },
             task: {
@@ -125,6 +128,7 @@ export default class Board extends React.Component {
                 comparison: {
                     chooseItem: 'stable-Node',
                     chooseTypes: COMPARISON_CONFIG,
+                    attr: '',
                     // keyFrame可为上一帧、下一帧、具体某一帧
                     keyFrame: 'next',
                     elements: 'all',

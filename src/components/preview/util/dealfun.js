@@ -273,6 +273,7 @@ export const getmarkLine = (sumGraphs, timeGraphs, configs) => {
         })
         markLine[id].pop()
     })
+    console.log("markLIne", markLine)
     markLine = getLinkPathData(markLine)
     return markLine
 }
@@ -290,6 +291,7 @@ export function getLinkPathData(markLine) {
     const linkPathData = Object.keys(markLine).map((markId, index) => {
         const curveData = []
         markLine[markId].forEach((markLineItem) => {
+            console.log("-----markLineItem", markLineItem)
             curveData.push(link(markLineItem))
         })
         return {

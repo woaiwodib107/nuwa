@@ -10,7 +10,6 @@ export default function TimePositionDnet(props) {
     if (len === 0) return null
     const { svgWidth, svgHeight } = getSvgWidthHeight(config, len)
     const markLineOptions = props.config.time.markLine
-    console.log("TimePositionDnet--data", data)
     return (
         <svg
             className="nlg-container-svg"

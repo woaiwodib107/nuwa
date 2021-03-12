@@ -10,6 +10,17 @@ import checkSvg from '../../assets/check.svg'
 import { defaultTemplates } from '../../data/template.js'
 import * as testData from '../../data/import/test1.json'
 
+const tempConfig = {
+    "graph":{
+        "layout":"grid" 
+    },
+    "time": ['timeLine', 'color'],
+    "task": {
+        "taskType": 'comparison',
+        "basedType": 'attr'
+    }
+}
+
 export default function TemplatePanel(props) {
     const [localStorage, setLocalStorage] = useState(window.localStorage)
     const [storageLength, setStorageLength] = useState(0)
@@ -118,7 +129,8 @@ export default function TemplatePanel(props) {
                         <ReactJson
                             className="json-box"
                             {...REACT_JSON_OPTIONS}
-                            src={props.config}
+                            // src={props.config}
+                            src={tempConfig}
                         />
                     </div>
                 </div>

@@ -76,7 +76,7 @@ body::-webkit-scrollbar-thumb {
     background: #fff;
     border: 1px solid rgb(68, 67, 67);
     border-radius: 8px;
-    height: 480px;
+    height: 380px;
     width: 280px;
     display: flex;
     flex-direction: column;
@@ -138,7 +138,7 @@ body::-webkit-scrollbar-thumb {
     background: #fff;
     border: 1px solid rgb(68, 67, 67);
     border-radius: 8px;
-    height: 500px;
+    height: 600px;
     width: 280px;
     display: flex;
     flex-direction: column;
@@ -188,7 +188,8 @@ body::-webkit-scrollbar-thumb {
 
 /*theme*/
 .board {
-    background: #b2b5b9;
+    /* background: #b2b5b9; */
+    background: white;
     height: 1080px;
     width: 1920px;
     overflow-y: hidden;

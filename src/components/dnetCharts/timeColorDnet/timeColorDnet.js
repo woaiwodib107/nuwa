@@ -8,8 +8,10 @@ export default function TimeColorDnet(props) {
     const legendData = new Array(props.len).fill(0)
     const singleLegendWidth = 15
     let colorScale = getPiePathColor(props.len, '#FD8F8F', '#90B5FB')
-    const { eachWidth, eachHeight, nodeStyle, linkStyle } = props.config.graph
+    const { eachWidth, eachHeight, margin, nodeStyle, linkStyle } = props.config.graph
     // console.log("props.data", props.data)
+    const svgWidth = eachWidth + margin*2
+    const svgHeight = eachHeight + margin*2
     return (
         <>
             {!props.isSample ? (
@@ -61,9 +63,9 @@ export default function TimeColorDnet(props) {
             ) : null}
             <svg
                 className="nlg-container-svg"
-                width={`${props.sampleWidth? props.sampleWidth:eachWidth}px`}
-                height={`${props.sampleHeight? props.sampleHeight:eachHeight}px`}
-                viewBox={`0 0 ${eachWidth} ${eachHeight}`}
+                width={`${props.sampleWidth? props.sampleWidth:svgWidth}px`}
+                height={`${props.sampleHeight? props.sampleHeight:svgHeight}px`}
+                viewBox={`0 0 ${svgWidth} ${svgHeight}`}
                 preserveAspectRatio="xMinYMin"
             >
                 {props.data.links.map((dataItem, index) => {

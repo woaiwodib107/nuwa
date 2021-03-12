@@ -322,6 +322,25 @@ export default class TimePanel extends React.Component {
                             onSubmit={(value) => this.props.onSubmit(value)}
                         />
                     </div>
+                    {/* Chart */}
+                    <div className="encoding-item">
+                        <div className="encoding-item-title">
+                            <Button
+                                type={
+                                    options.chooseTypes.indexOf('chart') > -1
+                                        ? 'primary'
+                                        : 'default'
+                                }
+                                onClick={(e) => {
+                                    this.handleButtonOnClick('chart', e)
+                                }}
+                                block
+                            >
+                                Chart
+                            </Button>
+                        </div>
+                    </div>
+
 
                     {/* insert */}
                     <div className="encoding-item">

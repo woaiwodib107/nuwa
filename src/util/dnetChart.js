@@ -436,9 +436,11 @@ export function getRenderType(arr) {
         return 'animation'
     } else if (arr.indexOf('timeLine') > -1) {
         return 'timeLine'
-    } else if (arr.indexOf('color') > -1) {
+    } else if(arr.indexOf('chart') > -1){
+        return 'chart'
+    }else if (arr.indexOf('color') > -1) {
         return 'color'
-    } else {
+    } else{  
         return 'sumGraph'
     }
 }
@@ -560,6 +562,22 @@ export function getPiePathData(radius, len) {
 }
 
 export function getPiePathColor(len, startColor, endColor) {
+    //设置颜色比例尺
+    let colorScale
+    if (!startColor || !endColor) {
+        colorScale = d3.scaleOrdinal().domain(d3.range(len)).range(d3.schemeCategory10)
+    } else {
+        // console.log("d3.range(len)", d3.range(len))
+        colorScale = d3
+            .scaleLinear()
+            .domain([0, len - 1])
+            .range([startColor, endColor])
+    }
+    return colorScale
+}
+
+
+export function getChartPathColor(len, startColor, endColor) {
     //设置颜色比例尺
     let colorScale
     if (!startColor || !endColor) {
@@ -721,6 +739,50 @@ export function getDividedArcPathData(source, target) {
     return { firstData, secondData }
 }
 
+export function getChartLineData(radius, existTimeIndex , colorScale, isColor,strokeColor){
+    let startX = -1*radius
+    const stepX = radius*2/(existTimeIndex.length-1)
+    const stepY = radius/2
+    const linePoints = existTimeIndex.map((v,index)=>{
+        let result 
+        if(v === 1){
+            result =  {
+                x: startX,
+                y: stepY
+            }
+        }else{
+            result =  {
+                x: startX,
+                y: -1*stepY
+            }
+           
+        }
+        startX += stepX
+        return result
+    })
+    let resultGroup = []
+    for(let i = 1;i<linePoints.length;i++){
+        resultGroup.push({source:linePoints[i-1],target:linePoints[i]})
+    }
+
+    var link = d3
+        .linkHorizontal()
+        .x(function (d) {
+            return d.x
+        })
+        .y(function (d) {
+            return d.y
+        })
+    const chartLineData = resultGroup.map((line, index)=>{
+        return {
+            data: link(line),
+            color: isColor ? colorScale(index) : strokeColor
+        }
+    })
+        
+    return chartLineData
+}
+
 export function getLinkPathData(markLine, nodeNum) {
     const colorScale = d3.scaleOrdinal().domain(d3.range(nodeNum)).range(d3.schemeCategory10)
     // console.log('node2PathData', node2PathData)
@@ -732,9 +794,11 @@ export function getLinkPathData(markLine, nodeNum) {
         .y(function (d) {
             return d.y
         })
+    
     const linkPathData = Object.keys(markLine).map((markId, index) => {
         const curveData = []
         markLine[markId].forEach((markLineItem) => {
+            
             curveData.push(link(markLineItem))
         })
         return {
@@ -745,6 +809,8 @@ export function getLinkPathData(markLine, nodeNum) {
     })
     return linkPathData
 }
+
+
 
 /*
 export function getLinkPathData2(data, xDistance, yDistance, margin, nodeNum) {
