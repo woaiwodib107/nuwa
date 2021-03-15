@@ -133,7 +133,6 @@ export const getTimeId = (graphs, times) => {
             timeGraphs[time].nodes[nodeId].degree = node2degree[nodeId]
         }
     })
-    // console.log("---getTimeId---timeGraphs",timeGraphs)
     return { timeGraphs, nodeSet, linkSet, timeGraphSet, sumGraphs }
 }
 
@@ -398,11 +397,11 @@ export const timeASnode = (graphs) => {
     // 建立时间节点，在每一个图中，与每个节点都建立连接
     graphs.forEach((graph) => {
         graph.nodes.forEach((node) => {
-            const source = 'time'
+            const source = `time-${graph.time}`
             const target = node.id
             graph.links.push({ source, target, type: 'time' })
         })
-        graph.nodes.push({ id: 'time', type: 'time' })
+        graph.nodes.push({ id: `time-${graph.time}`, type: 'time' })
     })
 }
 export const offLineLayout = (sumGraphs, configs) => {
@@ -637,7 +636,6 @@ export const getGraphLayout = (timeGraphs, sumGraphs, configs) => {
                 timeNodeResult = getInsertPosition(configs)
                 node.x = timeNodeResult.x
                 node.y = timeNodeResult.y
-                break
             }
         }
         // 改变总图数据中time类型链接的位置

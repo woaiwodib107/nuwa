@@ -20,8 +20,8 @@ export default class Board extends React.Component {
             graph: {
                 // width: 250,
                 // height: 250,
-                eachWidth: 200,
-                eachHeight: 200,
+                eachWidth: 300,
+                eachHeight: 300,
                 margin: 30,
                 layout: {
                     chooseType: 'grid',
@@ -58,7 +58,7 @@ export default class Board extends React.Component {
                     fillColor: '#ffffff',
                     strokeColor: '#000000',
                     strokeWidth: 1,
-                    radius: 10,
+                    radius: 8,
                     strokeType: 'solid',
                     textColor: 'white',
                     opacity: 1
@@ -75,7 +75,7 @@ export default class Board extends React.Component {
             time: {
                 chooseTypes:['color','chart'],
                 timeLine: {
-                    xDistance: 200,
+                    xDistance: 300,
                     yDistance: 0,
                     // 有可能只对节点进行该操作
                     element: 'all',
