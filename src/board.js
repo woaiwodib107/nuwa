@@ -202,68 +202,6 @@ export default class Board extends React.Component {
                         radius: 8,
                     }
                 }
-            },
-            comparison: {
-                isOn: true,
-                chooseItem: 'stable-Node',
-                chooseTypes: COMPARISON_CONFIG,
-                // keyFrame可为上一帧、下一帧、具体某一帧
-                keyFrame: 'next',
-                elements: 'all',
-                appearNode: {
-                    shape: 'rect',
-                    fillColor: '#FD8F8F',
-                    strokeColor: '#000000',
-                    strokeWidth: 1,
-                    strokeType: 'solid',
-                    textColor: 'white',
-                    radius: 8,
-                    opacity: 1
-                },
-                stableNode: {
-                    shape: 'circle',
-                    fillColor: '#DAD5D5',
-                    strokeColor: '#000000',
-                    strokeWidth: 1,
-                    radius: 6,
-                    strokeType: 'solid',
-                    textColor: 'white',
-                    opacity: 1
-                },
-                disappearNode: {
-                    shape: 'circle',
-                    fillColor: '#90B5FB',
-                    strokeColor: '#000000',
-                    strokeWidth: 1,
-                    radius: 8,
-                    strokeType: 'solid',
-                    textColor: 'white',
-                    opacity: 1
-                },
-                appearLink: {
-                    shape: 'curve',
-                    strokeColor: '#FD8F8F',
-                    strokeType: 'solid',
-                    strokeWidth: 1,
-                    opacity: 1,
-                    strokeDasharray: '3,3'
-                },
-                stableLink: {
-                    shape: 'line',
-                    strokeColor: '#908F8F',
-                    strokeType: 'solid',
-                    strokeWidth: 1,
-                    opacity: 1,
-                    strokeDasharray: '3,3'
-                },
-                disappearLink: {
-                    shape: 'curve',
-                    strokeColor: '#90B5FB',
-                    strokeType: 'solid',
-                    strokeWidth: 1,
-                    opacity: 1,
-                    strokeDasharray: '3,3'
-                }
             }
         }
     }
