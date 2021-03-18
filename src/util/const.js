@@ -30,6 +30,7 @@ export const SAMPLE_ITEM_HEIGHT = 62
 export const TIME_TIMELINE_ELEMENT = ['node', 'link', 'all']
 export const TIME_CHART_TYPE = ['line', 'bar']
 export const TIME_TIMELINE_TYPE = ['linear', 'circular']
+export const GRAPH_LAYOUT_TYPE = ['matrix','forceDirect', 'vertical','circular','dagre','mds','grid']
 
 export const KEYFRAM_OPTIONS = ['next', 'last']
 

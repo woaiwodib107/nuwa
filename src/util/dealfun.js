@@ -934,32 +934,36 @@ export const getGraphLayout = (timeGraphs, sumGraphs, configs) => {
     // 根据配置调整各帧图的位置
     let newNodes = {}
     const tempElement = configs.time.timeLine.element
-    timeGraphsValues.forEach((graph) => {
+    const graphLength = timeGraphsValues.length
+    const positionTransMap = getTranslateMap(configs, graphLength)
+    timeGraphsValues.forEach((graph,graphIndex) => {
         Object.values(graph.nodes).forEach((node) => {
             // 将位置信息复制到各个子图上
             assign(node, layoutNodes[node.id])
             let { x, y, timeId, id } = node
-            
-            if (configs.time.chooseTypes.indexOf('timeLine') === -1) {
-                xDistance = 0
-                yDistance = 0
-            }
             // 无论是否选中节点，margin偏移都是要的
             node.x += margin
             node.y += margin
-            if (tempElement === 'node') {
-                x = node.x
-                y = node.y
-                node.x = node.x + node.timeIndex * xDistance
-                node.y = node.y + node.timeIndex * yDistance
-            } else if (tempElement === 'link') {
-                // 只是链接进行偏移.
-                x = node.x + node.timeIndex * xDistance
-                y = node.y + node.timeIndex * yDistance
-            } else {
-                // 都进行偏移
-                node.x = node.x + node.timeIndex * xDistance
-                node.y = node.y + node.timeIndex * yDistance
+            if (configs.time.chooseTypes.indexOf('timeLine') > -1) {
+                const {x:tranX, y: tranY} = positionTransMap[graphIndex]
+                console.log("tranX, tranY", tranX, tranY)
+                if (tempElement === 'node') {
+                    x = node.x
+                    y = node.y
+                    node.x = node.x + tranX
+                    node.y = node.y + tranY
+                } else if (tempElement === 'link') {
+                    // 只是链接进行偏移.
+                    x = node.x + tranX
+                    y = node.y + tranY
+                } else {
+                    // 都进行偏移
+                    node.x = node.x + tranX
+                    node.y = node.y + tranY
+                    x = node.x
+                    y = node.y
+                }
+            }else{
                 x = node.x
                 y = node.y
             }

@@ -3,6 +3,9 @@ import { InputNumber,Radio, Select } from 'antd'
 import SampleItem from '../sampleItem/sampleItem.js'
 import NodeLinkStylePanel from '../nodeLinkStylePanel/nodeLinkStylePanel.js'
 import NodeLinkSample from '../nodeLinkSample/nodeLinkSample.js'
+import {
+    GRAPH_LAYOUT_TYPE
+} from '../../util/const'
 
 const { Option } = Select
 
@@ -101,12 +104,13 @@ export default class GraphPanel extends React.Component {
                             style={{ width: 120 }}
                             onChange={this.handleLayoutTypeChange}
                         >   
-                            <Option value="forceDirect">forceDirect</Option>
-                            <Option value="vertical">vertical</Option>
-                            <Option value="circular">circular</Option>
-                            <Option value="dagre">dagre</Option>
-                            <Option value="mds">mds</Option>
-                            <Option value="grid">grid</Option>
+                            {GRAPH_LAYOUT_TYPE.map((v)=>{
+                                return (
+                                    <Option key={v} value={v}>
+                                        {v}
+                                    </Option>
+                                )
+                            })}
                         </Select>
                     </div>
                     <div className="basic-panel-line">
