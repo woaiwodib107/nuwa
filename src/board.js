@@ -128,7 +128,7 @@ export default class Board extends React.Component {
                     opacity:1,
                 },
                 chart: {
-
+                    type:'linear'
                 }
             },
             task: {
@@ -283,7 +283,6 @@ export default class Board extends React.Component {
         })
     }
     handleSubmitFromTask = (value) => {
-        console.log("handleSubmitFromTask", value)
         if (!value) return
         this.setState({
             task: {

@@ -11,7 +11,6 @@ export default function PreviewItem(props) {
     const [sumGraphs, setSumGraphs] = useState({ nodes: [], links: [] })
     const [markLine, setMarkLine] = useState({})
     const [renderType, setRenderType] = useState('')
-    console.log("previewiem")
     useEffect(() => {
         if (props.data) {
             let dnetvInstance = dnetv()

@@ -8,7 +8,7 @@ export default function ChartNodeItem(props) {
     
     const pathDatas = getChartLineData(radius, existTimeIndex, colorScale, isColor, strokeColor)
     // return null
-    console.log("pathcDAta",pathDatas)
+    // console.log("pathcDAta",pathDatas)
     return (
         <>
             <NodeItem
