@@ -2,6 +2,7 @@ import React from 'react'
 import { Modal, List, Upload, Button, Slider } from 'antd'
 import 'antd/dist/antd.css'
 import './data.css'
+// import * as testData from '../../data/import/test3-insert.json'
 import * as testData from '../../data/import/test1.json'
 // import * as testData from '../../data/import/test2.json'
 

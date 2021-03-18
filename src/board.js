@@ -24,7 +24,7 @@ export default class Board extends React.Component {
                 eachHeight: 300,
                 margin: 30,
                 layout: {
-                    chooseType: 'grid',
+                    chooseType: 'matrix',
                     vertical: {
                         yDistance: 40,
                         linkStyle: {
@@ -51,6 +51,9 @@ export default class Board extends React.Component {
                     },
                     grid: {
                         rows: 4
+                    },
+                    matrix: {
+                        
                     }
                 },
                 nodeStyle: {
@@ -69,16 +72,20 @@ export default class Board extends React.Component {
                     strokeType: 'solid',
                     strokeWidth: 2,
                     opacity: 1,
-                    strokeDasharray: '3,3'
+                    strokeDasharray: '3,3',
+                    fillColor: '#ffffff',
+                    radius: 8,
                 }
             },
             time: {
-                chooseTypes:['color','chart'],
+                chooseTypes:[],
                 timeLine: {
                     xDistance: 300,
                     yDistance: 0,
                     // 有可能只对节点进行该操作
                     element: 'all',
+                    // 表示位置变换的函数，还有就是环状。。circular
+                    type: 'circular'
                 },
                 insert: {
                     position:'bottom',
@@ -99,7 +106,9 @@ export default class Board extends React.Component {
                         strokeType: 'solid',
                         strokeWidth: 1,
                         opacity: 1,
-                        strokeDasharray: '3,3'
+                        strokeDasharray: '3,3',
+                        fillColor: '#ffffff',
+                        radius: 8,
                     }
                 },
                 color: {
@@ -168,7 +177,9 @@ export default class Board extends React.Component {
                         strokeType: 'solid',
                         strokeWidth: 3,
                         opacity: 1,
-                        strokeDasharray: '3,3'
+                        strokeDasharray: '3,3',
+                        fillColor: '#ffffff',
+                        radius: 8,
                     },
                     stableLink: {
                         shape: 'line',
@@ -176,7 +187,9 @@ export default class Board extends React.Component {
                         strokeType: 'solid',
                         strokeWidth: 1,
                         opacity: 1,
-                        strokeDasharray: '3,3'
+                        strokeDasharray: '3,3',
+                        fillColor: '#ffffff',
+                        radius: 8,
                     },
                     disappearLink: {
                         shape: 'curve',
@@ -184,7 +197,9 @@ export default class Board extends React.Component {
                         strokeType: 'solid',
                         strokeWidth: 3,
                         opacity: 1,
-                        strokeDasharray: '3,3'
+                        strokeDasharray: '3,3',
+                        fillColor: '#ffffff',
+                        radius: 8,
                     }
                 }
             },

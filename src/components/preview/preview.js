@@ -51,7 +51,8 @@ export default function Preview(props) {
                 style={{
                     width: '100%',
                     height: '730px',
-                    overflowX: 'auto'
+                    overflowX: 'auto',
+                    overflowY:'auto'
                 }}
             >
                 <DnetChartContainer

@@ -197,15 +197,20 @@ function isLayoutConfig(item) {
 export function getSvgWidthHeight(configs, len) {
     let svgWidth, svgHeight
     const { eachWidth, eachHeight, margin } = configs.graph
-    const { xDistance, yDistance } = configs.time.timeLine
-    if (configs.time.chooseTypes.indexOf('timeLine') > -1) {
-        svgWidth = margin * 2 + eachWidth + xDistance * (len - 1)
-        svgHeight = margin * 2 + eachHeight + yDistance * (len - 1)
-    } else {
-        svgWidth = margin * 2 + eachWidth
-        svgHeight = margin * 2 + eachHeight
+    const { xDistance, yDistance,type } = configs.time.timeLine
+    if(type==='circular'){
+        const eachDis = eachWidth<eachHeight ? eachWidth: eachHeight
+        svgWidth = eachDis*(len/2) + margin*2 + eachDis*2
+        svgHeight = svgWidth
+    }else{
+        if (configs.time.chooseTypes.indexOf('timeLine') > -1) {
+            svgWidth = margin * 2 + eachWidth + xDistance * (len - 1)
+            svgHeight = margin * 2 + eachHeight + yDistance * (len - 1)
+        } else {
+            svgWidth = margin * 2 + eachWidth
+            svgHeight = margin * 2 + eachHeight
+        }
     }
-    // console.log("svgWidth, svgHeight", svgWidth, svgHeight)
     return { svgWidth, svgHeight }
 }
 

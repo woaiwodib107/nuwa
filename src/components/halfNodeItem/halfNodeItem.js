@@ -19,7 +19,7 @@ export default function HalfNodeItem(props) {
                     }
                 />
             )
-        } else if (props.shape === 'rect') {
+        } else {
             return (
                 <path
                     d={`M${props.x} ${props.y + props.radius}  
@@ -56,7 +56,7 @@ export default function HalfNodeItem(props) {
                     }
                 />
             )
-        } else if (props.shape === 'rect') {
+        } else {
             return (
                 <path
                     d={`M${props.x} ${props.y + props.radius}  

@@ -4,6 +4,7 @@ import * as assign from 'assign-deep'
 import { getInsertPosition } from './dnetChart.js'
 import * as _ from 'lodash'
 import G6 from '@antv/g6'
+import { sum } from 'lodash'
 export const _intersection = (setA, setB) => {
     let intersection = new Set(setA)
     for (let elem of setA) {
@@ -68,7 +69,7 @@ export const getTimeId = (graphs, times) => {
                     existTimeIndex,
                     existTimes,
                     existStatus,
-                    style: {}
+                style: {}
                 }
             }
             sumGraphs.nodes[id].existTimeIndex[times[time]] = 1
@@ -393,6 +394,270 @@ export const circularLayout = (sumGraphs, configs) => {
     adjustLayout2Svg(nodes, links, eachWidth, eachHeight)
 }
 
+export const matrixLayout = (sumGraph, timeGraphs, configs) => {
+    // nodes复制一份，links被画作node形式，先不管网格线
+    let { nodes, links } = sumGraph
+    const { eachWidth, eachHeight, margin } = configs.graph
+    const width = eachWidth < eachHeight ? eachWidth: eachHeight
+    const len = nodes.length
+    const stepWidth = width/(len+1)
+    let startX = stepWidth/2 + margin
+    let startY = stepWidth/2 + margin
+    // 处理x轴的节点
+    let nodeId2Xobj = {}
+    nodes.forEach((node, index)=>{
+        node.y = startY
+        node.x = startX + (index+1)*stepWidth
+        nodeId2Xobj[node.id] = {...node}
+    })
+
+    // 处理y轴的节点
+    let yNodes = _.cloneDeep(nodes)
+    let nodeId2Yobj = {}
+    yNodes.forEach((node, index)=>{
+        node.x = startX
+        node.y = startY + (index+1)*stepWidth
+        nodeId2Yobj[node.id] = {...node}
+        node.id = `y-${node.id}`
+        node.timeId = `y-${node.timeId}`
+        // 存入node中
+        nodes.push(node)
+    })
+    // 处理链接关系，一条链接在矩阵中会有两个对称的节点
+    let linkId2xyNode = {}
+    let linkId2yxNode={}
+    links.forEach((link, index)=>{
+        let linkNodeX2Y = {
+            ...link,
+            id:`x2y-link-${link.id}`,
+            type:'link-node',
+            x: nodeId2Xobj[link.source].x,
+            y: nodeId2Yobj[link.target].y,
+        }  
+        linkId2xyNode[link.id] = linkNodeX2Y
+        let linkNodeY2X = {
+            ...link,
+            id:`y2x-link-${link.id}`,
+            type: 'link-node',
+            x: nodeId2Xobj[link.target].x,
+            y: nodeId2Yobj[link.source].y,
+        }
+        linkId2yxNode[link.id] = linkNodeY2X
+        nodes.push(linkNodeX2Y)
+        nodes.push(linkNodeY2X)
+    })
+    // 添加总图的辅助线。
+    sumGraph.links = []
+    const sumLinks = sumGraph.links
+    for(let i=0;i<len+1;i++){
+        sumLinks.push({
+            id: `x-grid-${i}`,
+            type: 'grid-line',
+            source:{
+                x:margin,
+                y:margin+(i+1)*stepWidth
+            },
+            target: {
+                x:margin+width,
+                y:margin+(i+1)*stepWidth
+            },
+            existTimeIndex:[],
+            status: [],
+            style: {}
+        })
+        sumLinks.push({
+            id: `y-grid-${i}`,
+            type: 'grid-line',
+            source:{
+                x:margin+(i+1)*stepWidth,
+                y:margin
+            },
+            target: {
+                x:margin+(i+1)*stepWidth,
+                y:margin+width
+                
+            },
+            existTimeIndex:[],
+            status: [],
+            style: {}
+        })
+    }
+
+    // 根据配置、数据长度，拿到唯一的映射表。即每一帧图应该位移多少的映射数组。
+    const graphLength = Object.values(timeGraphs).length
+    const positionTransMap = getTranslateMap(configs, graphLength)
+    // 1 根据总图节点拿到分帧图节点初始位置
+    // 2 根据position函数调整位置
+    // 3 复制三份节点，赋予初始位置，并根据position函数修改位置
+    // 4 将三份节点也放入到分帧图中
+    Object.values(timeGraphs).forEach((graph,graphIndex)=>{
+        const id2Xnode = {}
+        const id2Ynode = {}
+        const id2LinkNodeX2Y = {}
+        const id2LinkNodeY2X = {}
+        Object.values(graph.nodes).forEach((node)=>{
+            node.x = nodeId2Xobj[node.id].x
+            node.y = nodeId2Xobj[node.id].y
+            // console.log("node,configs,positionTransMap[graphIndex]",node.x,node.y,configs,positionTransMap[graphIndex])
+            applyPosition2Node(node,configs,positionTransMap[graphIndex])
+            // console.log("node",node.x,node.y)
+            id2Xnode[node.id] = node
+            let yNode = _.cloneDeep(node)
+            yNode.x = nodeId2Yobj[node.id].x
+            yNode.y = nodeId2Yobj[node.id].y
+            applyPosition2Node(yNode,configs,positionTransMap[graphIndex])
+            yNode.id = `y-${node.id}`
+            yNode.timeId = `y-${node.timeId}`
+            id2Ynode[node.id] = yNode
+        })
+
+        // 得到链接节点
+        Object.values(graph.links).forEach((link)=>{
+            let linkNodeX2Y = {
+                ...link,
+                id:`x2y-link-${link.id}`,
+                type:'link-node',
+                x: id2Xnode[link.source].x,
+                y: id2Ynode[link.target].y,
+            }  
+            id2LinkNodeX2Y[linkNodeX2Y.id] = linkNodeX2Y
+            let linkNodeY2X = {
+                ...link,
+                type:'link-node',
+                id:`y2x-link-${link.id}`,
+                x: id2Xnode[link.target].x,
+                y: id2Ynode[link.source].y,
+            }
+            id2LinkNodeY2X[linkNodeY2X.id] = linkNodeY2X
+        })
+        // 把节点加入节点中
+        for(let key in id2Ynode){
+            graph.nodes[id2Ynode[key].id] = id2Ynode[key]
+        }
+        for(let id in id2LinkNodeX2Y){
+            graph.nodes[id] = id2LinkNodeX2Y[id]
+        }
+        for(let id in id2LinkNodeY2X){
+            graph.nodes[id] = id2LinkNodeY2X[id]
+        }
+
+        graph.links = {}
+        const graphLinks = graph.links
+        for(let i=0;i<len+1;i++){
+            const linkX = {
+                id: `x-grid-${i}`,
+                type: 'grid-line',
+                source:{
+                    x:margin,
+                    y:margin+(i+1)*stepWidth
+                },
+                target: {
+                    x:margin+width,
+                    y:margin+(i+1)*stepWidth
+                },
+                existTimeIndex:[],
+                status: [],
+                style: {}
+            }
+            applyPosition2Link(linkX,configs,positionTransMap[graphIndex])
+            graphLinks[linkX.id] = linkX
+            const linkY = {
+                id: `y-grid-${i}`,
+                type: 'grid-line',
+                source:{
+                    x:margin+(i+1)*stepWidth,
+                    y:margin,
+                },
+                target: {
+                    x:margin+(i+1)*stepWidth,
+                    y:margin+width 
+                },
+                existTimeIndex:[],
+                status: [],
+                style: {}
+            }
+            applyPosition2Link(linkY, configs,positionTransMap[graphIndex])
+            graphLinks[linkY.id] = linkY
+        }
+    })
+    // console.log("matrixLayout,sumGraph, timeGraphs",sumGraph, timeGraphs)
+}
+
+export const getTranslateMap =(configs,len)=>{
+    if (configs.time.chooseTypes.indexOf('timeLine') === -1) {
+        return []
+     }
+     let { xDistance, yDistance,element,type } = configs.time.timeLine
+    const result = []
+    if(type==='circular'){
+        const tNodes = []
+        const tLinks = []
+        for(let i=0;i<len;i++){
+            tNodes.push({
+                id: i+''
+            })
+            tLinks.push({
+                source: i+'',
+                target: i+1 == len ? `${i-2}`: `${i+1}`
+            })
+        }
+        const data = {
+            nodes: tNodes,
+            edges: tLinks
+        }
+        const {eachWidth, eachHeight,margin} = configs.graph
+        const eachDis = eachWidth<eachHeight ? eachWidth: eachHeight
+        let radius = eachDis *len/4
+        var graph = new G6.Graph({
+            container: 'g6-graph-container',
+            width: radius * 2,
+            height: radius * 2,
+            // fitView: true,
+            // fitViewPadding: 20,
+            layout: {
+                type: 'circular',
+                radius: radius,
+                center: [radius, radius]
+            }
+        })
+        graph.data(data)
+        graph.render()
+        const { nodes: rNodes } = graph.cfg.data
+        rNodes.forEach((rNode, index)=>{
+            result.push({
+                x: rNode.x,
+                y: rNode.y
+            })
+        })
+    }else{
+        for(let i=0;i<len;i++){
+            result.push({
+                x: i*xDistance,
+                y: i*yDistance
+            })
+        }
+    } 
+    return result
+}
+export const applyPosition2Link =(link, configs, posTranslate)=>{
+    if (configs.time.chooseTypes.indexOf('timeLine') === -1) {
+        return
+     }
+     let {element } = configs.time.timeLine
+    if (element !== 'node') {
+        applyPosition2Node(link.source,configs,posTranslate)
+        applyPosition2Node(link.target,configs,posTranslate)
+    }
+}
+
+export const applyPosition2Node = (node, configs,posTranslate) =>{
+    if (configs.time.chooseTypes.indexOf('timeLine') === -1) {
+       return
+    }
+    node.x += posTranslate.x
+    node.y += posTranslate.y
+}
+
 export const timeASnode = (graphs) => {
     // 建立时间节点，在每一个图中，与每个节点都建立连接
     graphs.forEach((graph) => {
@@ -415,7 +680,7 @@ export const offLineLayout = (sumGraphs, configs) => {
         .force('charge', d3.forceManyBody())
         .force('center', d3.forceCenter(eachWidth / 2, eachHeight / 2))
         .stop()
-        .tick(10)
+        .tick(30)
         .stop()
     adjustLayout2Svg(nodes, links, eachWidth, eachHeight)
     return sumGraphs
@@ -581,7 +846,17 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
                 }
                 return
             }
-            node.style.nodeStyle = basicNodeStyle
+            if(node.type=='link-node'){
+                node.style.nodeStyle = {
+                    ...basicNodeStyle,
+                    fillColor: '#EF6767',
+                    shape: 'rect',
+                    opacity: 0.7
+                }
+            }else{
+                node.style.nodeStyle = basicNodeStyle
+            }
+            
             // 如果用color编码了时间，则修改其填充颜色
             if (isChooseColor) {
                 // 此处需要深复制
@@ -589,7 +864,11 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
                 node.style.nodeStyle.fillColor = timeColorObj[node.time]
             }
             node.status.forEach((d) => {
-                node.style[d] = _.cloneDeep(comparisonNode[d])
+                if(!comparisonNode[d]){
+                    node.style[d] = _.cloneDeep(comparisonLink[d])
+                }else{
+                    node.style[d] = _.cloneDeep(comparisonNode[d])
+                }
             })
         })
         Object.values(graph.links).forEach((link) => {
@@ -627,7 +906,7 @@ export const getGraphLayout = (timeGraphs, sumGraphs, configs) => {
     let timeGraphsValues = Object.values(timeGraphs)
     
     const isChangeInsertPosition = configs.time.chooseTypes.indexOf('insert')>-1 &&
-        configs.time.insert.position!='origin'
+        configs.time.insert.position!=='origin'&&configs.graph.layout.chooseType!=='matrix'
     if(isChangeInsertPosition){
         // 改变总图数据中time类型节点的位置
         let timeNodeResult ={}
@@ -697,7 +976,7 @@ export const getGraphLayout = (timeGraphs, sumGraphs, configs) => {
         })
     })
     // console.log("nodes---links", nodes, links, timeGraphs)
-    // 调整总图的图面边距
+    // 调整总图sumGraphs的图面边距
     const id2xy = {}
     for(let node of nodes){
         node.x += margin

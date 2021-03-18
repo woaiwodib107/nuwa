@@ -29,13 +29,13 @@ export default function TimePositionDnet(props) {
                     <g key={`subGraph-${index}`}>
                         <g>
                             {dataItem.links.map((v) => {
-                                return <LinkContainer {...props} {...v} key={`link-${v.timeId}`} />
+                                return <LinkContainer {...props} {...v} key={`link-${v.id}`} />
                             })}
                         </g>
                         <g>
                             {dataItem.nodes.map((v) => {
                                 return (
-                                    <NodeItemContainer {...props} {...v} key={`node-${v.timeId}`} />
+                                    <NodeItemContainer {...props} {...v} key={`node-${v.id}`} />
                                 )
                             })}
                         </g>

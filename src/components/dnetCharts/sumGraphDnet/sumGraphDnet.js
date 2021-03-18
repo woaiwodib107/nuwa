@@ -41,7 +41,19 @@ export default function SumGraphDnet(props) {
                 </g>
                 <g>
                     {data.nodes.map((v, index) => {
-                        const nStyle = v.type === 'time' ? timeNodeStyle: nodeStyle
+                        let nStyle
+                        if(v.type === 'time'){
+                            nStyle = timeNodeStyle
+                        }else if(v.type ==='link-node'){
+                            nStyle = {
+                                ...nodeStyle,
+                                fillColor:linkStyle.strokeColor,
+                                shape:'rect',
+                                opacity: 0.7
+                            }
+                        }else{
+                            nStyle = nodeStyle
+                        }  
                         return <NodeItem {...props} {...v} {...nStyle} key={`node-${v.id}`} />
                     })}
                 </g>

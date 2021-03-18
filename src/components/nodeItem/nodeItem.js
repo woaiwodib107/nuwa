@@ -17,13 +17,13 @@ export default function NodeItem(props) {
                 }
             ></circle>
         )
-    } else if (props.shape === 'rect') {
+    } else {
         return (
             <rect
                 id={props.timeId}
                 x={props.x + (props.xOffset ? props.xOffset : 0) - props.radius}
                 y={props.y + (props.yOffset ? props.yOffset : 0) - props.radius}
-                fill={props.fillColor}
+                fill={props.fillColor ? props.fillColor : props.strokeColor}
                 stroke={props.strokeColor}
                 strokeWidth={`${props.strokeWidth}px`}
                 width={props.radius * 2}

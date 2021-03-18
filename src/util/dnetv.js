@@ -23,6 +23,7 @@ class DNetV {
             u.timeASnode(this.data)
         }
 
+        // console.log("this.data",this.data)
         // 建立最初数据结构
         let { timeGraphs, nodeSet, linkSet, timeGraphSet, sumGraphs } = u.getTimeId(
             this.data,
@@ -47,6 +48,7 @@ class DNetV {
         this.dealLayout(graph.layout.chooseType ? graph.layout.chooseType : 'forceDirect')
         // console.log("------this.sumGraphs.----",this.sumGraphs)
         // 根据time中的是否选择了markLine而决定是否要去计算markLine的数据
+
         this.markLine = time.chooseTypes.indexOf('markLine') > -1
             ? u.getmarkLine(this.sumGraphs, this.timeGraphs, this.configs)
             : undefined
@@ -77,22 +79,32 @@ class DNetV {
     }
     dealLayout(layout = 'forceDirect') {
         // 先根据sumGraphs获得布局信息
-        if (layout === 'forceDirect') {
-            this.sumGraphs = u.offLineLayout(this.sumGraphs, this.configs) 
-        }else if (layout === 'vertical') {
-            this.sumGraphs = u.verticalLayout(this.sumGraphs, this.configs)
-        }else if (layout === 'circular') {
-            u.circularLayout(this.sumGraphs, this.configs)
-            // this.sumGraphs = u.verticalLayout(this.sumGraphs, this.configs)
-        }else if( layout === 'dagre') {
-            u.dagreLayout(this.sumGraphs, this.configs)
-        }else if( layout === 'mds') {
-            u.mdsLayout(this.sumGraphs, this.configs)
-        }else if( layout === 'grid') {
-            u.gridLayout(this.sumGraphs, this.configs)
+        if(layout === 'matrix'){
+            u.matrixLayout(this.sumGraphs, this.timeGraphs,this.configs)
+        }else{
+            switch (layout){
+                case 'forceDirect':
+                    this.sumGraphs = u.offLineLayout(this.sumGraphs, this.configs)
+                    break
+                case 'vertical':
+                    this.sumGraphs = u.verticalLayout(this.sumGraphs, this.configs)
+                    break
+                case 'circular':
+                    u.circularLayout(this.sumGraphs, this.configs)
+                    break
+                case 'dagre':
+                    u.dagreLayout(this.sumGraphs, this.configs)
+                    break
+                case 'mds':
+                    u.mdsLayout(this.sumGraphs, this.configs)
+                    break
+                case 'grid':
+                    u.gridLayout(this.sumGraphs, this.configs)
+                    break
+            }
+            // 将位置信息放入每个子图中，并根据time调整位置
+            u.getGraphLayout(this.timeGraphs, this.sumGraphs, this.configs)
         }
-        // 将位置信息放入每个子图中，并根据time调整位置
-        u.getGraphLayout(this.timeGraphs, this.sumGraphs, this.configs)
     }
 
     dealCompareData(configs) {

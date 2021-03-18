@@ -10,7 +10,8 @@ export default function DnetChartContainer(props) {
 
     const { sampleWidth,sampleHeight,renderType, markLine, subGraphs, config, len, sumGraphs, isSample = false } = props
     // console.log("---sumGraphs----",sumGraphs)
-    // console.log("---subGraphs----",subGraphs)
+    // console.log("---subGraphs----,sumGraphs",subGraphs, sumGraphs)
+    // return null
     switch (renderType) {
         case 'timeLine':
             return <TimePositionDnet 

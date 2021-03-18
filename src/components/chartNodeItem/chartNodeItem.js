@@ -14,7 +14,7 @@ export default function ChartNodeItem(props) {
             <NodeItem
                 x={data.x}
                 y={data.y}
-                shape={shape}
+                shape={data.type=='link-node'?'rect':shape}
                 fillColor={fillColor}
                 strokeColor={strokeColor}
                 strokeWidth={0}
@@ -39,7 +39,7 @@ export default function ChartNodeItem(props) {
             <NodeItem
                 x={data.x}
                 y={data.y}
-                shape={shape}
+                shape={data.type=='link-node'?'rect':shape}
                 fillColor={'none'}
                 strokeColor={strokeColor}
                 strokeWidth={strokeWidth}
