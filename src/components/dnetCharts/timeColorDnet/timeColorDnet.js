@@ -1,5 +1,6 @@
 import React from 'react'
 import PieNodeItem from '../../pieNodeItem/pieNodeItem.js'
+import BarChartNodeItem from '../../barChartNodeItem/barChartNodeItem.js'
 import DividedLinkItem from '../../dividedLinkItem/dividedLinkItem.js'
 import { getPiePathColor } from '../../../util/dnetChart.js'
 
@@ -81,16 +82,23 @@ export default function TimeColorDnet(props) {
                     )
                 })}
                 {props.data.nodes.map((dataItem, index) => {
-                    return (
-                        <PieNodeItem
-                            len={props.len}
-                            data={dataItem}
-                            existTimeIndex={dataItem.existTimeIndex}
-                            colorScale={colorScale}
-                            key={`time-color-node-${index}`}
-                            {...nodeStyle}
-                        />
-                    )
+                    return nodeStyle.shape==='circle'?
+                            <PieNodeItem
+                                len={props.len}
+                                data={dataItem}
+                                existTimeIndex={dataItem.existTimeIndex}
+                                colorScale={colorScale}
+                                key={`time-color-node-${index}`}
+                                {...nodeStyle}
+                            />:
+                            <BarChartNodeItem
+                                len={props.len}
+                                data={dataItem}
+                                existTimeIndex={dataItem.existTimeIndex}
+                                colorScale={colorScale}
+                                key={`time-color-node-${index}`}
+                                {...nodeStyle}
+                            />
                 })}
             </svg>
         </>

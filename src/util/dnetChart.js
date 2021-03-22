@@ -2,6 +2,7 @@ import * as d3 from 'd3'
 import { defaultConfigs,  COMPARISON_CONFIG} from './defaultConfig'
 import * as _lodash from 'lodash'
 import assign from 'assign-deep'
+import { path } from 'd3'
 
 
 const TIME_CONFIG = ['timeLine', 'animation', 'color', 'markLine', 'insert']
@@ -565,6 +566,25 @@ export function getPiePathData(radius, len) {
     const pathData = pieData.map((v) => arc_generator(v))
     return pathData
 }
+
+export function getBarChartNodePath(radius, len) {
+    const pathData = []
+    let startX = -1*radius, startY = -1*radius
+    let stepX = radius*2/len
+    let k = 0
+    while(k<len){
+        pathData.push({
+            x: startX,
+            y: startY,
+            width: stepX,
+            height: radius*2
+        })
+        startX += stepX
+        k++
+    }
+    return pathData
+}
+
 
 export function getPiePathColor(len, startColor, endColor) {
     //设置颜色比例尺

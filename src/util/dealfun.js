@@ -946,7 +946,6 @@ export const getGraphLayout = (timeGraphs, sumGraphs, configs) => {
             node.y += margin
             if (configs.time.chooseTypes.indexOf('timeLine') > -1) {
                 const {x:tranX, y: tranY} = positionTransMap[graphIndex]
-                console.log("tranX, tranY", tranX, tranY)
                 if (tempElement === 'node') {
                     x = node.x
                     y = node.y
@@ -979,7 +978,6 @@ export const getGraphLayout = (timeGraphs, sumGraphs, configs) => {
             link.target = { ...newNodes[link.targetTimeId] }
         })
     })
-    // console.log("nodes---links", nodes, links, timeGraphs)
     // 调整总图sumGraphs的图面边距
     const id2xy = {}
     for(let node of nodes){
