@@ -69,7 +69,7 @@ export const getTimeId = (graphs, times) => {
                     existTimeIndex,
                     existTimes,
                     existStatus,
-                style: {}
+                    style: {}
                 }
             }
             sumGraphs.nodes[id].existTimeIndex[times[time]] = 1
@@ -816,6 +816,7 @@ function getChooseComparisonStyle(configs) {
 }
 
 export const setStyle = (timeGraphs, sumGraphs, configs) => {
+
     let timeColorObj = {}
     if (configs.time.chooseTypes.indexOf('color') > -1) {
         const times = Object.keys(timeGraphs)
@@ -832,6 +833,17 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
     const { comparisonNode, comparisonLink } = getChooseComparisonStyle(configs)
     const basicNodeStyle = configs.graph.nodeStyle
     const basicLinkStyle = configs.graph.linkStyle
+    
+    // 给总图节点添加基本样式
+    let { nodes, links } = sumGraphs
+    nodes.forEach(node=>{
+        node.style.nodeStyle = basicNodeStyle
+    })
+    links.forEach(link=>{
+        link.style.linkStyle = basicLinkStyle
+    })
+    
+
     const isChooseColor = !!(configs.time.chooseTypes.indexOf('color') > -1)
     Object.values(timeGraphs).forEach((graph) => {
         Object.values(graph.nodes).forEach((node) => {

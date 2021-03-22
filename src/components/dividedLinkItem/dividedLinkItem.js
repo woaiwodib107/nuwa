@@ -12,7 +12,7 @@ export default function DividedLinkItem(props) {
                       if (existTimeIndex[index] === 1) {
                           return (
                               <line
-                                  key={index} //这里不对
+                                  key={`${index}`} //这里不对
                                   x1={v.source.x}
                                   y1={v.source.y}
                                   x2={v.target.x}
@@ -49,7 +49,7 @@ export default function DividedLinkItem(props) {
                       if (existTimeIndex[index] === 1) {
                           return (
                               <path
-                                  key={v}
+                                  key={`path-${index}`}
                                   d={v.data}
                                   fill={'none'}
                                   stroke={v.color}
@@ -64,7 +64,7 @@ export default function DividedLinkItem(props) {
                       } else {
                           return (
                               <path
-                                  key={v}
+                                  key={`path-${index}`}
                                   d={v.data}
                                   fill={'none'}
                                   stroke={'#dddddd'}

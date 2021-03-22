@@ -442,13 +442,16 @@ export function getRenderType(arr) {
         return 'animation'
     } else if (arr.indexOf('timeLine') > -1) {
         return 'timeLine'
-    } else if(arr.indexOf('chart') > -1){
-        return 'chart'
-    }else if (arr.indexOf('color') > -1) {
-        return 'color'
-    } else{  
-        return 'sumGraph'
+    } else{
+        return 'sum'
     }
+    // else if(arr.indexOf('chart') > -1){
+    //     return 'chart'
+    // }else if (arr.indexOf('color') > -1) {
+    //     return 'color'
+    // } else{  
+    //     return 'sumGraph'
+    // }
 }
 
 // 根据输入的参数，和默认的配置，合成最终的配置
@@ -617,7 +620,31 @@ export function getChartPathColor(len, startColor, endColor) {
     return colorScale
 }
 
-
+/** 节点的策略函数 */
+export function getNodeRenderType(config, isColor){
+    const isChart = config.time.chooseTypes.indexOf('chart') > -1
+    const { nodeStyle } = config.graph
+    const chartType = config.time.chart&&config.time.chart.type ? config.time.chart.type: 'line'
+    if(isChart){
+        if(chartType==='line'){
+            return 'lineChartNode'
+        }else{
+            if(nodeStyle.shape==='circle'){
+                return 'pieNode'
+            }else{
+                return 'barNode'
+            }
+        }
+    }else if(isColor){
+        if(nodeStyle.shape==='circle'){
+            return 'pieNode'
+        }else{
+            return 'barNode'
+        }
+    }else{
+        return 'simpleNode'
+    }
+}
 
 export function getCurveData(len, data, isColor, strokeColor,colorScale ) {
     const curveData = []

@@ -11,24 +11,24 @@ import {
 
 
 export default function LinkContainer(props) {
-    const { source, target, opacity = 1, status, type} = props
+    const { source, target, opacity = 1, status=[], type, style} = props
     
     let linkType 
     if(type==='time'||status.length === 0){
         // comparison状态没有开启
-        linkType = props.style.linkStyle.shape
+        linkType = style.linkStyle.shape
         if(linkType === 'curve'){
             return (
                 <ArcLinkItem
                     data = {getArcPathData(source, target)}
-                    {...props.style.linkStyle}
+                    {...style.linkStyle}
                     opacity={opacity}
                 />
             )
         }else{
             return (
                 <LinkItem
-                    {...props.style.linkStyle}
+                    {...style.linkStyle}
                     opacity={opacity}
                     {...props}
                 />
@@ -37,19 +37,19 @@ export default function LinkContainer(props) {
         
     }else if (status.length === 1) {
         // comparison状态开启，状态只有一个
-        linkType = props.style[status[0]].shape
+        linkType = style[status[0]].shape
         if(linkType === 'curve'){
             return (
                 <ArcLinkItem
                     data = {getArcPathData(source, target)}
-                    {...props.style[status[0]]}
+                    {...style[status[0]]}
                     opacity={opacity}
                 />
             )
         }else{
             return (
                 <LinkItem
-                    {...props.style[status[0]]}
+                    {...style[status[0]]}
                     opacity={opacity}
                     {...props}
                 />
@@ -58,18 +58,18 @@ export default function LinkContainer(props) {
     } else if((status.length === 2)){
         // 比较状态开启，状态有两个
         // 状态有两个不进行opacity渐变覆盖
-        linkType = getLineType(status, props.style)
+        linkType = getLineType(status, style)
         if(linkType === 'curve'){
             const { firstData, secondData} = getDividedArcPathData(source, target)
             return (
                 <>
                     <ArcLinkItem
                         data = {firstData}
-                        {...props.style[status[0]]}
+                        {...style[status[0]]}
                     />
                     <ArcLinkItem
                         data = {secondData}
-                        {...props.style[status[1]]}
+                        {...style[status[1]]}
                     />
                 </>
             )
@@ -92,11 +92,11 @@ export default function LinkContainer(props) {
                 <>
                     <ArcLinkItem
                         data = {firstData}
-                        {...props.style[status[indexA]]}
+                        {...style[status[indexA]]}
                     />
                     <ArcLinkItem
                         data = {secondData}
-                        {...props.style[status[indexB]]}
+                        {...style[status[indexB]]}
                     />
                 </>
             )
