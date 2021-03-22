@@ -10,7 +10,6 @@ export default function TimeColorDnet(props) {
     const singleLegendWidth = 15
     let colorScale = getPiePathColor(props.len, '#FD8F8F', '#90B5FB')
     const { eachWidth, eachHeight, margin, nodeStyle, linkStyle } = props.config.graph
-    // console.log("props.data", props.data)
     const svgWidth = eachWidth + margin*2
     const svgHeight = eachHeight + margin*2
     return (
@@ -74,6 +73,7 @@ export default function TimeColorDnet(props) {
                         <DividedLinkItem
                             len={props.len}
                             data={dataItem}
+                            isColor={false}
                             existTimeIndex={dataItem.existTimeIndex}
                             colorScale={colorScale}
                             key={`time-color-link-${index}`}
@@ -87,6 +87,7 @@ export default function TimeColorDnet(props) {
                                 len={props.len}
                                 data={dataItem}
                                 existTimeIndex={dataItem.existTimeIndex}
+                                isColor={false}
                                 colorScale={colorScale}
                                 key={`time-color-node-${index}`}
                                 {...nodeStyle}
@@ -94,6 +95,7 @@ export default function TimeColorDnet(props) {
                             <BarChartNodeItem
                                 len={props.len}
                                 data={dataItem}
+                                isColor={false}
                                 existTimeIndex={dataItem.existTimeIndex}
                                 colorScale={colorScale}
                                 key={`time-color-node-${index}`}

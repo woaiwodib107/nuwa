@@ -2,8 +2,8 @@ import React from 'react'
 import { getLinkData } from '../../util/dnetChart.js'
 
 export default function DividedLinkItem(props) {
-    const { data, len, colorScale, strokeWidth, strokeType, existTimeIndex, shape } = props
-    const linkData = getLinkData(len, data, shape)
+    const { data, len, colorScale, strokeWidth, strokeType, existTimeIndex, shape, isColor = true, strokeColor } = props
+    const linkData = getLinkData(len, data, shape,isColor, strokeColor,colorScale)
     
     return (
         <g>
@@ -17,7 +17,7 @@ export default function DividedLinkItem(props) {
                                   y1={v.source.y}
                                   x2={v.target.x}
                                   y2={v.target.y}
-                                  stroke={colorScale(index)}
+                                  stroke={v.color }
                                   strokeWidth={`${strokeWidth}px`}
                                   strokeDasharray={
                                       strokeType === 'solid'
@@ -50,9 +50,9 @@ export default function DividedLinkItem(props) {
                           return (
                               <path
                                   key={v}
-                                  d={v}
+                                  d={v.data}
                                   fill={'none'}
-                                  stroke={colorScale(index)}
+                                  stroke={v.color}
                                   strokeWidth={`${strokeWidth}px`}
                                   strokeDasharray={
                                       strokeType === 'solid'
@@ -65,7 +65,7 @@ export default function DividedLinkItem(props) {
                           return (
                               <path
                                   key={v}
-                                  d={v}
+                                  d={v.data}
                                   fill={'none'}
                                   stroke={'#dddddd'}
                                   strokeWidth={`${strokeWidth}px`}

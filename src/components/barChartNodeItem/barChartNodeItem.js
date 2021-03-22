@@ -2,7 +2,7 @@ import React from 'react'
 import { getBarChartNodePath } from '../../util/dnetChart.js'
 
 export default function BarChartNodeItem(props) {
-    const { data, len, colorScale, existTimeIndex, strokeColor, strokeWidth, strokeType, radius } = props
+    const { data, len, colorScale, existTimeIndex, strokeColor, strokeWidth, strokeType, radius,fillColor,isColor = true } = props
     const barChartData = getBarChartNodePath(radius, len)
     return (
         <>
@@ -15,7 +15,7 @@ export default function BarChartNodeItem(props) {
                             id={props.timeId}
                             x={itemData.x}
                             y={itemData.y}
-                            fill={colorScale(index)}
+                            fill={isColor ? colorScale(index):fillColor}
                             stroke={strokeColor}
                             strokeWidth={"0px"}
                             width={itemData.width}

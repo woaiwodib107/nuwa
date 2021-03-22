@@ -619,7 +619,7 @@ export function getChartPathColor(len, startColor, endColor) {
 
 
 
-export function getCurveData(len, data ) {
+export function getCurveData(len, data, isColor, strokeColor,colorScale ) {
     const curveData = []
     let lastStart = {
         x: data.source.x,
@@ -637,20 +637,39 @@ export function getCurveData(len, data ) {
     let lastAngle = stepAngle
 
     let i = 0
-    while (i < len) {
-        const newStart = {
-            x: center.x + directFlag*radius*Math.sin(lastAngle) ,
-            y: center.y - directFlag*radius*Math.cos(lastAngle) ,
+    if(isColor){
+        while (i < len) {
+            const newStart = {
+                x: center.x + directFlag*radius*Math.sin(lastAngle) ,
+                y: center.y - directFlag*radius*Math.cos(lastAngle) ,
+            }
+            curveData.push({
+                data: `M ${lastStart.x} ${lastStart.y} A ${radius} ${radius} 0 0 1 ${newStart.x} ${newStart.y} `,
+                color: colorScale(i)
+            })            
+            lastAngle += stepAngle
+            lastStart = newStart
+            i++
         }
-        curveData.push(`M ${lastStart.x} ${lastStart.y} A ${radius} ${radius} 0 0 1 ${newStart.x} ${newStart.y} `)
-        lastAngle += stepAngle
-        lastStart = newStart
-        i++
+    }else{
+        while (i < len) {
+            const newStart = {
+                x: center.x + directFlag*radius*Math.sin(lastAngle) ,
+                y: center.y - directFlag*radius*Math.cos(lastAngle) ,
+            }
+            curveData.push({
+                data: `M ${lastStart.x} ${lastStart.y} A ${radius} ${radius} 0 0 1 ${newStart.x} ${newStart.y} `,
+                color: strokeColor
+            })
+            lastAngle += stepAngle
+            lastStart = newStart
+            i++
+        }
     }
     return curveData
 }
 
-export function getLineData(len, data) {
+export function getLineData(len, data, isColor, strokeColor,colorScale) {
     const lineData = []
     let lastStart = {
         x: data.source.x,
@@ -658,25 +677,41 @@ export function getLineData(len, data) {
     }
     let xStep = (data.target.x - data.source.x) / len
     let yStep = (data.target.y - data.source.y) / len
-
     let i = 0
-    while (i < len) {
-        const newStart = {
-            x: lastStart.x + xStep,
-            y: lastStart.y + yStep
+    if(isColor){
+        while (i < len) {
+            const newStart = {
+                x: lastStart.x + xStep,
+                y: lastStart.y + yStep
+            }
+            lineData.push({
+                source: lastStart,
+                target: newStart,
+                color: colorScale(i)
+            })
+            lastStart = newStart
+            i++
         }
-        lineData.push({
-            source: lastStart,
-            target: newStart
-        })
-        lastStart = newStart
-        i++
+    }else{
+        while (i < len) {
+            const newStart = {
+                x: lastStart.x + xStep,
+                y: lastStart.y + yStep
+            }
+            lineData.push({
+                source: lastStart,
+                target: newStart,
+                color: strokeColor
+            })
+            lastStart = newStart
+            i++
+        }
     }
     return lineData
 }
 
-export function getLinkData(len, data, shape) {
-    return shape === 'line' ?  getLineData(len, data): getCurveData(len, data)
+export function getLinkData(len, data, shape, isColor, strokeColor,colorScale) {
+    return shape === 'line' ?  getLineData(len, data, isColor, strokeColor,colorScale): getCurveData(len, data, isColor, strokeColor,colorScale)
 }
 
 // export function getArcPathData(y1, y2) {
