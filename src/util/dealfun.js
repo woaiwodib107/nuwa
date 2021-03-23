@@ -496,15 +496,18 @@ export const matrixLayout = (sumGraph, timeGraphs, configs) => {
         const id2LinkNodeX2Y = {}
         const id2LinkNodeY2X = {}
         Object.values(graph.nodes).forEach((node)=>{
-            node.x = nodeId2Xobj[node.id].x
-            node.y = nodeId2Xobj[node.id].y
+            assign(node, nodeId2Xobj[node.id])
+            // node.x = nodeId2Xobj[node.id].x
+            // node.y = nodeId2Xobj[node.id].y
+            
             // console.log("node,configs,positionTransMap[graphIndex]",node.x,node.y,configs,positionTransMap[graphIndex])
             applyPosition2Node(node,configs,positionTransMap[graphIndex])
-            // console.log("node",node.x,node.y)
+            
             id2Xnode[node.id] = node
             let yNode = _.cloneDeep(node)
-            yNode.x = nodeId2Yobj[node.id].x
-            yNode.y = nodeId2Yobj[node.id].y
+            assign(yNode, nodeId2Yobj[node.id])
+            // yNode.x = nodeId2Yobj[node.id].x
+            // yNode.y = nodeId2Yobj[node.id].y
             applyPosition2Node(yNode,configs,positionTransMap[graphIndex])
             yNode.id = `y-${node.id}`
             yNode.timeId = `y-${node.timeId}`
@@ -519,6 +522,8 @@ export const matrixLayout = (sumGraph, timeGraphs, configs) => {
                 type:'link-node',
                 x: id2Xnode[link.source].x,
                 y: id2Ynode[link.target].y,
+                existTimeIndex: linkId2yxNode[link.id].existTimeIndex,
+                existTimes:linkId2yxNode[link.id].existTimes
             }  
             id2LinkNodeX2Y[linkNodeX2Y.id] = linkNodeX2Y
             let linkNodeY2X = {
@@ -527,6 +532,8 @@ export const matrixLayout = (sumGraph, timeGraphs, configs) => {
                 id:`y2x-link-${link.id}`,
                 x: id2Xnode[link.target].x,
                 y: id2Ynode[link.source].y,
+                existTimeIndex: linkId2yxNode[link.id].existTimeIndex,
+                existTimes:linkId2yxNode[link.id].existTimes
             }
             id2LinkNodeY2X[linkNodeY2X.id] = linkNodeY2X
         })
@@ -580,7 +587,6 @@ export const matrixLayout = (sumGraph, timeGraphs, configs) => {
             graphLinks[linkY.id] = linkY
         }
     })
-    // console.log("matrixLayout,sumGraph, timeGraphs",sumGraph, timeGraphs)
 }
 
 export const getTranslateMap =(configs,len)=>{
@@ -898,7 +904,9 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
             link.style.linkStyle = basicLinkStyle
             if (isChooseColor) {
                 link.style.linkStyle = _.cloneDeep(basicLinkStyle)
-                link.style.linkStyle.strokeColor = timeColorObj[link.time]
+                if(timeColorObj[link.time]){
+                    link.style.linkStyle.strokeColor = timeColorObj[link.time]
+                }
             }
             link.status.forEach((d) => {
                 // 该style是用于comparison这种方式
@@ -912,7 +920,6 @@ export const getGraphLayout = (timeGraphs, sumGraphs, configs) => {
     let { nodes, links } = sumGraphs
 
     const { margin } = configs.graph
-    let { xDistance, yDistance } = configs.time.timeLine
     const layoutNodes = Object.fromEntries(nodes.map((d) => [d.id, d]))
     const layoutLinks = Object.fromEntries(links.map((d) => [d.id, d]))
     let timeGraphsValues = Object.values(timeGraphs)
@@ -950,7 +957,7 @@ export const getGraphLayout = (timeGraphs, sumGraphs, configs) => {
     const positionTransMap = getTranslateMap(configs, graphLength)
     timeGraphsValues.forEach((graph,graphIndex) => {
         Object.values(graph.nodes).forEach((node) => {
-            // 将位置信息复制到各个子图上
+            // 将总图的位置信息复制到各个子图对应节点上
             assign(node, layoutNodes[node.id])
             let { x, y, timeId, id } = node
             // 无论是否选中节点，margin偏移都是要的

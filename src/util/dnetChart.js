@@ -621,7 +621,7 @@ export function getChartPathColor(len, startColor, endColor) {
 }
 
 /** 节点的策略函数 */
-export function getNodeRenderType(config, isColor){
+export function getNodeRenderType(config, isColor, isPosition = true){
     const isChart = config.time.chooseTypes.indexOf('chart') > -1
     const { nodeStyle } = config.graph
     const chartType = config.time.chart&&config.time.chart.type ? config.time.chart.type: 'line'
@@ -635,7 +635,7 @@ export function getNodeRenderType(config, isColor){
                 return 'barNode'
             }
         }
-    }else if(isColor){
+    }else if(isColor&&isPosition){
         if(nodeStyle.shape==='circle'){
             return 'pieNode'
         }else{

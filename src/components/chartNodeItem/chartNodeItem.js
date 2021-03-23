@@ -25,7 +25,7 @@ export default function ChartNodeItem(props) {
             <g transform={`translate(${data.x}, ${data.y})`}>
                 {
                     pathDatas.map((pathData, index)=>{
-                        console.log("pathData.color--",pathData.color)
+                        // console.log("pathData.color--",pathData.color)
                         return <path
                             key={`chart-item-${index}-${pathData.data}`}
                             d={pathData.data}

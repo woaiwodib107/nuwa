@@ -1,10 +1,7 @@
 import React from 'react'
-import PieNodeItem from '../../pieNodeItem/pieNodeItem.js'
-import BarChartNodeItem from '../../barChartNodeItem/barChartNodeItem.js'
 import DividedLinkItem from '../../dividedLinkItem/dividedLinkItem.js'
-import ChartNodeItem from '../../chartNodeItem/chartNodeItem.js'
 import LinkContainer from '../../linkContainer/linkContainer.js'
-import NodeItemContainer from '../../nodeItemContainer/nodeItemContainer.js'
+import NodeContainer from '../../nodeContainer/nodeContainer.js'
 import { getPiePathColor, getNodeRenderType } from '../../../util/dnetChart.js'
 
 export default function TimeSumDnet(props) {
@@ -25,55 +22,6 @@ export default function TimeSumDnet(props) {
     const svgWidth = eachWidth + margin * 2
     const svgHeight = eachHeight + margin * 2
 
-    function handleNode(){
-        switch(nodeRenderType) {
-            case 'lineChartNode':
-                return props.data.nodes.map((dataItem, index) => {
-                    return (
-                        <ChartNodeItem
-                            data={dataItem}
-                            existTimeIndex={dataItem.existTimeIndex}
-                            colorScale={colorScale}
-                            isColor={isColor}
-                            key={`line-chart-node-${index}`}
-                            {...nodeStyle}
-                        />
-                    )
-                })
-            case 'pieNode':
-                return props.data.nodes.map((dataItem, index) => {
-                    return (
-                        <PieNodeItem
-                            len={props.len}
-                            data={dataItem}
-                            existTimeIndex={dataItem.existTimeIndex}
-                            colorScale={colorScale}
-                            isColor={isColor}
-                            key={`pie-node-${index}`}
-                            {...nodeStyle}
-                        />
-                    )
-                })
-            case 'barNode':
-                return props.data.nodes.map((dataItem, index) => {
-                    return (
-                        <BarChartNodeItem
-                            len={props.len}
-                            data={dataItem}
-                            existTimeIndex={dataItem.existTimeIndex}
-                            isColor={isColor}
-                            colorScale={colorScale}
-                            key={`bar-node-${index}`}
-                            {...nodeStyle}
-                        />
-                    )
-                })
-            default :
-                return props.data.nodes.map((dataItem, index) => {
-                    return <NodeItemContainer {...dataItem} key={`simple-node-${dataItem.id}`} />
-                })
-        }
-    }
     return (
         <>
             {!props.isSample && isColor ? (
@@ -150,10 +98,12 @@ export default function TimeSumDnet(props) {
                               return <LinkContainer {...dataItem} key={`link-${dataItem.id}`} />
                           })
                 }
-                { 
-                     /** 节点绘制 */
-                    handleNode() 
-                }
+                <NodeContainer
+                    len = {props.len}
+                    data = {props.data.nodes}
+                    config = {props.config}
+                    isSum={true}
+                />
             </svg>
         </>
     )

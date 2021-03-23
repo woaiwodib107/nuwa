@@ -128,7 +128,7 @@ export default class Board extends React.Component {
                     opacity:1,
                 },
                 chart: {
-                    type:'linear'
+                    type:'line'
                 }
             },
             task: {

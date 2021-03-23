@@ -11,6 +11,7 @@ import {
 
 
 export default function LinkContainer(props) {
+    console.log("----LinkContaine--------r")
     const { source, target, opacity = 1, status=[], type, style} = props
     
     let linkType 
