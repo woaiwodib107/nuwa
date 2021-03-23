@@ -835,12 +835,12 @@ export function getChartLineData(radius, existTimeIndex , colorScale, isColor,st
         if(v === 1){
             result =  {
                 x: startX,
-                y: stepY
+                y: -1*stepY
             }
         }else{
             result =  {
                 x: startX,
-                y: -1*stepY
+                y: stepY
             }
            
         }
