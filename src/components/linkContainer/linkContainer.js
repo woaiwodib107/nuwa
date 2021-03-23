@@ -11,7 +11,6 @@ import {
 
 
 export default function LinkContainer(props) {
-    console.log("----LinkContaine--------r")
     const { source, target, opacity = 1, status=[], type, style} = props
     
     let linkType 
@@ -23,14 +22,14 @@ export default function LinkContainer(props) {
                 <ArcLinkItem
                     data = {getArcPathData(source, target)}
                     {...style.linkStyle}
-                    opacity={opacity}
+                    motionOpacity={opacity}
                 />
             )
         }else{
             return (
                 <LinkItem
                     {...style.linkStyle}
-                    opacity={opacity}
+                    motionOpacity={opacity}
                     {...props}
                 />
             )
@@ -44,14 +43,14 @@ export default function LinkContainer(props) {
                 <ArcLinkItem
                     data = {getArcPathData(source, target)}
                     {...style[status[0]]}
-                    opacity={opacity}
+                    motionOpacity={opacity}
                 />
             )
         }else{
             return (
                 <LinkItem
                     {...style[status[0]]}
-                    opacity={opacity}
+                    motionOpacity={opacity}
                     {...props}
                 />
             )
