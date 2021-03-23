@@ -4,7 +4,7 @@ import DividedLinkItem from '../../dividedLinkItem/dividedLinkItem.js'
 import NodeContainer from '../../nodeContainer/nodeContainer.js'
 import { getSvgWidthHeight } from '../../../util/dnetChart'
 import MarkLineItem from '../../markLineItem/markLineItem.js'
-import { getPiePathColor, getNodeRenderType } from '../../../util/dnetChart.js'
+import { getPiePathColor } from '../../../util/dnetChart.js'
 
 export default function TimePositionDnet(props) {
     const { data, config, markLine } = props
@@ -12,18 +12,15 @@ export default function TimePositionDnet(props) {
     if (dataLength === 0) return null
     const { svgWidth, svgHeight } = getSvgWidthHeight(config, dataLength)
     const markLineOptions = config.time.markLine
-    const { nodeStyle, linkStyle, layout } = config.graph
+    const { linkStyle, layout } = config.graph
 
     // 确定颜色比例
     const { startColor = '#FD8F8F', endColor = '#90B5FB' } = config.time.color
     let colorScale = getPiePathColor(dataLength, startColor, endColor)
     const timeChooseTypes = config.time.chooseTypes
     const isColor = timeChooseTypes.indexOf('color') > -1
-
-    const isChart = isColor || timeChooseTypes.indexOf('chart') > -1
+    const isChart = timeChooseTypes.indexOf('chart') > -1
     const isMatrix = layout.chooseType === 'matrix'
-    const nodeRenderType = getNodeRenderType(config, isColor, false)
-    console.log("layout,TimePositionDnet---data---isMatrix,isChart",layout.chooseType,data,isMatrix,isChart,JSON.stringify(timeChooseTypes))
     return (
         <svg
             className="nlg-container-svg"
