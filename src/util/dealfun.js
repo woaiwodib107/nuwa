@@ -734,21 +734,42 @@ export const assignConfigs = (setConfigs) => {
 }
 export const getmarkLine = (sumGraphs, timeGraphs, configs) => {
     let markLine = {}
-    Object.values(sumGraphs.nodes).forEach((node) => {
-        const { id, existTimes } = node
-        markLine[id] = []
-        existTimes.forEach((time) => {
-            if (time !== '') {
-                const { x, y } = timeGraphs[time].nodes[id]
-                const l = markLine[id].length
-                if (l) {
-                    markLine[id][l - 1].target = { x, y }
+    if(configs.time.timeLine.element==='link'){
+        // 处理只平移链接的情况
+        Object.values(sumGraphs.nodes).forEach((node) => {
+            const { id, existTimes } = node
+            markLine[id] = []
+            existTimes.forEach((time) => {
+                if (time !== '') {
+                    const { tx:x, ty:y } = timeGraphs[time].nodes[id]
+                    const l = markLine[id].length
+                    if (l) {
+                        markLine[id][l - 1].target = { x, y }
+                    }
+                    markLine[id].push({ source: { x, y } })
                 }
-                markLine[id].push({ source: { x, y } })
-            }
+            })
+            markLine[id].pop()
         })
-        markLine[id].pop()
-    })
+    }else{
+        Object.values(sumGraphs.nodes).forEach((node) => {
+            const { id, existTimes } = node
+            markLine[id] = []
+            existTimes.forEach((time) => {
+                if (time !== '') {
+                    const { x, y } = timeGraphs[time].nodes[id]
+                    
+                    const l = markLine[id].length
+                    if (l) {
+                        markLine[id][l - 1].target = { x, y }
+                    }
+                    markLine[id].push({ source: { x, y } })
+                }
+            })
+            markLine[id].pop()
+        })
+    }
+    
     markLine = getLinkPathData(markLine)
     return markLine
 }
@@ -867,7 +888,7 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
             if(node.type=='link-node'){
                 node.style.nodeStyle = {
                     ...basicNodeStyle,
-                    fillColor: '#EF6767',
+                    fillColor: '#73C105',
                     shape: 'rect',
                     opacity: 0.7
                 }
@@ -974,6 +995,8 @@ export const getGraphLayout = (timeGraphs, sumGraphs, configs) => {
                     // 只是链接进行偏移.
                     x = node.x + tranX
                     y = node.y + tranY
+                    node.tx = x
+                    node.ty = y
                 } else {
                     // 都进行偏移
                     node.x = node.x + tranX
