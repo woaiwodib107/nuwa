@@ -23,7 +23,6 @@ export default function DnetChartContainer(props) {
                     data={subGraphs} 
                     sumData={sumGraphs}
                     config={config} 
-                    sampleWidth={sampleWidth}
                     isSample={isSample}
                 />
         case 'sum':

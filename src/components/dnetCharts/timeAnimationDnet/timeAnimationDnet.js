@@ -71,6 +71,8 @@ export default function TimeAnimationDnet(props) {
             
             <NodeLinkGraph 
                 data={props.data[frameIndex]} 
+                dataLength={data.length}
+                config={config}
                 height={svgHeight} 
                 sampleWidth={props.sampleWidth}
                 sampleHeight={props.sampleHeight}

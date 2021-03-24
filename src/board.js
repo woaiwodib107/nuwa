@@ -1,14 +1,13 @@
 import React from 'react'
 import Data from './components/data/data.js'
 import TimePanel from './components/timePanel/timePanel.js'
-import Grammar from './components/grammar.js'
 import Preview from './components/preview/preview.js'
 import TaskPanel from './components/taskPanel/taskPanel.js'
 import GraphPanel from './components/graphPanel/graphPanel.js'
-import LayoutPanel from './components/layoutPanel/layoutPanel.js'
 import ExampleBoard from './components/exampleBoard/exampleBoard.js'
 import TemplatePanel from './components/templatePanel/templatePanel.js'
 import { COMPARISON_CONFIG } from './util/defaultConfig.js'
+import * as exampleData from './data/import/test2.json'
 
 export default class Board extends React.Component {
     constructor(props) {
@@ -278,12 +277,6 @@ export default class Board extends React.Component {
         }
     }
     render() {
-        const combineConfigs = {
-            basic: this.state.basic,
-            time: this.state.time,
-            layout: this.state.layout,
-            comparison: this.state.comparison
-        }
         return (
             <div className="board">
                 <div className="window-header">
@@ -324,19 +317,14 @@ export default class Board extends React.Component {
                             />
                         </div>
                         <div className="col">
-                            {/* <LayoutPanel
-                                options={this.state.layout}
-                                onSubmit={this.handleSubmitFromLayout}
-                            /> */}
                             <TaskPanel
                                 options={this.state.task}
                                 onSubmit={this.handleSubmitFromTask}
                             />
                         </div>
-
                         <div className="col">
                             <TemplatePanel
-                                data={this.state.jsonfile.graphs}
+                                data={exampleData.default.graphs}
                                 config={{
                                     graph: this.state.graph,
                                     task: this.state.task,
