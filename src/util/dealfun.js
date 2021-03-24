@@ -202,9 +202,100 @@ export const verticalLayout = (sumGraphs, configs) => {
         link.source = nodesObj[link.source]
         link.target = nodesObj[link.target]
     })
-    // adjustLayout2Svg(nodes, links, eachWidth, eachHeight)
+}
 
-    return sumGraphs
+export const bipartiteLayout = (sumGraphs,timeGraphs, configs) => {
+    // 处理总图的节点和链接位置
+    let { nodes, links } = sumGraphs
+    const { eachWidth, eachHeight, margin } = configs.graph
+    const len = nodes.length
+    const step = (eachHeight - margin*2)/len
+    let firstNodesObj = {}
+    let secondNodesObj = {}
+    let secondNodes = []
+    nodes.forEach((node, index) => {
+        node.y = step * index + margin
+        node.x = margin
+        firstNodesObj[node.id] = node
+        let sNode = _.cloneDeep(node)
+        sNode.x = eachWidth-margin
+        sNode.id = `s-${node.id}`
+        secondNodes.push(sNode)
+        secondNodesObj[node.id] = sNode
+    })
+    while(secondNodes.length>0){
+        let sNode = secondNodes.pop()
+        nodes.push(sNode)
+    }
+    const sumLinksArr = {}
+    links.forEach((link) => {
+        link.source = firstNodesObj[link.source]
+        link.target = secondNodesObj[link.target]
+        sumLinksArr[link.id] = link
+    })
+
+    // 处理分帧图的数据
+    let timeGraphsValues = Object.values(timeGraphs)
+    timeGraphsValues.forEach((graph,graphIndex)=>{
+        // 1. 给该分帧图的点赋予和总图一样的坐标，与此同时复制一份分帧图的点，并改变其id和坐标
+        let sNodesArr = []
+        Object.values(graph.nodes).forEach((node) => {
+            assign(node,firstNodesObj[node.id])
+            let sNode = _.cloneDeep(node)
+            sNode.x = eachWidth-margin
+            sNode.id = `s-${node.id}`
+            sNodesArr.push(sNode)
+        })
+        // 2. 将复制的点加入到graph中
+        while(sNodesArr.length>0){
+            let sNode = sNodesArr.pop()
+            graph.nodes[sNode.id] = sNode
+        }
+        // 3. 调整链接的位置
+        Object.values(graph.links).forEach((link) => {
+            assign(link,_.cloneDeep(sumLinksArr[link.id]))
+        })
+    })
+    
+    //  平移节点、链接位置
+    const tempElement = configs.time.timeLine.element
+    if (configs.time.chooseTypes.indexOf('timeLine') > -1) {
+        const graphLength = timeGraphsValues.length
+        const positionTransMap = getTranslateMap(configs, graphLength)
+        if (tempElement === 'node') {
+            timeGraphsValues.forEach((graph,graphIndex)=>{
+                const {x:tranX, y: tranY} = positionTransMap[graphIndex]
+                Object.values(graph.nodes).forEach((node) => {
+                    node.x = node.x + tranX
+                    node.y = node.y + tranY
+                })
+            })
+        }else if(tempElement === 'link'){
+            timeGraphsValues.forEach((graph,graphIndex)=>{
+                const {x:tranX, y: tranY} = positionTransMap[graphIndex]
+                Object.values(graph.links).forEach((link) => {
+                    link.source.x += tranX
+                    link.target.x += tranX
+                    link.source.y += tranY
+                    link.target.y += tranY
+                })
+            })
+        }else{
+            timeGraphsValues.forEach((graph,graphIndex)=>{
+                const {x:tranX, y: tranY} = positionTransMap[graphIndex]
+                Object.values(graph.nodes).forEach((node) => {
+                    node.x = node.x + tranX
+                    node.y = node.y + tranY
+                })
+                Object.values(graph.links).forEach((link) => {
+                    link.source.x += tranX
+                    link.target.x += tranX
+                    link.source.y += tranY
+                    link.target.y += tranY
+                })
+            })
+        }
+    }
 }
 export const dagreLayout = (sumGraphs, configs) => {
     let { nodes, links } = sumGraphs
@@ -689,7 +780,6 @@ export const offLineLayout = (sumGraphs, configs) => {
         .tick(30)
         .stop()
     adjustLayout2Svg(nodes, links, eachWidth, eachHeight)
-    return sumGraphs
 }
 export const assignConfigs = (setConfigs) => {
     let configs = _.cloneDeep(setConfigs)
@@ -969,7 +1059,6 @@ export const getGraphLayout = (timeGraphs, sumGraphs, configs) => {
             }
         }
     }
-    
     // 根据配置调整各帧图的位置
     let newNodes = {}
     const tempElement = configs.time.timeLine.element
@@ -1029,6 +1118,7 @@ export const getGraphLayout = (timeGraphs, sumGraphs, configs) => {
             y: node.y
         }
     }
+    // 调整总图link的边距
     // links的各个link端点之间有重复，
     // 且存在重复引用。因此不能直接给各个link的端点加margin
     for(let link of links) {

@@ -24,7 +24,7 @@ export default class Board extends React.Component {
                 eachHeight: 300,
                 margin: 30,
                 layout: {
-                    chooseType: 'matrix',
+                    chooseType: 'bipartite',
                     vertical: {
                         yDistance: 40,
                         linkStyle: {

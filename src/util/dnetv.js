@@ -46,7 +46,6 @@ class DNetV {
 
         // 依据layout的配置去赋予位置信息
         this.dealLayout(graph.layout.chooseType ? graph.layout.chooseType : 'forceDirect')
-        // console.log("------this.sumGraphs.----",this.sumGraphs)
         // 根据time中的是否选择了markLine而决定是否要去计算markLine的数据
 
         this.markLine = time.chooseTypes.indexOf('markLine') > -1
@@ -71,8 +70,7 @@ class DNetV {
             }else if(task.basedType === 'attr'){
                 u.dealCompareAttr(this.timeGraphs, task)
             }
-        }
-        if(task.taskType === 'find'){
+        }else if(task.taskType === 'find'){
             //函数里面直接改了timeGraphs、sumGraphs
             u.getFindData(this.timeGraphs, this.configs) //函数里面直接改了timeGraphs
         }
@@ -81,13 +79,15 @@ class DNetV {
         // 先根据sumGraphs获得布局信息
         if(layout === 'matrix'){
             u.matrixLayout(this.sumGraphs, this.timeGraphs,this.configs)
+        }else if(layout === 'bipartite'){
+            u.bipartiteLayout(this.sumGraphs, this.timeGraphs, this.configs)
         }else{
             switch (layout){
                 case 'forceDirect':
-                    this.sumGraphs = u.offLineLayout(this.sumGraphs, this.configs)
+                    u.offLineLayout(this.sumGraphs, this.configs)
                     break
                 case 'vertical':
-                    this.sumGraphs = u.verticalLayout(this.sumGraphs, this.configs)
+                    u.verticalLayout(this.sumGraphs, this.configs)
                     break
                 case 'circular':
                     u.circularLayout(this.sumGraphs, this.configs)
@@ -100,7 +100,7 @@ class DNetV {
                     break
                 case 'grid':
                     u.gridLayout(this.sumGraphs, this.configs)
-                    break
+                    break  
             }
             // 将位置信息放入每个子图中，并根据time调整位置
             u.getGraphLayout(this.timeGraphs, this.sumGraphs, this.configs)
