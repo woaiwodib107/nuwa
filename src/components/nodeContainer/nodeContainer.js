@@ -31,6 +31,8 @@ export default function NodeContainer(props) {
                 return (
                     <>
                         {nodesData.map((node, index) => {
+                            // matrix中链接的节点形式，和普通的基点样式不一样。所以，需要更新
+                            const tempStyle = node.type ==='link-node' ? node.style.nodeStyle :nodeStyle
                             return (
                                 <ChartNodeItem
                                     data={node}
@@ -38,7 +40,7 @@ export default function NodeContainer(props) {
                                     colorScale={colorScale}
                                     isColor={isColor}
                                     key={`line-chart-node-${index}`}
-                                    {...nodeStyle}
+                                    {...tempStyle}
                                 />
                             )
                         })}

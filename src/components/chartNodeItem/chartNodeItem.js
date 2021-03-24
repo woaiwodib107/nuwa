@@ -4,17 +4,13 @@ import { getChartLineData } from '../../util/dnetChart.js'
 
 export default function ChartNodeItem(props) {
     const { data,isColor, colorScale, shape, existTimeIndex, strokeColor, strokeWidth,fillColor, strokeType, radius } = props
-    // return null
-    
     const pathDatas = getChartLineData(radius, existTimeIndex, colorScale, isColor, strokeColor)
-    // return null
-    // console.log("pathcDAta",pathDatas)
     return (
         <>
             <NodeItem
                 x={data.x}
                 y={data.y}
-                shape={data.type=='link-node'?'rect':shape}
+                shape={shape}
                 fillColor={fillColor}
                 strokeColor={strokeColor}
                 strokeWidth={0}
@@ -25,7 +21,6 @@ export default function ChartNodeItem(props) {
             <g transform={`translate(${data.x}, ${data.y})`}>
                 {
                     pathDatas.map((pathData, index)=>{
-                        // console.log("pathData.color--",pathData.color)
                         return <path
                             key={`chart-item-${index}-${pathData.data}`}
                             d={pathData.data}
@@ -39,7 +34,7 @@ export default function ChartNodeItem(props) {
             <NodeItem
                 x={data.x}
                 y={data.y}
-                shape={data.type=='link-node'?'rect':shape}
+                shape={shape}
                 fillColor={'none'}
                 strokeColor={strokeColor}
                 strokeWidth={strokeWidth}
