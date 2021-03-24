@@ -129,7 +129,7 @@ export const getTimeId = (graphs, times) => {
             sumGraphs.links[id].existTimeIndex[times[time]] = 1
             sumGraphs.links[id].existTimes[times[time]] = time
         })
-        
+        // 给节点赋予度数属性
         for(let nodeId in timeGraphs[time].nodes) {
             timeGraphs[time].nodes[nodeId].degree = node2degree[nodeId]
         }
@@ -1160,12 +1160,29 @@ export const getFindData = (
             }
         }
     }else{
+        const {attr, relation, value} = configs.task.find ? configs.task.find :{
+            attr:'degree',relation: '>=', value:3
+        }
         for(let timeId in timeGraphs){
             const graph = timeGraphs[timeId]
             for(let nodeId in graph.nodes){
                 const node = graph.nodes[nodeId]
-                if(node.degree===3){
-                    node.status.push('appearNode')
+                switch(relation){
+                    case '>=':
+                        if(node[attr]>=value){
+                            node.status.push('appearNode')
+                        }
+                        break
+                    case '=':
+                        if(node[attr]==value){
+                            node.status.push('appearNode')
+                        }
+                        break
+                    case '<=':
+                        if(node[attr]<=value){
+                            node.status.push('appearNode')
+                        }
+                        break
                 } 
             }
         }

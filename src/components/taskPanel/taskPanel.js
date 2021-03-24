@@ -1,11 +1,13 @@
 import React from 'react'
 import SampleItem from '../sampleItem/sampleItem.js'
-import { Radio, Select, Collapse, Switch, Checkbox, Col, Row } from 'antd'
+import { Radio, Select, Collapse, Switch, Checkbox, Col, Row, InputNumber } from 'antd'
 import NodeLinkStylePanel from '../nodeLinkStylePanel/nodeLinkStylePanel.js'
 import {
     TIME_PANEL_INPUT_WIDTH as TPIW,
     TIME_TIMELINE_ELEMENT,
-    KEYFRAM_OPTIONS
+    KEYFRAM_OPTIONS,
+    TASK_FIND_ATTR,
+    TASK_FIND_RELATION
 } from '../../util/const'
 import { COMPARISON_CONFIG } from '../../util/defaultConfig.js'
 import './comparisonPanel.css'
@@ -53,8 +55,12 @@ export default class TaskPanel extends React.Component {
     handleOptionChange = (value) => {
         this.handleComparisonChange({ ...value })
     }
-    handleSelectChange = (value, key) => {
-        this.handleComparisonChange({ [key]: value })
+    handleSelectChange = (value, key, option) => {
+        if(option === 'comparison'){
+            this.handleComparisonChange({ [key]: value })
+        }else if(option==='find'){
+            this.handleFindChange({[key]: value})
+        }
     }
     handleColumnChange = (e) => {
         const nodeOrLink = this.props.options.chooseItem.split('-')[1]
@@ -83,25 +89,31 @@ export default class TaskPanel extends React.Component {
     }
 
     handleComparisonChange = (value) => {
-        console.log("handleComparisonChange", value)
         this.props.onSubmit({
-            comparison:{
+            comparison: {
                 ...this.props.options.comparison,
                 ...value
             }
         })
     }
+    handleFindChange = (value) => {
+        this.props.onSubmit({
+            find: {
+                ...this.props.options.find,
+                ...value
+            }
+        })
+    }
 
-    handleTaskPanelChange = (key ,value) => {
+    handleTaskPanelChange = (key, value) => {
         this.props.onSubmit({
             [key]: value
         })
     }
 
     render() {
-        const comparison = this.props.options.comparison
+        const { comparison, find, taskType, basedType } = this.props.options
         const {
-            isOn,
             chooseItem,
             keyFrame,
             elements,
@@ -134,9 +146,9 @@ export default class TaskPanel extends React.Component {
                     <div className="change-option-item">
                         <div>taskType:</div>
                         <Select
-                            value={this.props.options.taskType}
+                            value={taskType}
                             style={{ width: 120 }}
-                            onChange={(value)=>this.handleTaskPanelChange('taskType', value)}
+                            onChange={(value) => this.handleTaskPanelChange('taskType', value)}
                         >
                             <Option value="comparison">comparison</Option>
                             <Option value="find">find</Option>
@@ -146,9 +158,9 @@ export default class TaskPanel extends React.Component {
                     <div className="change-option-item">
                         <div>basedType:</div>
                         <Select
-                            value={this.props.options.basedType}
+                            value={basedType}
                             style={{ width: 120 }}
-                            onChange={(value)=>this.handleTaskPanelChange('basedType', value)}
+                            onChange={(value) => this.handleTaskPanelChange('basedType', value)}
                         >
                             <Option value="attr">attr</Option>
                             <Option value="structure">structure</Option>
@@ -226,42 +238,96 @@ export default class TaskPanel extends React.Component {
                             </Panel>
                         </Collapse>
                     </div>
-                    <div className="change-option-item">
-                        <div>KeyFrame:</div>
-                        <Select
-                            value={keyFrame}
-                            style={{ width: TPIW }}
-                            size="small"
-                            onChange={(value) => this.handleSelectChange(value, 'keyFrame')}
-                        >
-                            {' '}
-                            {KEYFRAM_OPTIONS.map((v) => {
-                                return (
-                                    <Option key={v} value={v}>
-                                        {v}
-                                    </Option>
-                                )
-                            })}
-                        </Select>
-                    </div>
-                    <div className="change-option-item">
-                        <div>Elements:</div>
-                        <Select
-                            value={elements}
-                            style={{ width: TPIW }}
-                            size="small"
-                            onChange={(value) => this.handleSelectChange(value, 'elements')}
-                        >
-                            {' '}
-                            {TIME_TIMELINE_ELEMENT.map((v) => {
-                                return (
-                                    <Option key={v} value={v}>
-                                        {v}
-                                    </Option>
-                                )
-                            })}
-                        </Select>
-                    </div>
+                    {taskType === 'comparison' ? (
+                        <>
+                            <div className="change-option-item">
+                                <div>KeyFrame:</div>
+                                <Select
+                                    value={keyFrame}
+                                    style={{ width: TPIW }}
+                                    size="small"
+                                    onChange={(value) => this.handleSelectChange(value, 'keyFrame','comparison')}
+                                >
+                                    {KEYFRAM_OPTIONS.map((v) => {
+                                        return (
+                                            <Option key={v} value={v}>
+                                                {v}
+                                            </Option>
+                                        )
+                                    })}
+                                </Select>
+                            </div>
+                            <div className="change-option-item">
+                                <div>Elements:</div>
+                                <Select
+                                    value={elements}
+                                    style={{ width: TPIW }}
+                                    size="small"
+                                    onChange={(value) => this.handleSelectChange(value, 'elements', 'comparison')}
+                                >
+                                    {TIME_TIMELINE_ELEMENT.map((v) => {
+                                        return (
+                                            <Option key={v} value={v}>
+                                                {v}
+                                            </Option>
+                                        )
+                                    })}
+                                </Select>
+                            </div>
+                        </>
+                    ) : null}
+                    {taskType === 'find' && basedType === 'attr' ? (
+                        <>
+                            <div className="change-option-item">
+                                <div>Attr:</div>
+                                <Select
+                                    value={find.attr}
+                                    style={{ width: TPIW }}
+                                    size="small"
+                                    onChange={(value) => this.handleSelectChange(value, 'attr', 'find')}
+                                >
+                                    {TASK_FIND_ATTR.map((v) => {
+                                        return (
+                                            <Option key={v} value={v}>
+                                                {v}
+                                            </Option>
+                                        )
+                                    })}
+                                </Select>
+                            </div>
+                            <div className="change-option-item">
+                                <div>Relation:</div>
+                                <Select
+                                    value={find.relation}
+                                    style={{ width: TPIW }}
+                                    size="small"
+                                    onChange={(value) => this.handleSelectChange(value, 'relation', 'find')}
+                                >
+                                    {TASK_FIND_RELATION.map((v) => {
+                                        return (
+                                            <Option key={v} value={v}>
+                                                {v}
+                                            </Option>
+                                        )
+                                    })}
+                                </Select>
+                            </div>
+                            <div className="change-option-item">
+                                <div>Value:</div>
+                                <InputNumber
+                                    size="small"
+                                    min={0}
+                                    max={100}
+                                    value={find.value}
+                                    onChange={(e) =>
+                                        this.handleFindChange({'value': Number(e)})
+                                    }
+                                    style={{ width: TPIW }}
+                                />
+                            </div>
+                        </>
+                    ) : null}
+
                     <div className="comparison-table-container">
                         <div className="table-first-line">
                             <div className="blank-icon"></div>

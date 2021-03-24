@@ -26,6 +26,8 @@ export const DNET_SAMPLE_HEIGHT = 65
 
 export const SAMPLE_ITEM_WIDTH = 62
 export const SAMPLE_ITEM_HEIGHT = 62
+export const TASK_FIND_ATTR = ['degree']
+export const TASK_FIND_RELATION = ['>=','=','<=']
 
 export const TIME_TIMELINE_ELEMENT = ['node', 'link', 'all']
 export const TIME_CHART_TYPE = ['line', 'bar']

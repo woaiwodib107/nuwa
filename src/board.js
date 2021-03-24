@@ -90,7 +90,7 @@ export default class Board extends React.Component {
                     // 有可能只对节点进行该操作
                     element: 'all',
                     // 表示位置变换的函数，还有就是环状。。circular
-                    type: 'circular'
+                    type: 'linear'
                 },
                 insert: {
                     position:'bottom',
@@ -137,8 +137,14 @@ export default class Board extends React.Component {
                 }
             },
             task: {
-                taskType: 'comparison',
-                basedType: 'structure',
+                // 任务类型有：comparison\find\filter
+                taskType: 'find',
+                basedType: 'attr',
+                find:{
+                    attr:'degree',
+                    relation: '>=',
+                    value: 3
+                },
                 comparison: {
                     chooseItem: 'stable-Node',
                     chooseTypes: COMPARISON_CONFIG,
