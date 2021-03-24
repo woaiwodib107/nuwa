@@ -2,29 +2,32 @@ import React from 'react'
 import { Modal, List, Upload, Button, Slider } from 'antd'
 import 'antd/dist/antd.css'
 import './data.css'
-import * as insertData from '../../data/import/test3-insert.json'
+
 import * as testData from '../../data/import/test1.json'
 import * as simpleData from '../../data/import/test2.json'
+import * as insertData from '../../data/import/test3-insert.json'
+import * as flowData from '../../data/import/test4.json'
 
 const dataset = [
     {
         dataName: 'testData',
-        description: 'Barley yield by variety across the upper midwest in 1931 and 1932',
+        description: '测试数据，数据量一般',
         data: testData.default
     },
     {
         dataName: 'SimpleData',
-        description: 'Barley yield by variety across the upper midwest in 1931 and 1932',
+        description: '数据量较小',
         data: simpleData.default
     },
     {
         dataName: 'insertData',
-        description: 'Barley yield by variety across the upper midwest in 1931 and 1932',
+        description: '展示插入节点的样例数据',
         data: insertData.default
     },
     {
-        dataName: 'Crimea',
-        description: 'Barley yield by variety across the upper midwest in 1931 and 1932'
+        dataName: 'flowData',
+        description: '展示mds一维降维数据',
+        data: flowData.default
     },
     {
         dataName: 'Driving',

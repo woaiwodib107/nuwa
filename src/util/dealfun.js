@@ -954,10 +954,19 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
     // 给总图节点添加基本样式
     let { nodes, links } = sumGraphs
     nodes.forEach(node=>{
-        node.style.nodeStyle = basicNodeStyle
+        if(node.type === 'time'){
+            node.style.nodeStyle = configs.time.insert.nodeStyle
+        }else{
+            node.style.nodeStyle = basicNodeStyle
+        }
+        
     })
     links.forEach(link=>{
-        link.style.linkStyle = basicLinkStyle
+        if(link.type==='time'){
+            link.style.linkStyle = configs.time.insert.linkStyle
+        }else{
+            link.style.linkStyle = basicLinkStyle
+        } 
     })
     
 
@@ -965,14 +974,10 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
     Object.values(timeGraphs).forEach((graph) => {
         Object.values(graph.nodes).forEach((node) => {
             if (node.type === 'time') {
-                if (_.hasIn(configs.time.insert, 'nodeStyle')) {
-                    node.style.nodeStyle = _.cloneDeep({
-                        ...basicNodeStyle,
-                        ...configs.time.insert.nodeStyle
-                    })
-                } else {
-                    node.style.nodeStyle = _.cloneDeep(basicNodeStyle)
-                }
+                node.style.nodeStyle = _.cloneDeep({
+                    ...basicNodeStyle,
+                    ...configs.time.insert.nodeStyle
+                })
                 return
             }
             node.style.nodeStyle = basicNodeStyle
@@ -1001,14 +1006,10 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
         })
         Object.values(graph.links).forEach((link) => {
             if (link.type === 'time') {
-                if (_.hasIn(configs.time.insert, 'linkStyle')) {
-                    link.style.linkStyle = _.cloneDeep({
-                        ...basicLinkStyle,
-                        ...configs.time.insert.linkStyle
-                    })
-                } else {
-                    link.style.linkStyle = _.cloneDeep(basicLinkStyle)
-                }
+                link.style.linkStyle = _.cloneDeep({
+                    ...basicLinkStyle,
+                    ...configs.time.insert.linkStyle
+                })
                 return
             }
             link.style.linkStyle = basicLinkStyle
