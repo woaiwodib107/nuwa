@@ -73,8 +73,13 @@ export default class Board extends React.Component {
                     strokeWidth: 2,
                     opacity: 1,
                     strokeDasharray: '3,3',
-                    fillColor: '#ffffff',
-                    radius: 8,
+                    pointShape: 'rect',
+                    pointFillColor: '#73C105',
+                    pointOpacity: 1,
+                    pointRadius: 8,
+                    pointStrokeWidth:1,
+                    pointStrokeColor: '#000000',
+                    pointStrokeType: 'solid',
                 }
             },
             time: {

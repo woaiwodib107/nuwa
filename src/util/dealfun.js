@@ -885,12 +885,19 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
                 }
                 return
             }
+            // 处理matrix布局中的链接节点
             if(node.type=='link-node'){
+                // node.style.nodeStyle = {
+                //     ...basicNodeStyle,
+                //     fillColor: '#73C105',
+                //     shape: 'rect',
+                //     opacity: 0.7
+                // }
                 node.style.nodeStyle = {
                     ...basicNodeStyle,
-                    fillColor: '#73C105',
-                    shape: 'rect',
-                    opacity: 0.7
+                    fillColor: basicLinkStyle.pointFillColor ?basicLinkStyle.pointFillColor:'#73C105',
+                    shape: basicLinkStyle.pointShape ? basicLinkStyle.pointShape : 'rect',
+                    opacity: basicLinkStyle.pointOpacity ? basicLinkStyle.pointOpacity : 0.8
                 }
             }else{
                 node.style.nodeStyle = basicNodeStyle

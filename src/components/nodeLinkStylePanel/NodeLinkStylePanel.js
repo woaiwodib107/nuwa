@@ -3,15 +3,15 @@ import { Radio, Select, Input, Collapse, InputNumber } from 'antd'
 import { ChromePicker } from 'react-color'
 import './nodeLinkStylePanel.css'
 
-const colorIndexToName = ['strokeColor', 'fillColor', 'textColor']
+const colorIndexToName = ['strokeColor', 'fillColor', 'textColor','pointFillColor']
 const { Option } = Select
 const { Panel } = Collapse
 
 export default function NodeLinkStylePanel(props) {
-    const [colorPickerDisplay, setColorPickerDisplay] = useState([false, false, false])
+    const [colorPickerDisplay, setColorPickerDisplay] = useState([false, false, false, false])
     const { changeOptions, type } = props
     const strokeDasharrayOption = changeOptions.strokeDasharray
-        ? changeOptions.strokeDasharray.split(',').map(v=>parseInt(v))
+        ? changeOptions.strokeDasharray.split(',').map((v) => parseInt(v))
         : null
     const changeElementStyle = (option) => {
         const changeOptions = { ...props.changeOptions, ...option }
@@ -239,6 +239,64 @@ export default function NodeLinkStylePanel(props) {
                                     className="item-color-picker"
                                     color={changeOptions.textColor}
                                     onChange={(value) => handleElementColorChange(value, 2)}
+                                />
+                            ) : null}
+                        </div>
+                    ) : null}
+                    {/** 链接的节点形式的形状设置，用在matrix布局中 */}
+                    {changeOptions.pointShape ? (
+                        <div className="change-option-item">
+                            <div>PointShape:</div>
+                            <Select
+                                value={changeOptions.pointShape}
+                                size="small"
+                                onChange={(value) => handleStyleChange('pointShape', value)}
+                                style={{ width: 120 }}
+                            >
+                                <Option key="circle">
+                                    <div>circle</div>
+                                </Option>
+                                <Option key="rect">
+                                    <div>rect</div>
+                                </Option>
+                            </Select>
+                        </div>
+                    ) : null}
+                    {/* 链接的节点形式的透明度设置，用在matrix布局中 */}
+                    {changeOptions.pointOpacity ? (
+                        <div className="change-option-item">
+                            <div>PointOpacity:</div>
+                            <InputNumber
+                                value={changeOptions.pointOpacity}
+                                type="number"
+                                size="small"
+                                min={0}
+                                max={1}
+                                step={0.1}
+                                onChange={(e) => handleStyleChange('pointOpacity', e)}
+                                style={{ width: '120px' }}
+                            />
+                        </div>
+                    ) : null}
+                    {/* 链接的节点形式的填充颜色，用在matrix布局中 */}
+                    {changeOptions.pointFillColor ? (
+                        <div>
+                            <div className="change-option-item">
+                                <div>PointFillColor</div>
+                                <div
+                                    onClick={() => handleElementColorClick(3)}
+                                    style={{
+                                        backgroundColor: changeOptions.pointFillColor,
+                                        width: '120px',
+                                        height: '24px'
+                                    }}
+                                ></div>
+                            </div>
+                            {colorPickerDisplay[3] ? (
+                                <ChromePicker
+                                    className="item-color-picker"
+                                    color={changeOptions.pointFillColor}
+                                    onChange={(value) => handleElementColorChange(value, 3)}
                                 />
                             ) : null}
                         </div>
