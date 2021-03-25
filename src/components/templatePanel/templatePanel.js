@@ -3,12 +3,16 @@ import './templatePanel.css'
 import PreviewItem from '../previewItem/previewItem.js'
 import ReactJson from "react-json-view"
 import FileSaver from "file-saver"
-import { DNET_SAMPLE_WIDTH, DNET_SAMPLE_HEIGHT, REACT_JSON_OPTIONS } from '../../util/const'
+import { DNET_SAMPLE_HEIGHT, REACT_JSON_OPTIONS } from '../../util/const'
 import { getStorageKeyArr } from '../../util/template'
 import deleteSvg from '../../assets/delete.svg'
 import checkSvg from '../../assets/check.svg'
 import { defaultTemplates } from '../../data/template.js'
-import * as testData from '../../data/import/test1.json'
+import * as exampleData from '../../data/import/test2.json'
+import { connect } from "react-redux"
+import { 
+	update, 
+} from '../../redux/config.redux.js'
 
 const tempConfig = {
     "graph":{
@@ -21,7 +25,7 @@ const tempConfig = {
     }
 }
 
-export default function TemplatePanel(props) {
+function TemplatePanel(props) {
     const [localStorage, setLocalStorage] = useState(window.localStorage)
     const [storageLength, setStorageLength] = useState(0)
     const [storageKeyArr, setStorageKeyArr] = useState(getStorageKeyArr(localStorage))
@@ -96,7 +100,7 @@ export default function TemplatePanel(props) {
     function handleTemplateCheck(v){
         const vContent = JSON.parse(localStorage.getItem(v))
         if(vContent&&vContent.config){
-            props.onSubmit(vContent.config)
+            props.update(vContent.config)
         }
     }
    
@@ -157,7 +161,7 @@ export default function TemplatePanel(props) {
                                         height: DNET_SAMPLE_HEIGHT
                                     }}
                                 >
-                                    <PreviewItem data={props.data ? props.data : testData.graphs} config={vContent.config} />
+                                    <PreviewItem data={exampleData.graphs} config={vContent.config} />
                                 </div>
                                 <div
                                     className="sample-item-icon"
@@ -185,3 +189,16 @@ export default function TemplatePanel(props) {
         </div>
     )
 }
+
+
+
+const mapStateToProps = (state)=>({
+    // data: state.graphData,
+	config: state.config
+})
+
+const mapDispatchToProps = {
+	update,
+} 
+
+export default connect(mapStateToProps,mapDispatchToProps)(TemplatePanel)

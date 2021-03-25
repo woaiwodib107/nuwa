@@ -14,10 +14,14 @@ import NodeLinkStylePanel from '../nodeLinkStylePanel/nodeLinkStylePanel.js'
 import NodeLinkSample from '../nodeLinkSample/nodeLinkSample.js'
 import SampleItem from '../sampleItem/sampleItem.js'
 import './timePanel.css'
+import { connect } from "react-redux"
+import { 
+	modifyConfig, 
+} from '../../redux/config.redux.js'
 
 const { Option } = Select
 
-export default class TimePanel extends React.Component {
+class TimePanel extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -34,7 +38,7 @@ export default class TimePanel extends React.Component {
         } else {
             tempArr.splice(tempIndex, 1)
         }
-        this.props.onSubmit({
+        this.changeTimeConfig({
             chooseTypes: tempArr
         })
     }
@@ -48,30 +52,32 @@ export default class TimePanel extends React.Component {
     handleElementColorChange = (colorCode, option, key) => {
         const optionObject = this.props.options[option]
         optionObject[key] = colorCode.hex
-        this.props.onSubmit({ [option]: optionObject })
+        this.changeTimeConfig({ [option]: optionObject })
     }
     handleTimeOptionsInput = (value, option, key) => {
-        // const { value } = e.target
         const optionObject = this.props.options[option]
         optionObject[key] = Number(value)
-        this.props.onSubmit({ [option]: optionObject })
+        this.changeTimeConfig({ [option]: optionObject })
     }
     handleTimeOptionsSelect = (value, option, key) => {
         const optionObject = this.props.options[option]
         optionObject[key] = value
-        this.props.onSubmit({ [option]: optionObject })
+        this.changeTimeConfig({ [option]: optionObject })
     }
 
     handleTimeOptionsChange = (option, value) => {
         const optionObject = { ...this.props.options[option], ...value }
         // optionObject[key] = value
-        this.props.onSubmit({ [option]: optionObject })
+        this.changeTimeConfig({ [option]: optionObject })
     }
 
     handleIconsClick = (value) => {
         this.setState({
             chooseItem: value
         })
+    }
+    changeTimeConfig = (value) => {
+        this.props.modifyConfig({key:'time', value})
     }
     render() {
         const options = this.props.options
@@ -326,7 +332,7 @@ export default class TimePanel extends React.Component {
                             type={'Link'}
                             optionKey={'markLine'}
                             changeOptions={options.markLine}
-                            onSubmit={(value) => this.props.onSubmit(value)}
+                            onSubmit={this.changeTimeConfig}
                         />
                     </div>
                     {/* Chart */}
@@ -443,3 +449,14 @@ export default class TimePanel extends React.Component {
         )
     }
 }
+
+
+const mapStateToProps = (state)=>({
+	options: state.config.time
+})
+
+const mapDispatchToProps = {
+	modifyConfig,
+} 
+
+export default connect(mapStateToProps,mapDispatchToProps)(TimePanel)

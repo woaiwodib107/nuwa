@@ -4,7 +4,6 @@ import * as assign from 'assign-deep'
 import { getInsertPosition } from './dnetChart.js'
 import * as _ from 'lodash'
 import G6 from '@antv/g6'
-import { sum } from 'lodash'
 export const _intersection = (setA, setB) => {
     let intersection = new Set(setA)
     for (let elem of setA) {
@@ -49,6 +48,7 @@ export const getTimeId = (graphs, times) => {
             const timeId = `${time}-${id}`
             const type = node.type ? node.type : 'ele'
             timeGraphs[time].nodes[id] = {
+                ...node,
                 type,
                 id,
                 timeId,

@@ -1,25 +1,28 @@
 import React from 'react'
-import { InputNumber,Radio, Select } from 'antd'
-import SampleItem from '../sampleItem/sampleItem.js'
+import { InputNumber, Select } from 'antd'
 import NodeLinkStylePanel from '../nodeLinkStylePanel/nodeLinkStylePanel.js'
 import NodeLinkSample from '../nodeLinkSample/nodeLinkSample.js'
 import {
     GRAPH_LAYOUT_TYPE
 } from '../../util/const'
+import { connect } from "react-redux"
+import { 
+	modifyConfig, 
+} from '../../redux/config.redux.js'
 
 const { Option } = Select
 
-const rowButtonStyle = {
-    boxSizing: 'border-box',
-    width: '64px',
-    padding: '0px',
-    fontSize: '12px',
-    height: '64px',
-    lineHeight: '64px',
-    alighItems: 'center'
-}
+// const rowButtonStyle = {
+//     boxSizing: 'border-box',
+//     width: '64px',
+//     padding: '0px',
+//     fontSize: '12px',
+//     height: '64px',
+//     lineHeight: '64px',
+//     alighItems: 'center'
+// }
 
-export default class GraphPanel extends React.Component {
+class GraphPanel extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -27,7 +30,7 @@ export default class GraphPanel extends React.Component {
         }
     }
     handleConfigChange = (e, key) => {
-        this.props.onSubmit({
+        this.changeGraphConfig({
             [key]: parseInt(e)
         })
     }
@@ -37,7 +40,7 @@ export default class GraphPanel extends React.Component {
             ...optionItem,
             [key]: value
         }
-        this.props.onSubmit({
+        this.changeGraphConfig({
             [option]: displayItem
         })
     }
@@ -54,7 +57,11 @@ export default class GraphPanel extends React.Component {
             ...layoutItem, 
             chooseType:value
         }
-        this.props.onSubmit({layout: displayItem})
+        this.changeGraphConfig({layout: displayItem})
+    }
+
+    changeGraphConfig = (value) => {
+        this.props.modifyConfig({key:"graph", value})
     }
 
     render() {
@@ -125,10 +132,22 @@ export default class GraphPanel extends React.Component {
                         type={this.state.chooseItem}
                         optionKey={optionKey}
                         changeOptions={changeOptions}
-                        onSubmit={this.props.onSubmit}
+                        onSubmit={this.changeGraphConfig}
                     />
                 </div>
             </div>
         )
     }
 }
+
+
+
+const mapStateToProps = (state)=>({
+	options: state.config.graph
+})
+
+const mapDispatchToProps = {
+	modifyConfig,
+} 
+
+export default connect(mapStateToProps,mapDispatchToProps)(GraphPanel)

@@ -1,8 +1,11 @@
 import React from 'react'
 import { Modal, List, Upload, Button, Slider } from 'antd'
 import 'antd/dist/antd.css'
-import './data.css'
-
+import './dataPanel.css'
+import { connect } from "react-redux"
+import { 
+	setGraphData, 
+} from '../../redux/graphData.redux.js'
 import * as testData from '../../data/import/test1.json'
 import * as simpleData from '../../data/import/test2.json'
 import * as insertData from '../../data/import/test3-insert.json'
@@ -62,12 +65,12 @@ function getDataInfo(data) {
     })
     return { times, nodes: nodeNumber, links: linkNumber }
 }
-export default class Data extends React.Component {
+class DataPanel extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             modalVisible: false,
-            selected: -1,
+            selected: 0,
             overview: {
                 name: '',
                 times: 0,
@@ -91,10 +94,26 @@ export default class Data extends React.Component {
         })
     }
     selectDataset = (index) => {
-        //event.preventDefault();
         this.setState({
             selected: index
         })
+    }
+    componentDidMount(){
+        const selectedDataName = dataset[this.state.selected].dataName
+        if (this.props.graphData && this.props.graphData.length) {
+            const overviewInfo = getDataInfo(this.props.graphData)
+            overviewInfo.name = selectedDataName
+            this.setState({
+                overview: overviewInfo,
+                sliderValue: [0, overviewInfo.times],
+                groups: [
+                    {
+                        ...overviewInfo,
+                        startToEnd: [0, overviewInfo.times]
+                    }
+                ]
+            })
+        }
     }
     handleCertainButton = () => {
         const selectedData = dataset[this.state.selected].data.graphs
@@ -113,12 +132,8 @@ export default class Data extends React.Component {
                     }
                 ]
             })
-            const data = {
-                jsonData: dataset[this.state.selected].data,
-                filename: dataset[this.state.selected].dataset
-            }
             // 传递数据
-            this.props.onSubmit(data)
+            this.props.setGraphData(dataset[this.state.selected].data.graphs)
         }
     }
     handleAddButton = () => {
@@ -156,7 +171,7 @@ export default class Data extends React.Component {
             filename: dataset[this.state.selected].dataset
         }
         // 传递数据
-        this.props.onSubmit(data)
+        this.props.setGraphData(data.jsonData.graphs)
     }
     render() {
         const marks = {
@@ -343,3 +358,13 @@ export default class Data extends React.Component {
         )
     }
 }
+
+const mapStateToProps = (state)=>({
+	graphData: state.graphData
+})
+
+const mapDispatchToProps = {
+	setGraphData,
+} 
+
+export default connect(mapStateToProps,mapDispatchToProps)(DataPanel)

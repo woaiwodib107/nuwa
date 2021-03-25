@@ -11,6 +11,10 @@ import {
 } from '../../util/const'
 import { COMPARISON_CONFIG } from '../../util/defaultConfig.js'
 import './comparisonPanel.css'
+import { connect } from "react-redux"
+import { 
+	modifyConfig, 
+} from '../../redux/config.redux.js'
 
 const { Option } = Select
 const { Panel } = Collapse
@@ -44,7 +48,7 @@ const index2chooseItem = [
     'stable-Link',
     'disappear-Link'
 ]
-export default class TaskPanel extends React.Component {
+class TaskPanel extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -89,7 +93,7 @@ export default class TaskPanel extends React.Component {
     }
 
     handleComparisonChange = (value) => {
-        this.props.onSubmit({
+        this.changeTaskConfig({
             comparison: {
                 ...this.props.options.comparison,
                 ...value
@@ -97,7 +101,7 @@ export default class TaskPanel extends React.Component {
         })
     }
     handleFindChange = (value) => {
-        this.props.onSubmit({
+        this.changeTaskConfig({
             find: {
                 ...this.props.options.find,
                 ...value
@@ -106,9 +110,12 @@ export default class TaskPanel extends React.Component {
     }
 
     handleTaskPanelChange = (key, value) => {
-        this.props.onSubmit({
+        this.changeTaskConfig({
             [key]: value
         })
+    }
+    changeTaskConfig = (value) =>{
+        this.props.modifyConfig({key:'task', value})
     }
 
     render() {
@@ -427,3 +434,14 @@ export default class TaskPanel extends React.Component {
         )
     }
 }
+
+
+const mapStateToProps = (state)=>({
+	options: state.config.task
+})
+
+const mapDispatchToProps = {
+	modifyConfig,
+} 
+
+export default connect(mapStateToProps,mapDispatchToProps)(TaskPanel)

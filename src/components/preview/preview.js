@@ -3,8 +3,9 @@ import { converObject2Array } from '../../util/preview.js'
 import DnetChartContainer from '../dnetCharts/dnetChartContainer/dnetChartContainer.js'
 import dnetv from '../../util/dnetv.js'
 import { getRenderType } from '../../util/dnetChart'
+import { connect } from "react-redux"
 
-export default function Preview(props) {
+function Preview(props) {
     // 要计算
     const [subGraphs, setSubGraphs] = useState([])
     const [sumGraphs, setSumGraphs] = useState({ nodes: [], links: [] })
@@ -28,11 +29,6 @@ export default function Preview(props) {
             setRenderType('')
         }
     }, [props.data, props.config.time.chooseTypes])
-
-    // console.log("--props.config--", props.config)
-    // console.log("----preview-subGraphs--", subGraphs)
-    // console.log("--sumGraphs--", sumGraphs)
-    // console.log("--markLine--", markLine)
     return (
         <div
             style={{
@@ -68,3 +64,14 @@ export default function Preview(props) {
         </div>
     )
 }
+
+
+const mapStateToProps = (state)=>({
+	data: state.graphData,
+    config: state.config
+})
+
+const mapDispatchToProps = {
+} 
+
+export default connect(mapStateToProps,mapDispatchToProps)(Preview)

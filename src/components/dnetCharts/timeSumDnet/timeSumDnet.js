@@ -17,7 +17,6 @@ export default function TimeSumDnet(props) {
 
     const isColor = timeChooseTypes.indexOf('color') > -1
     const isChart = isColor || timeChooseTypes.indexOf('chart') > -1
-    const nodeRenderType = getNodeRenderType(props.config, isColor)
     const { eachWidth, eachHeight, margin, nodeStyle, linkStyle } = props.config.graph
     const svgWidth = eachWidth + margin * 2
     const svgHeight = eachHeight + margin * 2

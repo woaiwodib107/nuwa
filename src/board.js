@@ -1,5 +1,5 @@
 import React from 'react'
-import Data from './components/data/data.js'
+import DataPanel from './components/dataPanel/dataPanel.js'
 import TimePanel from './components/timePanel/timePanel.js'
 import Preview from './components/preview/preview.js'
 import TaskPanel from './components/taskPanel/taskPanel.js'
@@ -7,9 +7,12 @@ import GraphPanel from './components/graphPanel/graphPanel.js'
 import ExampleBoard from './components/exampleBoard/exampleBoard.js'
 import TemplatePanel from './components/templatePanel/templatePanel.js'
 import { COMPARISON_CONFIG } from './util/defaultConfig.js'
-import * as exampleData from './data/import/test2.json'
+import { connect } from "react-redux"
+import { 
+	setGraphData, 
+} from './redux/graphData.redux.js'
 
-export default class Board extends React.Component {
+class Board extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -222,51 +225,9 @@ export default class Board extends React.Component {
             filename: file.filename
         })
     }
-    handleSubmitFromData = (file) => {
-        if (!file) return
-        // console.log("handleSubmitFromData-file",file);
-        this.setState({
-            jsonfile: file.jsonData,
-            filename: file.filename
-        })
-    }
-    handleSubmitFromTask = (value) => {
-        if (!value) return
-        this.setState({
-            task: {
-                ...this.state.task,
-                ...value
-            }
-        })
-    }
-    handleSubmitFromTime = (value) => {
-        if (!value) return
-        this.setState({
-            time: {
-                ...this.state.time,
-                ...value
-            }
-        })
-    }
     handleSubmitFromTemplate = (value) => {
         this.setState({
             ...value
-        })
-    }
-    handleSubmitFromGraph = (value) => {
-        this.setState({
-            graph: {
-                ...this.state.graph,
-                ...value
-            }
-        })
-    }
-    handleSubmitFromLayout = (value) => {
-        this.setState({
-            layout: {
-                ...this.state.layout,
-                ...value
-            }
         })
     }
     handleBoardSwitch = (value) => {
@@ -304,42 +265,18 @@ export default class Board extends React.Component {
                 ) : (
                     <div className="row">
                         <div className="col">
-                            <Data onSubmit={this.handleSubmitFromData} />
-                            <GraphPanel
-                                options={this.state.graph}
-                                onSubmit={this.handleSubmitFromGraph}
-                            />
+                            <DataPanel />
+                            <GraphPanel/>
                         </div>
                         <div className="col">
-                            <TimePanel
-                                options={this.state.time}
-                                onSubmit={this.handleSubmitFromTime}
-                            />
+                            <TimePanel/>
                         </div>
                         <div className="col">
-                            <TaskPanel
-                                options={this.state.task}
-                                onSubmit={this.handleSubmitFromTask}
-                            />
+                            <TaskPanel/>
                         </div>
                         <div className="col">
-                            <TemplatePanel
-                                data={exampleData.default.graphs}
-                                config={{
-                                    graph: this.state.graph,
-                                    task: this.state.task,
-                                    time: this.state.time
-                                }}
-                                onSubmit={this.handleSubmitFromTemplate}
-                            />
-                            <Preview
-                                data={this.state.jsonfile.graphs}
-                                config={{
-                                    graph: this.state.graph,
-                                    task: this.state.task,
-                                    time: this.state.time
-                                }}
-                            />
+                            <TemplatePanel/>
+                            <Preview/>
                         </div>
                     </div>
                 )}
@@ -348,3 +285,13 @@ export default class Board extends React.Component {
         )
     }
 }
+
+const mapStateToProps = (state)=>({
+	graphData: state.graphData
+})
+
+const mapDispatchToProps = {
+	setGraphData,
+} 
+
+export default connect(mapStateToProps,mapDispatchToProps)(Board)
