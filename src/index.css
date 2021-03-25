@@ -340,8 +340,8 @@ body::-webkit-scrollbar-thumb {
 }
 
 .selected {
-    background-color: #eef0f7;
-    border: 1px solid #aeb8d4;
+    background-color: #f8f5ee;
+    border: 1px solid #f3bd98;
     border-radius: 3px;
 }
 
