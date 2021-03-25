@@ -219,34 +219,55 @@ body::-webkit-scrollbar-thumb {
     display: flex;
     justify-content: flex-start;
     height: 60px;
-    background: #37383a;
+    background: #999999;
+    padding-top: 0px;
+    align-items: center;
+}
+
+.window-header-text{
+    display: flex;
+    justify-content: flex-start;
+    height: 60px;
+    background: #999999;
     padding-top: 5px;
     align-items: baseline;
 }
 
 .title {
     font-size: 35px;
-    padding-left: 12px;
-    color: #fff;
+    /* padding-left: 12px; */
+    color: #222;
     padding-right: 35px;
-    
 }
+
+.title-graph-svg{
+    width: 50px;
+    height: 50px;
+    margin : 0 10px;
+    cursor: pointer;
+}
+
+.bold-font{
+    font-weight: 700;
+}
+
 .header-sub-title{
     font-size: 20px;
     padding: 0 12px;
-    color: #ccc;
+    font-weight: 200;
+    color: #222;
     cursor: pointer;
 }
 
 .header-sub-divide{
     width: 1px;
     height: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #222;
     box-sizing: border-box;
 }
 .header-sub-choose{
-    color: white;
-    font-weight: 500;
+    color: black;
+    font-weight: 700;
 }
 
 .sub-title {

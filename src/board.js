@@ -7,6 +7,7 @@ import GraphPanel from './components/graphPanel/graphPanel.js'
 import ExampleBoard from './components/exampleBoard/exampleBoard.js'
 import TemplatePanel from './components/templatePanel/templatePanel.js'
 import { COMPARISON_CONFIG } from './util/defaultConfig.js'
+import graphSvg from './assets/graphIcon.svg'
 import { connect } from "react-redux"
 import { 
 	setGraphData, 
@@ -241,24 +242,31 @@ class Board extends React.Component {
         return (
             <div className="board">
                 <div className="window-header">
-                    <div className="title"> DNet-G </div>
-                    <div
-                        className={`header-sub-title ${
-                            this.state.board === 'system' ? 'header-sub-choose' : ''
-                        }`}
-                        onClick={() => this.handleBoardSwitch('system')}
-                    >
-                        System
+                    <img 
+                        className="title-graph-svg" 
+                        src={graphSvg}
+                    />
+                    <div className="window-header-text">
+                        <div className="title"> DNet-<span className="bold-font">Gra</span> </div>
+                        <div
+                            className={`header-sub-title ${
+                                this.state.board === 'system' ? 'header-sub-choose' : ''
+                            }`}
+                            onClick={() => this.handleBoardSwitch('system')}
+                        >
+                            System
+                        </div>
+                        <div className="header-sub-divide"></div>
+                        <div
+                            className={`header-sub-title ${
+                                this.state.board === 'example' ? 'header-sub-choose' : ''
+                            }`}
+                            onClick={() => this.handleBoardSwitch('example')}
+                        >
+                            Example
+                        </div>
                     </div>
-                    <div className="header-sub-divide"></div>
-                    <div
-                        className={`header-sub-title ${
-                            this.state.board === 'example' ? 'header-sub-choose' : ''
-                        }`}
-                        onClick={() => this.handleBoardSwitch('example')}
-                    >
-                        Example
-                    </div>
+                    
                 </div>
                 {this.state.board === 'example' ? (
                     <ExampleBoard></ExampleBoard>
