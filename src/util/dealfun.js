@@ -228,13 +228,26 @@ export const bipartiteLayout = (sumGraphs, timeGraphs, configs) => {
         let sNode = secondNodes.pop()
         nodes.push(sNode)
     }
+    let sumRevertLinksArr = []
     const sumLinksArr = {}
     links.forEach((link) => {
-        link.source = firstNodesObj[link.source]
-        link.target = secondNodesObj[link.target]
+        const souceId = link.source
+        const targetId = link.target
+        link.source = firstNodesObj[souceId]
+        link.target = secondNodesObj[targetId]
         sumLinksArr[link.id] = link
+        let sLink = _.cloneDeep(link)
+        sLink.id = `s-${link.id}`
+        sLink.source = firstNodesObj[targetId]
+        sLink.target = secondNodesObj[souceId]
+        sumLinksArr[sLink.id] = sLink
+        sumRevertLinksArr.push(sLink)
     })
-
+    // 复制一份总图链接
+    while(sumRevertLinksArr.length>0){
+        const sLink = sumRevertLinksArr.pop()
+        links.push(sLink)
+    }
     // 处理分帧图的数据
     let timeGraphsValues = Object.values(timeGraphs)
     timeGraphsValues.forEach((graph, graphIndex) => {
@@ -252,10 +265,20 @@ export const bipartiteLayout = (sumGraphs, timeGraphs, configs) => {
             let sNode = sNodesArr.pop()
             graph.nodes[sNode.id] = sNode
         }
-        // 3. 调整链接的位置
+
+        let subReverLinksArr=[]
+        // 3. 根据总图链接的位置，调整分帧图链接的位置
         Object.values(graph.links).forEach((link) => {
+            const revertLink = _.cloneDeep(link)
             assign(link, _.cloneDeep(sumLinksArr[link.id]))
+            revertLink.id = `s-${link.id}`
+            assign(revertLink, _.cloneDeep(sumLinksArr[revertLink.id]))
+            subReverLinksArr.push(revertLink)
         })
+        while(subReverLinksArr.length>0){
+            const srLink = subReverLinksArr.pop()
+            graph.links[srLink.id] = srLink
+        }
     })
 
     //  平移节点、链接位置
