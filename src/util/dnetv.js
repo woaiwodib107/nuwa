@@ -81,7 +81,9 @@ class DNetV {
             u.matrixLayout(this.sumGraphs, this.timeGraphs,this.configs)
         }else if(layout === 'bipartite'){
             u.bipartiteLayout(this.sumGraphs, this.timeGraphs, this.configs)
-        }else{
+        }else if(layout === 'oneMds'&&this.sumGraphs.nodes[0].value!==undefined){
+            u.oneMdsLayout(this.sumGraphs, this.timeGraphs,this.configs)
+        }else{  
             switch (layout){
                 case 'forceDirect':
                     u.offLineLayout(this.sumGraphs, this.configs)
@@ -100,7 +102,9 @@ class DNetV {
                     break
                 case 'grid':
                     u.gridLayout(this.sumGraphs, this.configs)
-                    break  
+                    break 
+                default:
+                    u.offLineLayout(this.sumGraphs, this.configs)
             }
             // 将位置信息放入每个子图中，并根据time调整位置
             u.getGraphLayout(this.timeGraphs, this.sumGraphs, this.configs)

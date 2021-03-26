@@ -14,7 +14,7 @@ export const initConfig = {
         eachHeight: 300,
         margin: 30,
         layout: {
-            chooseType: 'bipartite',
+            chooseType: 'oneMds',
             vertical: {
                 yDistance: 40,
                 linkStyle: {
@@ -47,11 +47,12 @@ export const initConfig = {
             }
         },
         nodeStyle: {
-            shape: 'rect',
+            shape: 'circle',
             fillColor: '#ffffff',
+            fillColor: 'none',
             strokeColor: '#000000',
             strokeWidth: 1,
-            radius: 8,
+            radius: 2,
             strokeType: 'solid',
             textColor: 'white',
             opacity: 1
@@ -73,9 +74,9 @@ export const initConfig = {
         }
     },
     time: {
-        chooseTypes:[],
+        chooseTypes:['timeLine','markLine'],
         timeLine: {
-            xDistance: 300,
+            xDistance: 5,
             yDistance: 0,
             // 有可能只对节点进行该操作
             element: 'all',
@@ -116,7 +117,7 @@ export const initConfig = {
         },
         markLine: {
             shape: 'line',
-            strokeType: 'dashed',
+            strokeType: 'solid',
             strokeColor: '#FD8F8F',
             strokeWidth: 1,
             strokeDasharray: '5,5',
@@ -128,7 +129,7 @@ export const initConfig = {
     },
     task: {
         // 任务类型有：comparison\find\filter
-        taskType: 'find',
+        taskType: 'none',
         basedType: 'attr',
         find:{
             attr:'degree',

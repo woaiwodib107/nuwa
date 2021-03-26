@@ -9,7 +9,7 @@ import {
 import * as testData from '../../data/import/test1.json'
 import * as simpleData from '../../data/import/test2.json'
 import * as insertData from '../../data/import/test3-insert.json'
-import * as flowData from '../../data/import/test4.json'
+import * as flowData from '../../data/import/test5.json'
 
 const dataset = [
     {

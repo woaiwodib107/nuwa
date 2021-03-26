@@ -13,6 +13,9 @@ import { connect } from "react-redux"
 import { 
 	update, 
 } from '../../redux/config.redux.js'
+import * as assign from 'assign-deep'
+import {initConfig} from '../../util/initConfig.js'
+import * as _ from 'lodash'
 
 const tempConfig = {
     "graph":{
@@ -100,7 +103,9 @@ function TemplatePanel(props) {
     function handleTemplateCheck(v){
         const vContent = JSON.parse(localStorage.getItem(v))
         if(vContent&&vContent.config){
-            props.update(vContent.config)
+            const newInitConfig = _.cloneDeep(initConfig)
+            assign(newInitConfig,vContent.config)
+            props.update(newInitConfig)
         }
     }
    

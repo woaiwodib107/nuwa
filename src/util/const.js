@@ -32,7 +32,7 @@ export const TASK_FIND_RELATION = ['>=','=','<=']
 export const TIME_TIMELINE_ELEMENT = ['node', 'link', 'all']
 export const TIME_CHART_TYPE = ['line', 'bar']
 export const TIME_TIMELINE_TYPE = ['linear', 'circular']
-export const GRAPH_LAYOUT_TYPE = ['matrix','grid','forceDirect','bipartite', 'vertical','circular','dagre','mds']
+export const GRAPH_LAYOUT_TYPE = ['matrix','grid','forceDirect','bipartite', 'vertical','circular','dagre','mds','oneMds']
 
 export const KEYFRAM_OPTIONS = ['next', 'last']
 

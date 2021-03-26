@@ -14,6 +14,7 @@ export default function MarkLineItem(props) {
                                     stroke={markLineOptions.strokeColor}
                                     strokeWidth={`${markLineOptions.strokeWidth}px`}
                                     opacity={markLineOptions.opacity}
+                                    fill={"none"}
                                     strokeDasharray={
                                         markLineOptions.strokeType === 'solid'
                                             ? ''
