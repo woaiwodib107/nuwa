@@ -64,7 +64,7 @@ export const initConfig = {
             opacity: 1,
             strokeDasharray: '3,3',
             pointShape: 'rect',
-            pointFillColor: '#73C105',
+            pointFillColor: '#98F3E3',
             pointOpacity: 1,
             pointRadius: 8,
             pointStrokeWidth:1,
@@ -108,8 +108,8 @@ export const initConfig = {
         },
         color: {
             element: 'all',
-            startColor: '#FD8F8F',
-            endColor: '#90B5FB'
+            startColor: '#ECAA7B',
+            endColor: '#98F3E3'
         },
         animation: {
             speed: 1800
@@ -144,7 +144,7 @@ export const initConfig = {
             elements: 'all',
             appearNode: {
                 shape: 'rect',
-                fillColor: '#FD8F8F',
+                fillColor: '#ECAA7B',
                 strokeColor: '#000000',
                 strokeWidth: 1,
                 strokeType: 'solid',
@@ -164,7 +164,7 @@ export const initConfig = {
             },
             disappearNode: {
                 shape: 'circle',
-                fillColor: '#90B5FB',
+                fillColor: '#98F3E3',
                 strokeColor: '#000000',
                 strokeWidth: 1,
                 radius: 8,
@@ -174,7 +174,7 @@ export const initConfig = {
             },
             appearLink: {
                 shape: 'curve',
-                strokeColor: '#FD8F8F',
+                strokeColor: '#ECAA7B',
                 strokeType: 'solid',
                 strokeWidth: 3,
                 opacity: 1,
@@ -194,7 +194,7 @@ export const initConfig = {
             },
             disappearLink: {
                 shape: 'curve',
-                strokeColor: '#90B5FB',
+                strokeColor: '#98F3E3',
                 strokeType: 'solid',
                 strokeWidth: 3,
                 opacity: 1,
