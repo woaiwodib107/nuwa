@@ -1742,7 +1742,6 @@ export const defaultTemplates =  [
       }
     }
   },
-
   {
     name:"find-structure",
     template: {
@@ -2045,7 +2044,6 @@ export const defaultTemplates =  [
       }
     }    
   },
-  
   {
     name:"find-structure",
     template: {
