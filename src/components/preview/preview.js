@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useState } from 'react'
 import { connect } from "react-redux"
 import PreviewItem from '../previewItem/previewItem.js'
 

@@ -3,7 +3,6 @@ import { converObject2Array } from '../../util/preview.js'
 import DnetChartContainer from '../dnetCharts/dnetChartContainer/dnetChartContainer.js'
 import dnetv from '../../util/dnetv.js'
 import { getRenderType } from '../../util/dnetChart'
-import { DNET_SAMPLE_WIDTH, DNET_SAMPLE_HEIGHT} from '../../util/const'
 
 export default function PreviewItem(props) {
     // 要计算
