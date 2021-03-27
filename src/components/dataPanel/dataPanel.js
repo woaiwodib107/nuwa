@@ -9,6 +9,7 @@ import {
 import * as testData from '../../data/import/test1.json'
 import * as simpleData from '../../data/import/test2.json'
 import * as insertData from '../../data/import/test3-insert.json'
+import * as shortPathData from '../../data/import/test4.json'
 import * as flowData from '../../data/import/test5.json'
 
 const dataset = [
@@ -33,8 +34,9 @@ const dataset = [
         data: flowData.default
     },
     {
-        dataName: 'Driving',
-        description: 'Barley yield by variety across the upper midwest in 1931 and 1932'
+        dataName: 'shortPathData',
+        description: '展示最短路径',
+        data: shortPathData.default
     },
     {
         dataName: 'Iris',

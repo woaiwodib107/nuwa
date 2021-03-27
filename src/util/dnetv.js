@@ -72,7 +72,7 @@ class DNetV {
             }
         }else if(task.taskType === 'find'){
             //函数里面直接改了timeGraphs、sumGraphs
-            u.getFindData(this.timeGraphs, this.configs) //函数里面直接改了timeGraphs
+            u.getFindData(this.timeGraphs, this.configs, this.sumGraphs) //函数里面直接改了timeGraphs
         }
     }
     dealLayout(layout = 'forceDirect') {

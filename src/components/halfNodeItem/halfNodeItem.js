@@ -8,7 +8,7 @@ export default function HalfNodeItem(props) {
                     d={`M${props.x} ${props.y + props.radius}  A ${props.radius} ${
                         props.radius
                     } 0 1 1 ${props.x} ${props.y - props.radius}`}
-                    fill={props.fillColor}
+                    fill={props.fillColor ? props.fillColor: props.strokeColor}
                     stroke={props.strokeColor}
                     strokeWidth={`${props.strokeWidth}px`}
                     opacity={props.opacity}
@@ -26,7 +26,7 @@ export default function HalfNodeItem(props) {
             L ${props.x - props.radius} ${props.y + props.radius} 
             L ${props.x - props.radius} ${props.y - props.radius} 
             L ${props.x} ${props.y - props.radius} `}
-                    fill={props.fillColor}
+                    fill={props.fillColor ? props.fillColor: props.strokeColor}
                     stroke={props.strokeColor}
                     strokeWidth={`${props.strokeWidth}px`}
                     opacity={props.opacity}
@@ -45,7 +45,7 @@ export default function HalfNodeItem(props) {
                     d={`M${props.x} ${props.y + props.radius}  A ${props.radius} ${
                         props.radius
                     } 0 1 0 ${props.x} ${props.y - props.radius}`}
-                    fill={props.fillColor}
+                    fill={props.fillColor ? props.fillColor: props.strokeColor}
                     stroke={props.strokeColor}
                     strokeWidth={`${props.strokeWidth}px`}
                     opacity={props.opacity}
@@ -63,7 +63,7 @@ export default function HalfNodeItem(props) {
             L ${props.x + props.radius} ${props.y + props.radius} 
             L ${props.x + props.radius} ${props.y - props.radius} 
             L ${props.x} ${props.y - props.radius} `}
-                    fill={props.fillColor}
+                    fill={props.fillColor ? props.fillColor: props.strokeColor}
                     stroke={props.strokeColor}
                     strokeWidth={`${props.strokeWidth}px`}
                     opacity={props.opacity}

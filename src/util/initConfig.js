@@ -14,7 +14,7 @@ export const initConfig = {
         eachHeight: 300,
         margin: 30,
         layout: {
-            chooseType: 'oneMds',
+            chooseType: 'circular',
             vertical: {
                 yDistance: 40,
                 linkStyle: {
@@ -52,7 +52,7 @@ export const initConfig = {
             fillColor: 'none',
             strokeColor: '#000000',
             strokeWidth: 1,
-            radius: 2,
+            radius: 6,
             strokeType: 'solid',
             textColor: 'white',
             opacity: 1
@@ -74,9 +74,9 @@ export const initConfig = {
         }
     },
     time: {
-        chooseTypes:['timeLine','markLine'],
+        chooseTypes:[],
         timeLine: {
-            xDistance: 5,
+            xDistance: 330,
             yDistance: 0,
             // 有可能只对节点进行该操作
             element: 'all',
@@ -129,10 +129,12 @@ export const initConfig = {
     },
     task: {
         // 任务类型有：comparison\find\filter
-        taskType: 'none',
-        basedType: 'attr',
+        taskType: 'find',
+        basedType: 'structure',
         find:{
             attr:'degree',
+            // 结构有short-path，也有哑铃结构dumb-bell
+            structure: 'short-path',
             relation: '>=',
             value: 3
         },
@@ -180,7 +182,7 @@ export const initConfig = {
                 strokeWidth: 3,
                 opacity: 1,
                 strokeDasharray: '3,3',
-                fillColor: '#ffffff',
+                // fillColor: '#ffffff',
                 radius: 8,
             },
             stableLink: {
@@ -190,7 +192,7 @@ export const initConfig = {
                 strokeWidth: 1,
                 opacity: 1,
                 strokeDasharray: '3,3',
-                fillColor: '#ffffff',
+                // fillColor: '#ffffff',
                 radius: 8,
             },
             disappearLink: {
@@ -200,7 +202,7 @@ export const initConfig = {
                 strokeWidth: 3,
                 opacity: 1,
                 strokeDasharray: '3,3',
-                fillColor: '#ffffff',
+                // fillColor: '#ffffff',
                 radius: 8,
             }
         }

@@ -4,6 +4,7 @@ import * as assign from 'assign-deep'
 import { getInsertPosition } from './dnetChart.js'
 import * as _ from 'lodash'
 import G6 from '@antv/g6'
+import { dsvFormat } from 'd3'
 export const _intersection = (setA, setB) => {
     let intersection = new Set(setA)
     for (let elem of setA) {
@@ -70,6 +71,7 @@ export const getTimeId = (graphs, times) => {
                     existTimeIndex,
                     existTimes,
                     existStatus,
+                    status: [],
                     style: {}
                 }
             }
@@ -124,6 +126,7 @@ export const getTimeId = (graphs, times) => {
                     existTimeIndex,
                     existTimes,
                     existStatus,
+                    status: [],
                     style: {}
                 }
             }
@@ -917,8 +920,6 @@ export const getmarkLine = (sumGraphs, timeGraphs, configs) => {
     return markLine
 }
 export function getLinkPathData(markLine) {
-    // const colorScale = d3.scaleOrdinal().domain(d3.range(nodeNum)).range(d3.schemeCategory10)
-    // console.log('node2PathData', node2PathData)
     var link = d3
         .linkHorizontal()
         .x(function (d) {
@@ -935,7 +936,6 @@ export function getLinkPathData(markLine) {
         return {
             id: markId,
             data: curveData
-            // color: colorScale[index]
         }
     })
     return linkPathData
@@ -1011,6 +1011,13 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
         } else {
             node.style.nodeStyle = basicNodeStyle
         }
+        node.status.forEach((d) => {
+            if (!comparisonNode[d]) {
+                node.style[d] = _.cloneDeep(comparisonLink[d])
+            } else {
+                node.style[d] = _.cloneDeep(comparisonNode[d])
+            }
+        })
     })
     links.forEach((link) => {
         if (link.type === 'time') {
@@ -1018,6 +1025,10 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
         } else {
             link.style.linkStyle = basicLinkStyle
         }
+        link.status.forEach((d) => {
+            // 该style是用于comparison这种方式
+            link.style[d] = _.cloneDeep(comparisonLink[d])
+        })
     })
 
     const isChooseColor = !!(configs.time.chooseTypes.indexOf('color') > -1)
@@ -1285,27 +1296,226 @@ export const getCompareData = (
     return timeGraphs
 }
 
-export const getFindData = (timeGraphs, configs) => {
+export const getShortestDistance = (matrix, start) => {
+    const rows = matrix.length,//rows和cols一样，其实就是顶点个数
+        cols = matrix[0].length
+ 
+    if(rows !== cols || start >= rows) return new Error("邻接矩阵错误或者源点错误")
+ 
+    //初始化distance
+    let distance = new Array(rows).fill(Infinity)
+    // 记录逐渐加入点集的过程
+    // 初始化访问节点
+    let visited = new Array(rows).fill(false)
+    distance[start] = 0
+    for(let i = 0; i < rows; i++) {
+        // 更新节点访问
+        visited[start] = true
+        // 达到不了的顶点不能作为中转跳点\
+        for(let j = 0; j < cols; j++) {
+            //通过比较distance[start] + matrix[start][j]和distance[j]的大小来决定是否更新distance[j]。
+            if(matrix[start][j]!==0&&(matrix[start][j] + distance[start] < distance[j])) {
+                distance[j] = matrix[start][j] + distance[start]
+            }
+        }
+        
+        // 找到当前最短路径顶点作为中转跳点
+        let minIndex = -1;
+        let min = Infinity;
+        for(let k = 0; k < rows; k++) {
+            if ((!visited[k]) && distance[k] < min) {
+                min = distance[k];
+                minIndex = k;
+            }
+        }
+        
+        if(minIndex!==-1){
+            start = minIndex
+        }else{
+            break
+        }
+    }
+    return distance;
+}
+
+export const getShortestPath = (matrix, startIndex, endIndex)=>{
+    let visited = new Array(matrix.length).fill(false);
+    let shortestPath = []
+    let shortestDistance = Infinity
+    let distance = 0
+    let tempPath = []
+    visited[startIndex] = true
+    tempPath.push(startIndex)
+    function Dfs(startIndex){
+        for(let i=0;i<matrix[startIndex].length;i++){
+            if(visited[i]===false&&matrix[startIndex][i]===1){
+                distance++
+                tempPath.push(i)
+                visited[i]=true
+                if(i === endIndex){
+                    if(distance<shortestDistance){
+                        shortestDistance = distance
+                        shortestPath = [...tempPath]
+                    }
+                }else{
+                    Dfs(i)
+                }
+                distance--
+                visited[i] = false
+                tempPath.pop()
+            }
+        }
+    }
+    Dfs(startIndex)
+    return shortestPath
+}
+
+export const getLongestPath = (matrix, startIndex, endIndex)=>{
+    let visited = new Array(matrix.length).fill(false);
+    let shortestPath = []
+    let shortestDistance = Infinity
+    let distance = 0
+    let tempPath = []
+    visited[startIndex] = true
+    tempPath.push(startIndex)
+    function Dfs(startIndex){
+        for(let i=0;i<matrix[startIndex].length;i++){
+            if(visited[i]===false&&matrix[startIndex][i]===1){
+                distance++
+                tempPath.push(i)
+                visited[i]=true
+                if(i === endIndex){
+                    if(distance<shortestDistance){
+                        shortestDistance = distance
+                        shortestPath = [...tempPath]
+                    }
+                }else{
+                    Dfs(i)
+                }
+                distance--
+                visited[i] = false
+                tempPath.pop()
+            }
+        }
+    }
+    Dfs(startIndex)
+    return shortestPath
+}
+
+export const getFindData = (timeGraphs, configs,sumGraphs) => {
+    const findOptions = configs.task.find
     if (configs.task.basedType === 'structure') {
-        // 找结构，现在是假定是找这种类似于哑铃的形态结构。
-        for (let timeId in timeGraphs) {
-            const graph = timeGraphs[timeId]
-            for (let linkId in graph.links) {
-                const link = graph.links[linkId]
-                // console.log(",linkId,link,graph.nodes, link.source, link.target",linkId,link, graph.nodes, link.source, link.target)
-                if (
-                    graph.nodes[link.source].degree === 1 &&
-                    graph.nodes[link.target].degree === 1
-                ) {
-                    link.status.push('appearLink')
-                    graph.nodes[link.source].status.push('appearNode')
-                    graph.nodes[link.target].status.push('appearNode')
+        if(findOptions.structure === 'dumb-bell'){
+            // 找结构，现在是假定是找这种类似于哑铃的形态结构。
+            for (let timeId in timeGraphs) {
+                const graph = timeGraphs[timeId]
+                for (let linkId in graph.links) {
+                    const link = graph.links[linkId]
+                    if (
+                        graph.nodes[link.source].degree === 1 &&
+                        graph.nodes[link.target].degree === 1
+                    ) {
+                        link.status.push('appearLink')
+                        graph.nodes[link.source].status.push('appearNode')
+                        graph.nodes[link.target].status.push('appearNode')
+                    }
+                }
+            }
+        }else if(findOptions.structure==='short-path'){
+            let startIndex = 0
+            const mapId2Index = {}
+            const mapIndex2Id = []
+            const {nodes, links} = sumGraphs
+            let maxNum = 0 
+            let maxIndex = 0
+            Object.values(nodes).forEach((node)=>{
+                if(mapId2Index[node.id]===undefined){
+                    mapId2Index[node.id] = startIndex
+                    mapIndex2Id[startIndex] = node.id
+                    // let existTimes = node.existTimeIndex.filter(v=>v===1).length
+                    // if(existTimes>maxNum){
+                    //     maxIndex = startIndex
+                    //     maxNum = existTimes
+                    // }
+                    startIndex ++
+                }
+            })
+            let matrix = new Array(startIndex)
+            for(let i=0;i<matrix.length;i++){
+                matrix[i] = new Array(startIndex).fill(0)
+            }
+            Object.values(links).forEach((link)=>{
+                let sourceIndex = mapId2Index[link.source]
+                let targetIndex = mapId2Index[link.target]
+                matrix[sourceIndex][targetIndex] = 1
+                matrix[targetIndex][sourceIndex] = 1
+            })
+            let sIndex =0 ,eIndex = 0
+            let dis = -1
+            for(let i=0;i<startIndex;i++){
+                const distanceArr = getShortestDistance(matrix, i)
+                // 求出单源最短路径中的最长的那一个
+                let endIndex = i 
+                let maxDistance = distanceArr[i]
+                console.log("distanceArr",distanceArr)
+                distanceArr.forEach((v,index)=>{
+                    if(v!==Infinity&&v>maxDistance){
+                        endIndex = index
+                        maxDistance = v
+                    }
+                })
+                if(maxDistance>dis){
+                    dis = maxDistance
+                    sIndex = i
+                    eIndex = endIndex
+                }
+            }
+
+            const shortestPath = getShortestPath(matrix,sIndex,eIndex)
+            const nodeInPathMap = {}
+            const linkInPathMap = {}
+            shortestPath.forEach((v,i)=>{
+                const aId = mapIndex2Id[v]
+                nodeInPathMap[aId] = true
+                if(i!==0){
+                    const bId = mapIndex2Id[shortestPath[i-1]]
+                    linkInPathMap[`${aId}-${bId}`] = true
+                    linkInPathMap[`${bId}-${aId}`] = true
+                }
+            })
+
+            // 修改总图中的状态
+            for(let linkId in links){
+                if(linkInPathMap[linkId]===true){
+                    links[linkId].status.push('appearLink')
+                }
+            }
+            for(let nodeId in nodes) {
+                if(nodeInPathMap[nodeId] === true){
+                    nodes[nodeId].status.push('appearNode')
+                }
+            }
+
+            // 修改分帧图中的状态
+            for (let timeId in timeGraphs) {
+                const graph = timeGraphs[timeId]
+                for (let linkId in graph.links) {
+                    if(linkInPathMap[linkId]===true){
+                        graph.links[linkId].status.push('appearLink')
+                    }
+                }
+                for(let nodeId in graph.nodes) {
+                    if(nodeInPathMap[nodeId] === true){
+                        graph.nodes[nodeId].status.push('appearNode')
+                    }
                 }
             }
         }
+        
+        
     } else {
-        const { attr, relation, value } = configs.task.find
-            ? configs.task.find
+        const { attr, relation, value } = findOptions
+            ? findOptions
             : {
                   attr: 'degree',
                   relation: '>=',
