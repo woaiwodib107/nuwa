@@ -1,44 +1,30 @@
 import React, { useState, useEffect } from 'react'
 import './templatePanel.css'
 import PreviewItem from '../previewItem/previewItem.js'
-import ReactJson from "react-json-view"
-import FileSaver from "file-saver"
-import { DNET_SAMPLE_HEIGHT, REACT_JSON_OPTIONS } from '../../util/const'
+import FileSaver from 'file-saver'
+import { DNET_SAMPLE_HEIGHT } from '../../util/const'
 import { getStorageKeyArr } from '../../util/template'
 import deleteSvg from '../../assets/delete.svg'
 import checkSvg from '../../assets/check.svg'
 import { defaultTemplates } from '../../data/template.js'
 import * as exampleData from '../../data/import/test2.json'
-import { connect } from "react-redux"
-import { 
-	update, 
-} from '../../redux/config.redux.js'
+import { connect } from 'react-redux'
+import { update } from '../../redux/config.redux.js'
 import * as assign from 'assign-deep'
-import {initConfig} from '../../util/initConfig.js'
+import { initConfig } from '../../util/initConfig.js'
 import * as _ from 'lodash'
-
-const tempConfig = {
-    "graph":{
-        "layout":"grid" 
-    },
-    "time": ['timeLine', 'color'],
-    "task": {
-        "taskType": 'comparison',
-        "basedType": 'attr'
-    }
-}
 
 function TemplatePanel(props) {
     const [localStorage, setLocalStorage] = useState(window.localStorage)
     const [storageLength, setStorageLength] = useState(0)
     const [storageKeyArr, setStorageKeyArr] = useState(getStorageKeyArr(localStorage))
-    
-    useEffect(()=>{
+
+    useEffect(() => {
         // 初始化，判断该电脑的localStorage是否加载过默认的模板，没有先加载
         if (localStorage.lastIndex === undefined) {
             // 没有加载过模板
             localStorage.lastIndex = 0
-            for(let i =defaultTemplates.length-1;i>0;i--){
+            for (let i = defaultTemplates.length - 1; i > 0; i--) {
                 const item = defaultTemplates[i]
                 const lastIndex = localStorage.lastIndex
                 const key = `DnetG-${lastIndex}`
@@ -48,16 +34,16 @@ function TemplatePanel(props) {
                     index: lastIndex
                 })
                 localStorage.setItem(key, content)
-                localStorage.lastIndex = 1+ Number(lastIndex)
+                localStorage.lastIndex = 1 + Number(lastIndex)
             }
             setStorageLength(localStorage.length)
         }
     }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         setStorageKeyArr(getStorageKeyArr(localStorage))
     }, [storageLength])
-   
+
     function handleTemplateAdd() {
         if (localStorage.lastIndex === undefined) {
             // 初始化
@@ -76,11 +62,11 @@ function TemplatePanel(props) {
                 index: lastIndex
             })
             localStorage.setItem(key, content)
-            localStorage.lastIndex = 1+ Number(lastIndex)
+            localStorage.lastIndex = 1 + Number(lastIndex)
             setStorageLength(localStorage.length)
         }
     }
-    
+
     function handleTemplateSave() {
         let content = JSON.stringify(props.config)
         let type = 'data:application/json;charset=utf-8'
@@ -99,25 +85,25 @@ function TemplatePanel(props) {
             FileSaver.open(encodeURI(type + ',' + content))
         }
     }
-    
-    function handleTemplateCheck(v){
+
+    function handleTemplateCheck(v) {
         const vContent = JSON.parse(localStorage.getItem(v))
-        if(vContent&&vContent.config){
+        if (vContent && vContent.config) {
             const newInitConfig = _.cloneDeep(initConfig)
-            assign(newInitConfig,vContent.config)
+            assign(newInitConfig, vContent.config)
             props.update(newInitConfig)
         }
     }
-   
-    function handleTemplateRemove(storeKey){
-      localStorage.removeItem(storeKey)
-      setStorageLength(localStorage.length)
+
+    function handleTemplateRemove(storeKey) {
+        localStorage.removeItem(storeKey)
+        setStorageLength(localStorage.length)
     }
-    
+
     return (
         <div
             style={{
-                width: `${props.width ? props.width : 1035}px`,
+                width: `${props.width ? props.width : 1030}px`,
                 height: `${props.height ? props.height : 380}px`
             }}
             className="template-panel-box"
@@ -131,79 +117,57 @@ function TemplatePanel(props) {
                     <use xlinkHref="#icon-download"></use>
                 </svg>
             </div>
-            <div className="template-content-box">
-                <div className="template-grammar-container">
-                    <div className="template-grammar-title">grammar</div>
-                    <div className="template-grammar-wrap simple_scrollbar">
-                        <ReactJson
-                            className="json-box"
-                            {...REACT_JSON_OPTIONS}
-                            // src={props.config}
-                            src={tempConfig}
-                        />
-                    </div>
-                </div>
-                <div className="template-sample-container simple_scrollbar">
-                    {/* <div>template-sample-container</div> */}
-                    {storageKeyArr.map((v, i) => {
-                        // const localStorage = window.localStorage
-                        const vContent = JSON.parse(localStorage.getItem(v))
-                        if(!vContent){
-                            return null
-                        }
-                        return (
-                            <div 
-                              className="sample-item-wrap"
-                              key={`sample-${v}`}
-                            >
-                                <div 
-                                  className="sample-item-name"
-                                >{vContent.name}</div>
-                                <div
-                                    className="sample-item-chart"
-                                    style={{
-                                        // width: DNET_SAMPLE_WIDTH,
-                                        height: DNET_SAMPLE_HEIGHT
-                                    }}
-                                >
-                                    <PreviewItem data={exampleData.graphs} config={vContent.config} />
+            <div className="template-content-box simple_scrollbar">
+                {storageKeyArr.map((v, i) => {
+                    const vContent = JSON.parse(localStorage.getItem(v))
+                    if (!vContent) {
+                        return null
+                    }
+                    return (
+                        <div className="sample-item-wrap" key={`sample-${v}`}>
+                            <div className="sample-item-information">
+                                <div className="sample-item-icon">
+                                    <div className="item-image-wrap">
+                                        <img
+                                            className="sample-item-svg"
+                                            src={checkSvg}
+                                            onClick={() => handleTemplateCheck(v)}
+                                        />
+                                    </div>
+                                    <div className="item-image-wrap">
+                                        <img
+                                            className="sample-item-svg"
+                                            src={deleteSvg}
+                                            onClick={() => handleTemplateRemove(v)}
+                                        />
+                                    </div>
                                 </div>
-                                <div
-                                    className="sample-item-icon"
-                                >  
-                                  <div className="item-image-wrap">
-                                    <img 
-                                        className="sample-item-svg" 
-                                        src={checkSvg}
-                                        onClick = {()=>handleTemplateCheck(v)}
-                                    />
-                                  </div>
-                                  <div className="item-image-wrap">
-                                    <img 
-                                      className="sample-item-svg" 
-                                      src={deleteSvg}
-                                      onClick = {()=>handleTemplateRemove(v)}
-                                    />
-                                  </div>
-                                </div>
+                                <div className="sample-item-name">{vContent.name}</div>
                             </div>
-                        )
-                    })}
-                </div>
+                            <div
+                                className="sample-item-chart"
+                                style={{
+                                    // width: DNET_SAMPLE_WIDTH,
+                                    height: DNET_SAMPLE_HEIGHT
+                                }}
+                            >
+                                <PreviewItem data={exampleData.graphs} config={vContent.config} />
+                            </div>
+                        </div>
+                    )
+                })}
             </div>
         </div>
     )
 }
 
-
-
-const mapStateToProps = (state)=>({
+const mapStateToProps = (state) => ({
     // data: state.graphData,
-	config: state.config
+    config: state.config
 })
 
 const mapDispatchToProps = {
-	update,
-} 
+    update
+}
 
-export default connect(mapStateToProps,mapDispatchToProps)(TemplatePanel)
+export default connect(mapStateToProps, mapDispatchToProps)(TemplatePanel)
