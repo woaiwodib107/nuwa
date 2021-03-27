@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './templatePanel.css'
 import PreviewItem from '../previewItem/previewItem.js'
 import FileSaver from 'file-saver'
-import { DNET_SAMPLE_HEIGHT } from '../../util/const'
+import { DNET_SAMPLE_WIDTH, DNET_SAMPLE_HEIGHT } from '../../util/const'
 import { getStorageKeyArr } from '../../util/template'
 import deleteSvg from '../../assets/delete.svg'
 import checkSvg from '../../assets/check.svg'
@@ -151,7 +151,12 @@ function TemplatePanel(props) {
                                     height: DNET_SAMPLE_HEIGHT
                                 }}
                             >
-                                <PreviewItem data={exampleData.graphs} config={vContent.config} />
+                                <PreviewItem 
+                                    data={exampleData.graphs} 
+                                    config={vContent.config} 
+                                    sampleWidth = {DNET_SAMPLE_WIDTH}
+                                    sampleHeight = {DNET_SAMPLE_HEIGHT}
+                                />
                             </div>
                         </div>
                     )

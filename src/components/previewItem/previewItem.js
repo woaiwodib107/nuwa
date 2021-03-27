@@ -30,8 +30,8 @@ export default function PreviewItem(props) {
     }, [props.data, props.config.time.chooseTypes])
     return (
         <DnetChartContainer
-            sampleWidth = {DNET_SAMPLE_WIDTH}
-            sampleHeight = {DNET_SAMPLE_HEIGHT}
+            sampleWidth = {props.sampleWidth}
+            sampleHeight = {props.sampleHeight}
             isSample={true}
             renderType={renderType}
             subGraphs={subGraphs}
