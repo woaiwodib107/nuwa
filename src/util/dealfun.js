@@ -71,7 +71,6 @@ export const getTimeId = (graphs, times) => {
                     existTimeIndex,
                     existTimes,
                     existStatus,
-                    status: [],
                     style: {}
                 }
             }
@@ -126,7 +125,6 @@ export const getTimeId = (graphs, times) => {
                     existTimeIndex,
                     existTimes,
                     existStatus,
-                    status: [],
                     style: {}
                 }
             }
@@ -1011,13 +1009,15 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
         } else {
             node.style.nodeStyle = basicNodeStyle
         }
-        node.status.forEach((d) => {
-            if (!comparisonNode[d]) {
-                node.style[d] = _.cloneDeep(comparisonLink[d])
-            } else {
-                node.style[d] = _.cloneDeep(comparisonNode[d])
-            }
-        })
+        if(Array.isArray(node.status)){
+            node.status.forEach((d) => {
+                if (!comparisonNode[d]) {
+                    node.style[d] = _.cloneDeep(comparisonLink[d])
+                } else {
+                    node.style[d] = _.cloneDeep(comparisonNode[d])
+                }
+            })
+        }
     })
     links.forEach((link) => {
         if (link.type === 'time') {
@@ -1025,10 +1025,12 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
         } else {
             link.style.linkStyle = basicLinkStyle
         }
-        link.status.forEach((d) => {
-            // 该style是用于comparison这种方式
-            link.style[d] = _.cloneDeep(comparisonLink[d])
-        })
+        if(Array.isArray(link.status)){
+            link.status.forEach((d) => {
+                // 该style是用于comparison这种方式
+                link.style[d] = _.cloneDeep(comparisonLink[d])
+            })
+        }
     })
 
     const isChooseColor = !!(configs.time.chooseTypes.indexOf('color') > -1)
@@ -1426,17 +1428,10 @@ export const getFindData = (timeGraphs, configs,sumGraphs) => {
             const mapId2Index = {}
             const mapIndex2Id = []
             const {nodes, links} = sumGraphs
-            let maxNum = 0 
-            let maxIndex = 0
             Object.values(nodes).forEach((node)=>{
                 if(mapId2Index[node.id]===undefined){
                     mapId2Index[node.id] = startIndex
                     mapIndex2Id[startIndex] = node.id
-                    // let existTimes = node.existTimeIndex.filter(v=>v===1).length
-                    // if(existTimes>maxNum){
-                    //     maxIndex = startIndex
-                    //     maxNum = existTimes
-                    // }
                     startIndex ++
                 }
             })
@@ -1457,7 +1452,6 @@ export const getFindData = (timeGraphs, configs,sumGraphs) => {
                 // 求出单源最短路径中的最长的那一个
                 let endIndex = i 
                 let maxDistance = distanceArr[i]
-                console.log("distanceArr",distanceArr)
                 distanceArr.forEach((v,index)=>{
                     if(v!==Infinity&&v>maxDistance){
                         endIndex = index
@@ -1487,12 +1481,12 @@ export const getFindData = (timeGraphs, configs,sumGraphs) => {
             // 修改总图中的状态
             for(let linkId in links){
                 if(linkInPathMap[linkId]===true){
-                    links[linkId].status.push('appearLink')
+                    links[linkId].status = ['appearLink']
                 }
             }
             for(let nodeId in nodes) {
                 if(nodeInPathMap[nodeId] === true){
-                    nodes[nodeId].status.push('appearNode')
+                    nodes[nodeId].status = ['appearNode']
                 }
             }
 
@@ -1510,9 +1504,7 @@ export const getFindData = (timeGraphs, configs,sumGraphs) => {
                     }
                 }
             }
-        }
-        
-        
+        }      
     } else {
         const { attr, relation, value } = findOptions
             ? findOptions
@@ -1545,8 +1537,6 @@ export const getFindData = (timeGraphs, configs,sumGraphs) => {
             }
         }
     }
-
-    return timeGraphs
 }
 
 export const compareTwoFrameAboutAttr = (localFrame, compareFrame) => {

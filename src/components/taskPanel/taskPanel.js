@@ -7,7 +7,8 @@ import {
     TIME_TIMELINE_ELEMENT,
     KEYFRAM_OPTIONS,
     TASK_FIND_ATTR,
-    TASK_FIND_RELATION
+    TASK_FIND_RELATION,
+    TASK_FIND_STRUCTURE
 } from '../../util/const'
 import { COMPARISON_CONFIG } from '../../util/defaultConfig.js'
 import './comparisonPanel.css'
@@ -334,7 +335,25 @@ class TaskPanel extends React.Component {
                             </div>
                         </>
                     ) : null}
-
+                    {taskType === 'find' && basedType === 'structure' ? (
+                        <div className="change-option-item">
+                            <div>Structure:</div>
+                            <Select
+                                value={find.structure}
+                                style={{ width: TPIW }}
+                                size="small"
+                                onChange={(value) => this.handleSelectChange(value, 'structure', 'find')}
+                            >
+                                {TASK_FIND_STRUCTURE.map((v) => {
+                                    return (
+                                        <Option key={v} value={v}>
+                                            {v}
+                                        </Option>
+                                    )
+                                })}
+                            </Select>
+                        </div>
+                    ) : null}
                     <div className="comparison-table-container">
                         <div className="table-first-line">
                             <div className="blank-icon"></div>
