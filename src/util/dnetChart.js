@@ -798,6 +798,19 @@ export function getHybridPathData(source, target) {
     return { firstData, secondData }
 }
 
+export function getSimpleGrammar(config){
+    return {
+        graph:{
+            layout: config.graph.layout.chooseType
+        },
+        time: config.time.chooseTypes,
+        task: {
+            taskType:config.task.taskType,
+            basedType: config.task.basedType
+        }
+    }
+}
+
 export function getDividedArcPathData(source, target) {
     let newSource, newTarget
     // source在上，target在下

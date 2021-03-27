@@ -84,15 +84,9 @@ class TimePanel extends React.Component {
         const optionKey = this.state.chooseItem === 'Node' ? 'nodeStyle' : 'linkStyle'
         const changeOptions = this.props.options.insert[optionKey]
         return (
-            <div className="time-box">
-                <div className="sub-title">
+            <div className="time-box combine-inner-border">
+                <div className="combine-inner-title">
                     &nbsp;Time
-                    <svg className="icon" aria-hidden="true">
-                        <use xlinkHref="#icon-save"></use>
-                    </svg>
-                    <svg className="icon" aria-hidden="true">
-                        <use xlinkHref="#icon-set"></use>
-                    </svg>
                 </div>
                 <div className="encoding-table-container">
                     {/* timeLine */}

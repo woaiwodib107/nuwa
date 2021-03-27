@@ -33,7 +33,7 @@ function Preview(props) {
         <div
             style={{
                 width: `${props.width ? props.width : 1035}px`,
-                height: `${props.height ? props.height : 500}px`,
+                height: `${props.height ? props.height : 600}px`,
             }}
             className="preview-box"
         >

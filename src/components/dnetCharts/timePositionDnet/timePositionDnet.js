@@ -21,7 +21,6 @@ export default function TimePositionDnet(props) {
     const isColor = timeChooseTypes.indexOf('color') > -1
     const isChart = timeChooseTypes.indexOf('chart') > -1
     const isMatrix = layout.chooseType === 'matrix'
-    console.log("data",data)
     return (
         <svg
             className="nlg-container-svg"

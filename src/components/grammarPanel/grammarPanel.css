@@ -1,0 +1,42 @@
+.grammar-panel-box {
+    background: #fff;
+    border: 1px solid rgb(68, 67, 67);
+    border-radius: 8px;
+    height: 600px;
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.gp-header-text{
+    display: flex;
+    justify-content: flex-start;
+    height: 25px;
+    background: #e6e6e6;
+    padding-top: 5px;
+    align-items: center;
+}
+
+.gp-sub-title{
+    font-size: 14px;
+    padding: 0 12px;
+    font-weight: 400;
+    color: #444;
+    cursor: pointer;
+}
+
+.gp-sub-divide{
+    width: 2px;
+    height: 15px;
+    background-color: #444;
+    box-sizing: border-box;
+}
+.gp-sub-choose{
+    color: #444;
+    font-weight: 700;
+}

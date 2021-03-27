@@ -40,9 +40,6 @@ class DNetV {
 
         // 处理和任务分析相关的逻辑
         this.dealTask(task)
-        if(task.find.structure === 'dumb-bell'){
-            console.log("----timesGraphs---dumb-bell-----",JSON.stringify(this.timeGraphs))
-        }
         
         this.sumGraphs.nodes = Object.values(this.sumGraphs.nodes)
         this.sumGraphs.links = Object.values(this.sumGraphs.links)
@@ -50,15 +47,12 @@ class DNetV {
         // 依据layout的配置去赋予位置信息
         this.dealLayout(graph.layout.chooseType ? graph.layout.chooseType : 'forceDirect')
         // 根据time中的是否选择了markLine而决定是否要去计算markLine的数据
-        if(task.find.structure === 'dumb-bell'){
-            console.log("--afterLayout--timesGraphs---dumb-bell-----",JSON.stringify(this.timeGraphs))
-        }
+        
         this.markLine = time.chooseTypes.indexOf('markLine') > -1
             ? u.getmarkLine(this.sumGraphs, this.timeGraphs, this.configs)
             : undefined
         // 根据配置信息中：样式，以及time，以及comparison信息，去设定样式
         u.setStyle(this.timeGraphs, this.sumGraphs, this.configs)
-        console.log("--after-setStyle--timesGraphs---dumb-bell-----",JSON.stringify(this.timeGraphs))
         this.subGraphs = Object.values(this.timeGraphs).map((v) => ({
             links: Object.values(v.links),
             nodes: Object.values(v.nodes)
@@ -141,7 +135,6 @@ class DNetV {
         })
     } 
 
-    // dealTimeEncode(groups, data, config) {}
     end(simulation) {
         return new Promise((resolve) => {
             simulation.on('end', resolve)

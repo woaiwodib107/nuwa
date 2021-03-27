@@ -137,8 +137,8 @@ class TaskPanel extends React.Component {
         changeKey = changeKey.join('')
         const changeOptions = comparison[changeKey]
         return (
-            <div className="Comparison-box">
-                <div className="sub-title">
+            <div className="Comparison-box combine-inner-border">
+                <div className="combine-inner-title">
                     &nbsp;Task
                     {/* <div className="comparison-switch ">
                         <Switch
