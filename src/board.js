@@ -39,7 +39,7 @@ class Board extends React.Component {
                     />
                     <div className="window-header-text">
                         <div className="title"> DNet-<span className="bold-font">Gra</span> </div>
-                        <div
+                        {/* <div
                             className={`header-sub-title ${
                                 this.state.board === 'system' ? 'header-sub-choose' : ''
                             }`}
@@ -55,7 +55,7 @@ class Board extends React.Component {
                             onClick={() => this.handleBoardSwitch('example')}
                         >
                             Example
-                        </div>
+                        </div> */}
                     </div>
                     
                 </div>
