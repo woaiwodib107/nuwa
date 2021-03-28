@@ -8,6 +8,7 @@ body {
     /* overflow-x: auto; */
     /* overflow-y: hidden;  */
     overflow-y: auto;
+    text-transform: capitalize;
 }
 
 body::-webkit-scrollbar-track {
