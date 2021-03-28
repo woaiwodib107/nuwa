@@ -265,7 +265,7 @@ class DataPanel extends React.Component {
                             onChange={this.handleTimeSliderChange}
                         />
                         <Button
-                            type="primary"
+                            // type="primary"
                             size="small"
                             onClick={this.handleAddButton}
                             style={{
@@ -347,7 +347,7 @@ class DataPanel extends React.Component {
                         }}
                     >
                         <Button
-                            type="primary"
+                            // type="primary"
                             size="small"
                             disabled={this.state.selected === -1 ? true : false}
                             onClick={this.handleCertainButton}

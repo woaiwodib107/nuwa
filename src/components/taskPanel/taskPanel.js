@@ -68,11 +68,11 @@ class TaskPanel extends React.Component {
         }
     }
     handleColumnChange = (e) => {
-        const nodeOrLink = this.props.options.chooseItem.split('-')[1]
+        const nodeOrLink = this.props.options.comparison.chooseItem.split('-')[1]
         this.handleComparisonChange({ chooseItem: `${e.target.value}-${nodeOrLink}` })
     }
     handleRowChange = (e) => {
-        const changeAttr = this.props.options.chooseItem.split('-')[0]
+        const changeAttr = this.props.options.comparison.chooseItem.split('-')[0]
         this.handleComparisonChange({ chooseItem: `${changeAttr}-${e.target.value}` })
     }
     handleIconsClick = (index) => {
@@ -358,7 +358,6 @@ class TaskPanel extends React.Component {
                         <div className="table-first-line">
                             <div className="blank-icon"></div>
                             <Radio.Group
-                                buttonStyle="solid"
                                 onChange={this.handleColumnChange}
                                 value={chooseItem.split('-')[0]}
                                 className="first-line-right"
@@ -377,7 +376,6 @@ class TaskPanel extends React.Component {
                         <div className="table-second-line">
                             <div className="second-line-left">
                                 <Radio.Group
-                                    buttonStyle="solid"
                                     onChange={this.handleRowChange}
                                     value={chooseItem.split('-')[1]}
                                 >

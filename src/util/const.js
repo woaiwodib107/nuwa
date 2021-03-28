@@ -47,6 +47,17 @@ export const ROW_BUTTON_STYLE = {
   alighItems: 'center'
 }
 
+
+export const TIME_BUTTON_STYLE = {
+  boxSizing: 'border-box',
+  width: '248px',
+  padding: '0px',
+  fontSize: '12px',
+  height: '32px',
+  lineHeight: '32px',
+  alighItems: 'center'
+}
+
 export const REACT_JSON_OPTIONS = {
   displayDataTypes: false,
   name: null,

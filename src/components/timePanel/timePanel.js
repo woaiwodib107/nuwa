@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Select, Input, InputNumber } from 'antd'
+import { Button, Select, Radio, InputNumber } from 'antd'
 import { ChromePicker } from 'react-color'
 import { INSERT_POSITION } from '../../util/dnetChart'
 import {
@@ -8,7 +8,8 @@ import {
     MARK_LINK_TARGET as MLT,
     TIME_TIMELINE_ELEMENT,
     TIME_CHART_TYPE,
-    TIME_TIMELINE_TYPE
+    TIME_TIMELINE_TYPE,
+    TIME_BUTTON_STYLE
 } from '../../util/const'
 import NodeLinkStylePanel from '../nodeLinkStylePanel/nodeLinkStylePanel.js'
 import NodeLinkSample from '../nodeLinkSample/nodeLinkSample.js'
@@ -31,8 +32,10 @@ class TimePanel extends React.Component {
         }
     }
     handleButtonOnClick(type, event) {
+
         const tempArr = [...this.props.options.chooseTypes]
         const tempIndex = tempArr.indexOf(type)
+        console.log("type---tempIndex",type,tempIndex)
         if (tempIndex === -1) {
             tempArr.push(type)
         } else {
@@ -92,19 +95,20 @@ class TimePanel extends React.Component {
                     {/* timeLine */}
                     <div className="encoding-item">
                         <div className="encoding-item-title">
-                            <Button
-                                type={
-                                    options.chooseTypes.indexOf('timeLine') > -1
-                                        ? 'primary'
-                                        : 'default'
-                                }
-                                onClick={(e) => {
-                                    this.handleButtonOnClick('timeLine', e)
-                                }}
-                                block
+                            <Radio.Group 
+                                value={options.chooseTypes.indexOf('timeLine') > -1
+                                            ? 'TimeLine'
+                                            : ''}
                             >
-                                TimeLine
-                            </Button>
+                                <Radio.Button 
+                                    onClick={(e) => {
+                                        this.handleButtonOnClick('timeLine', e)
+                                    }}
+                                
+                                style={TIME_BUTTON_STYLE} value="TimeLine" type>
+                                    TimeLine
+                                </Radio.Button>
+                            </Radio.Group>
                         </div>
                         <div className="encoding-item-content">
                             <div className="item-right-option">
@@ -178,19 +182,20 @@ class TimePanel extends React.Component {
                     {/* animaiton */}
                     <div className="encoding-item">
                         <div className="encoding-item-title">
-                            <Button
-                                type={
-                                    options.chooseTypes.indexOf('animation') > -1
-                                        ? 'primary'
-                                        : 'default'
-                                }
-                                onClick={(e) => {
-                                    this.handleButtonOnClick('animation', e)
-                                }}
-                                block
+                            <Radio.Group 
+                                value={options.chooseTypes.indexOf('animation') > -1
+                                            ? 'animation'
+                                            : ''}
                             >
-                                Animaiton
-                            </Button>
+                                <Radio.Button 
+                                    onClick={(e) => {
+                                        this.handleButtonOnClick('animation', e)
+                                    }}
+                                
+                                style={TIME_BUTTON_STYLE} value="animation" type>
+                                    Animation
+                                </Radio.Button>
+                            </Radio.Group>
                         </div>
                         <div className="encoding-item-content">
                             <div className="item-right-option">
@@ -212,19 +217,20 @@ class TimePanel extends React.Component {
                     {/* color */}
                     <div className="encoding-item">
                         <div className="encoding-item-title">
-                            <Button
-                                type={
-                                    options.chooseTypes.indexOf('color') > -1
-                                        ? 'primary'
-                                        : 'default'
-                                }
-                                onClick={(e) => {
-                                    this.handleButtonOnClick('color', e)
-                                }}
-                                block
+                            <Radio.Group 
+                                value={options.chooseTypes.indexOf('color') > -1
+                                            ? 'color'
+                                            : ''}
                             >
-                                Color
-                            </Button>
+                                <Radio.Button 
+                                    onClick={(e) => {
+                                        this.handleButtonOnClick('color', e)
+                                    }}
+                                
+                                style={TIME_BUTTON_STYLE} value="color" type>
+                                    Color
+                                </Radio.Button>
+                            </Radio.Group>
                         </div>
                         <div>
                             <div className="change-option-item">
@@ -298,19 +304,20 @@ class TimePanel extends React.Component {
                     {/* MarkLine */}
                     <div className="encoding-item">
                         <div className="encoding-item-title">
-                            <Button
-                                type={
-                                    options.chooseTypes.indexOf('markLine') > -1
-                                        ? 'primary'
-                                        : 'default'
-                                }
-                                onClick={(e) => {
-                                    this.handleButtonOnClick('markLine', e)
-                                }}
-                                block
+                            <Radio.Group 
+                                value={options.chooseTypes.indexOf('markLine') > -1
+                                            ? 'markLine'
+                                            : ''}
                             >
-                                MarkLine
-                            </Button>
+                                <Radio.Button 
+                                    onClick={(e) => {
+                                        this.handleButtonOnClick('markLine', e)
+                                    }}
+                                
+                                style={TIME_BUTTON_STYLE} value="markLine" type>
+                                    MarkLine
+                                </Radio.Button>
+                            </Radio.Group>
                         </div>
                         <div className="encoding-item-content sample-item-border">
                             <SampleItem
@@ -332,19 +339,20 @@ class TimePanel extends React.Component {
                     {/* Chart */}
                     <div className="encoding-item">
                         <div className="encoding-item-title">
-                            <Button
-                                type={
-                                    options.chooseTypes.indexOf('chart') > -1
-                                        ? 'primary'
-                                        : 'default'
-                                }
-                                onClick={(e) => {
-                                    this.handleButtonOnClick('chart', e)
-                                }}
-                                block
+                            <Radio.Group 
+                                value={options.chooseTypes.indexOf('chart') > -1
+                                            ? 'chart'
+                                            : ''}
                             >
-                                Chart
-                            </Button>
+                                <Radio.Button 
+                                    onClick={(e) => {
+                                        this.handleButtonOnClick('chart', e)
+                                    }}
+                                
+                                style={TIME_BUTTON_STYLE} value="chart" type>
+                                    Chart
+                                </Radio.Button>
+                            </Radio.Group>
                         </div>
                         <div className="encoding-item-content">
                             <div className="item-right-option">
@@ -374,19 +382,20 @@ class TimePanel extends React.Component {
                     {/* insert */}
                     <div className="encoding-item">
                         <div className="encoding-item-title">
-                            <Button
-                                type={
-                                    options.chooseTypes.indexOf('insert') > -1
-                                        ? 'primary'
-                                        : 'default'
-                                }
-                                onClick={(e) => {
-                                    this.handleButtonOnClick('insert', e)
-                                }}
-                                block
+                            <Radio.Group 
+                                value={options.chooseTypes.indexOf('insert') > -1
+                                            ? 'insert'
+                                            : ''}
                             >
-                                Insert
-                            </Button>
+                                <Radio.Button 
+                                    onClick={(e) => {
+                                        this.handleButtonOnClick('insert', e)
+                                    }}
+                                
+                                style={TIME_BUTTON_STYLE} value="insert" type>
+                                    Insert
+                                </Radio.Button>
+                            </Radio.Group>
                         </div>
                         <div className="encoding-item-content">
                                 <div className="item-right-option">

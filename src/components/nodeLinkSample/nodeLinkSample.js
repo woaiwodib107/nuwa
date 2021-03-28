@@ -13,8 +13,8 @@ export default function NodeLinkSample(props) {
     return (
         <div className="node-link-sample">
             <div onClick={() => handleIconsClick('Node')} className="second-line-left">
-                <Radio.Group buttonStyle="solid" value={chooseItem}>
-                    <Radio.Button style={ROW_BUTTON_STYLE} value="Node">
+                <Radio.Group value={chooseItem}>
+                    <Radio.Button style={ROW_BUTTON_STYLE} value="Node" type>
                         Node
                     </Radio.Button>
                 </Radio.Group>
@@ -28,7 +28,7 @@ export default function NodeLinkSample(props) {
                 <SampleItem config={nodeStyle} />
             </div>
             <div onClick={() => handleIconsClick('Link')} className="second-line-left">
-                <Radio.Group buttonStyle="solid" value={chooseItem}>
+                <Radio.Group value={chooseItem}>
                     <Radio.Button style={ROW_BUTTON_STYLE} value="Link">
                         Link
                     </Radio.Button>
