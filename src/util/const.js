@@ -62,6 +62,7 @@ export const REACT_JSON_OPTIONS = {
   displayDataTypes: false,
   name: null,
   indentWidth: 2,
+  fontFamily: 'lato',
   collapseStringsAfterLength: 20,
 //               iconStyle: "circle",
   enableClipboard: false,
