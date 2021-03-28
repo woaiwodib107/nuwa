@@ -2,13 +2,9 @@ import React from 'react'
 import { InputNumber, Select } from 'antd'
 import NodeLinkStylePanel from '../nodeLinkStylePanel/nodeLinkStylePanel.js'
 import NodeLinkSample from '../nodeLinkSample/nodeLinkSample.js'
-import {
-    GRAPH_LAYOUT_TYPE
-} from '../../util/const'
-import { connect } from "react-redux"
-import { 
-	modifyConfig, 
-} from '../../redux/config.redux.js'
+import { GRAPH_LAYOUT_TYPE } from '../../util/const'
+import { connect } from 'react-redux'
+import { modifyConfig } from '../../redux/config.redux.js'
 
 const { Option } = Select
 
@@ -26,7 +22,7 @@ class GraphPanel extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            chooseItem : 'Node'
+            chooseItem: 'Node'
         }
     }
     handleConfigChange = (e, key) => {
@@ -51,17 +47,17 @@ class GraphPanel extends React.Component {
         })
     }
 
-    handleLayoutTypeChange = (value)=>{
+    handleLayoutTypeChange = (value) => {
         const layoutItem = this.props.options.layout
         const displayItem = {
-            ...layoutItem, 
-            chooseType:value
+            ...layoutItem,
+            chooseType: value
         }
-        this.changeGraphConfig({layout: displayItem})
+        this.changeGraphConfig({ layout: displayItem })
     }
 
     changeGraphConfig = (value) => {
-        this.props.modifyConfig({key:"graph", value})
+        this.props.modifyConfig({ key: 'graph', value })
     }
 
     render() {
@@ -69,8 +65,24 @@ class GraphPanel extends React.Component {
         const changeOptions = this.props.options[optionKey]
         return (
             <div className="basic-box combine-inner-border">
-                <div className="combine-inner-title">&nbsp;Graph</div>
+                <div className="combine-inner-title">&nbsp;Encoding: Graph-layout</div>
                 <div className="encoding-table-container">
+                    <div className="change-option-item">
+                        <div>Layout:</div>
+                        <Select
+                            value={this.props.options.layout.chooseType}
+                            style={{ width: 120 }}
+                            onChange={this.handleLayoutTypeChange}
+                        >
+                            {GRAPH_LAYOUT_TYPE.map((v) => {
+                                return (
+                                    <Option key={v} value={v}>
+                                        {v}
+                                    </Option>
+                                )
+                            })}
+                        </Select>
+                    </div>
                     <div className="change-option-item">
                         <div>eachWidth:</div>
                         <InputNumber
@@ -87,7 +99,7 @@ class GraphPanel extends React.Component {
                         <InputNumber
                             size="small"
                             min={1}
-                            max={750}
+                            max={7000}
                             style={{ width: 120 }}
                             value={this.props.options.eachHeight}
                             onChange={(e) => this.handleConfigChange(e, 'eachHeight')}
@@ -104,28 +116,13 @@ class GraphPanel extends React.Component {
                             onChange={(e) => this.handleConfigChange(e, 'margin')}
                         />
                     </div>
-                    <div className="change-option-item">
-                        <div>Layout:</div>
-                        <Select
-                            value={this.props.options.layout.chooseType}
-                            style={{ width: 120 }}
-                            onChange={this.handleLayoutTypeChange}
-                        >   
-                            {GRAPH_LAYOUT_TYPE.map((v)=>{
-                                return (
-                                    <Option key={v} value={v}>
-                                        {v}
-                                    </Option>
-                                )
-                            })}
-                        </Select>
-                    </div>
+
                     <div className="basic-panel-line">
                         <NodeLinkSample
-                            nodeStyle = {this.props.options.nodeStyle}
-                            linkStyle = {this.props.options.linkStyle}
-                            chooseItem = {this.state.chooseItem}
-                            onSubmit = {this.handleIconsClick}
+                            nodeStyle={this.props.options.nodeStyle}
+                            linkStyle={this.props.options.linkStyle}
+                            chooseItem={this.state.chooseItem}
+                            onSubmit={this.handleIconsClick}
                         />
                     </div>
                     <NodeLinkStylePanel
@@ -140,14 +137,12 @@ class GraphPanel extends React.Component {
     }
 }
 
-
-
-const mapStateToProps = (state)=>({
-	options: state.config.graph
+const mapStateToProps = (state) => ({
+    options: state.config.graph
 })
 
 const mapDispatchToProps = {
-	modifyConfig,
-} 
+    modifyConfig
+}
 
-export default connect(mapStateToProps,mapDispatchToProps)(GraphPanel)
+export default connect(mapStateToProps, mapDispatchToProps)(GraphPanel)

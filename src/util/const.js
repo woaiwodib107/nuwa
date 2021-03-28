@@ -32,7 +32,7 @@ export const TASK_FIND_RELATION = ['>=','=','<=']
 
 export const TIME_TIMELINE_ELEMENT = ['node', 'link', 'all']
 export const TIME_CHART_TYPE = ['line', 'bar']
-export const TIME_TIMELINE_TYPE = ['linear', 'circular']
+export const TIME_TIMELINE_TYPE = ['merged','circular','juxtaposed']
 export const GRAPH_LAYOUT_TYPE = ['matrix','grid','forceDirect','bipartite', 'vertical','circular','dagre','mds','oneMds']
 
 export const KEYFRAM_OPTIONS = ['next', 'last']
@@ -50,10 +50,10 @@ export const ROW_BUTTON_STYLE = {
 
 export const TIME_BUTTON_STYLE = {
   boxSizing: 'border-box',
-  width: '248px',
+  width: '252px',
   padding: '0px',
   fontSize: '12px',
-  height: '32px',
+  height: '30px',
   lineHeight: '32px',
   alighItems: 'center'
 }

@@ -11,6 +11,7 @@ import * as simpleData from '../../data/import/test2.json'
 import * as insertData from '../../data/import/test3-insert.json'
 import * as shortPathData from '../../data/import/test4.json'
 import * as flowData from '../../data/import/test5.json'
+import * as emailData from '../../data/import/email-data.json'
 
 const dataset = [
     {
@@ -39,8 +40,9 @@ const dataset = [
         data: shortPathData.default
     },
     {
-        dataName: 'Iris',
-        description: 'Barley yield by variety across the upper midwest in 1931 and 1932'
+        dataName: 'emailData',
+        description: 'Barley yield by variety across the upper midwest in 1931 and 1932',
+        data: emailData.default
     }
 ]
 

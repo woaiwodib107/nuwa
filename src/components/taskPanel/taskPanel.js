@@ -139,7 +139,7 @@ class TaskPanel extends React.Component {
         return (
             <div className="Comparison-box combine-inner-border">
                 <div className="combine-inner-title">
-                    &nbsp;Task
+                    &nbsp;Pattern And Change
                     {/* <div className="comparison-switch ">
                         <Switch
                             checkedChildren="ON"
@@ -174,6 +174,25 @@ class TaskPanel extends React.Component {
                             <Option value="structure">structure</Option>
                         </Select>
                     </div>
+                    {taskType === 'find' && basedType === 'structure' ? (
+                        <div className="change-option-item">
+                            <div>Structure:</div>
+                            <Select
+                                value={find.structure}
+                                style={{ width: TPIW }}
+                                size="small"
+                                onChange={(value) => this.handleSelectChange(value, 'structure', 'find')}
+                            >
+                                {TASK_FIND_STRUCTURE.map((v) => {
+                                    return (
+                                        <Option key={v} value={v}>
+                                            {v}
+                                        </Option>
+                                    )
+                                })}
+                            </Select>
+                        </div>
+                    ) : null}
                     <div className="change-option-item">
                         <Collapse
                             expandIconPosition={'right'}
@@ -335,25 +354,7 @@ class TaskPanel extends React.Component {
                             </div>
                         </>
                     ) : null}
-                    {taskType === 'find' && basedType === 'structure' ? (
-                        <div className="change-option-item">
-                            <div>Structure:</div>
-                            <Select
-                                value={find.structure}
-                                style={{ width: TPIW }}
-                                size="small"
-                                onChange={(value) => this.handleSelectChange(value, 'structure', 'find')}
-                            >
-                                {TASK_FIND_STRUCTURE.map((v) => {
-                                    return (
-                                        <Option key={v} value={v}>
-                                            {v}
-                                        </Option>
-                                    )
-                                })}
-                            </Select>
-                        </div>
-                    ) : null}
+                    
                     <div className="comparison-table-container">
                         <div className="table-first-line">
                             <div className="blank-icon"></div>

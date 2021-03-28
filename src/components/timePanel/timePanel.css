@@ -59,15 +59,16 @@
 }
 
 .encoding-item {
-    border-bottom: 1px dashed black;
-    padding-bottom: 15px;
+    border-bottom: 4px dashed #e6e6e6;
+    /* padding-bottom: 15px; */
+    padding: 12px 0px;
     /* height:140px; */
 }
 
 .encoding-item-title {
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 10px;
+    margin-left: 8px;
+    margin-right: 8px;
+    /* margin-top: 10px; */
     margin-bottom: 5px;
     height: 32px;
 }
@@ -109,7 +110,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
 }
 
 .item-circle1 {

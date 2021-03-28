@@ -44,7 +44,7 @@ function GrammarPanel(props) {
                     <use xlinkHref="#icon-download"></use>
                 </svg>
             </div>
-            <div className="gp-header-text">
+            {/* <div className="gp-header-text">
                 <div
                     className={`gp-sub-title ${grammarType === 'simple' ? 'gp-sub-choose' : ''}`}
                     onClick={() => setGrammarType('simple')}
@@ -58,7 +58,7 @@ function GrammarPanel(props) {
                 >
                     All
                 </div>
-            </div>
+            </div> */}
             <div className="json-text simple_scrollbar">
                 <ReactJson
                     theme="summerfruit:inverted"

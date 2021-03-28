@@ -15,10 +15,8 @@ import NodeLinkStylePanel from '../nodeLinkStylePanel/nodeLinkStylePanel.js'
 import NodeLinkSample from '../nodeLinkSample/nodeLinkSample.js'
 import SampleItem from '../sampleItem/sampleItem.js'
 import './timePanel.css'
-import { connect } from "react-redux"
-import { 
-	modifyConfig, 
-} from '../../redux/config.redux.js'
+import { connect } from 'react-redux'
+import { modifyConfig } from '../../redux/config.redux.js'
 
 const { Option } = Select
 
@@ -32,10 +30,8 @@ class TimePanel extends React.Component {
         }
     }
     handleButtonOnClick(type, event) {
-
         const tempArr = [...this.props.options.chooseTypes]
         const tempIndex = tempArr.indexOf(type)
-        console.log("type---tempIndex",type,tempIndex)
         if (tempIndex === -1) {
             tempArr.push(type)
         } else {
@@ -68,6 +64,25 @@ class TimePanel extends React.Component {
         this.changeTimeConfig({ [option]: optionObject })
     }
 
+    handleTimeLayoutType =(e) => {
+        switch(e){
+            case 'merged':
+                this.handleButtonOnClick('timeLine')
+                break
+            case 'juxtaposed':
+                if(this.props.options.chooseTypes.indexOf('timeLine') === -1){
+                    this.handleButtonOnClick('timeLine')
+                }
+                this.handleTimeOptionsSelect('linear', 'timeLine', 'type')
+                break
+            case 'circular':
+                if(this.props.options.chooseTypes.indexOf('timeLine') === -1){
+                    this.handleButtonOnClick('timeLine')
+                }
+                this.handleTimeOptionsSelect('circular', 'timeLine', 'type')
+        }
+    }
+
     handleTimeOptionsChange = (option, value) => {
         const optionObject = { ...this.props.options[option], ...value }
         // optionObject[key] = value
@@ -80,7 +95,7 @@ class TimePanel extends React.Component {
         })
     }
     changeTimeConfig = (value) => {
-        this.props.modifyConfig({key:'time', value})
+        this.props.modifyConfig({ key: 'time', value })
     }
     render() {
         const options = this.props.options
@@ -88,29 +103,54 @@ class TimePanel extends React.Component {
         const changeOptions = this.props.options.insert[optionKey]
         return (
             <div className="time-box combine-inner-border">
-                <div className="combine-inner-title">
-                    &nbsp;Time
-                </div>
+                <div className="combine-inner-title">&nbsp;Encoding: Time-layout</div>
                 <div className="encoding-table-container">
                     {/* timeLine */}
                     <div className="encoding-item">
-                        <div className="encoding-item-title">
-                            <Radio.Group 
-                                value={options.chooseTypes.indexOf('timeLine') > -1
-                                            ? 'TimeLine'
-                                            : ''}
+                        {/* <div className="encoding-item-title">
+                            <Radio.Group
+                                value={
+                                    options.chooseTypes.indexOf('timeLine') > -1 ? 'TimeLine' : ''
+                                }
                             >
-                                <Radio.Button 
+                                <Radio.Button
                                     onClick={(e) => {
                                         this.handleButtonOnClick('timeLine', e)
                                     }}
-                                
-                                style={TIME_BUTTON_STYLE} value="TimeLine" type>
+                                    style={TIME_BUTTON_STYLE}
+                                    value="TimeLine"
+                                    type
+                                >
                                     TimeLine
                                 </Radio.Button>
                             </Radio.Group>
-                        </div>
+                        </div> */}
                         <div className="encoding-item-content">
+                            <div className="item-right-option">
+                                <div>Type:</div>
+                                <Select
+                                    value={
+                                        options.chooseTypes.indexOf('timeLine') === -1 
+                                            ? 'merged'
+                                            : (options.timeLine.type ==='linear'
+                                                ? 'juxtaposed'
+                                                : 'circular')
+                                    }
+                                    style={{ width: TPIW }}
+                                    size="small"
+                                    onChange={(e) =>
+                                        this.handleTimeLayoutType(e)
+                                     }
+                                >
+                                    {TIME_TIMELINE_TYPE.map((v) => {
+                                        return (
+                                            <Option key={v} value={v}>
+                                                {v}
+                                            </Option>
+                                        )
+                                    })}
+                                </Select>
+                            </div>
                             <div className="item-right-option">
                                 <div>xDistance:</div>
                                 <InputNumber
@@ -157,42 +197,25 @@ class TimePanel extends React.Component {
                                     })}
                                 </Select>
                             </div>
-                            <div className="item-right-option">
-                                <div>Type:</div>
-                                <Select
-                                    value={options.timeLine.type===undefined ? 'linear' : options.timeLine.type}
-                                    style={{ width: TPIW }}
-                                    size="small"
-                                    onChange={(e) =>
-                                        this.handleTimeOptionsSelect(e, 'timeLine', 'type')
-                                    }
-                                >
-                                    {TIME_TIMELINE_TYPE.map((v) => {
-                                        return (
-                                            <Option key={v} value={v}>
-                                                {v}
-                                            </Option>
-                                        )
-                                    })}
-                                </Select>
-                            </div>
                         </div>
                     </div>
 
                     {/* animaiton */}
                     <div className="encoding-item">
                         <div className="encoding-item-title">
-                            <Radio.Group 
-                                value={options.chooseTypes.indexOf('animation') > -1
-                                            ? 'animation'
-                                            : ''}
+                            <Radio.Group
+                                value={
+                                    options.chooseTypes.indexOf('animation') > -1 ? 'animation' : ''
+                                }
                             >
-                                <Radio.Button 
+                                <Radio.Button
                                     onClick={(e) => {
                                         this.handleButtonOnClick('animation', e)
                                     }}
-                                
-                                style={TIME_BUTTON_STYLE} value="animation" type>
+                                    style={TIME_BUTTON_STYLE}
+                                    value="animation"
+                                    type
+                                >
                                     Animation
                                 </Radio.Button>
                             </Radio.Group>
@@ -217,17 +240,17 @@ class TimePanel extends React.Component {
                     {/* color */}
                     <div className="encoding-item">
                         <div className="encoding-item-title">
-                            <Radio.Group 
-                                value={options.chooseTypes.indexOf('color') > -1
-                                            ? 'color'
-                                            : ''}
+                            <Radio.Group
+                                value={options.chooseTypes.indexOf('color') > -1 ? 'color' : ''}
                             >
-                                <Radio.Button 
+                                <Radio.Button
                                     onClick={(e) => {
                                         this.handleButtonOnClick('color', e)
                                     }}
-                                
-                                style={TIME_BUTTON_STYLE} value="color" type>
+                                    style={TIME_BUTTON_STYLE}
+                                    value="color"
+                                    type
+                                >
                                     Color
                                 </Radio.Button>
                             </Radio.Group>
@@ -285,36 +308,38 @@ class TimePanel extends React.Component {
                             ) : null}
                         </div>
                         <div className="encoding-item-content">
-                                <div className="item-right-option">
-                                    <div>Number:</div>
-                                    <InputNumber
-                                        size="small"
-                                        min={1}
-                                        max={1000}
-                                        value={options.color.number}
-                                        onChange={(e) =>
-                                            this.handleTimeOptionsInput(e, 'color', 'number')
-                                        }
-                                        style={{ width: TPIW }}
-                                    />
-                                </div>
+                            <div className="item-right-option">
+                                <div>Number:</div>
+                                <InputNumber
+                                    size="small"
+                                    min={1}
+                                    max={1000}
+                                    value={options.color.number}
+                                    onChange={(e) =>
+                                        this.handleTimeOptionsInput(e, 'color', 'number')
+                                    }
+                                    style={{ width: TPIW }}
+                                />
+                            </div>
                         </div>
                     </div>
 
                     {/* MarkLine */}
                     <div className="encoding-item">
                         <div className="encoding-item-title">
-                            <Radio.Group 
-                                value={options.chooseTypes.indexOf('markLine') > -1
-                                            ? 'markLine'
-                                            : ''}
+                            <Radio.Group
+                                value={
+                                    options.chooseTypes.indexOf('markLine') > -1 ? 'markLine' : ''
+                                }
                             >
-                                <Radio.Button 
+                                <Radio.Button
                                     onClick={(e) => {
                                         this.handleButtonOnClick('markLine', e)
                                     }}
-                                
-                                style={TIME_BUTTON_STYLE} value="markLine" type>
+                                    style={TIME_BUTTON_STYLE}
+                                    value="markLine"
+                                    type
+                                >
                                     MarkLine
                                 </Radio.Button>
                             </Radio.Group>
@@ -339,17 +364,17 @@ class TimePanel extends React.Component {
                     {/* Chart */}
                     <div className="encoding-item">
                         <div className="encoding-item-title">
-                            <Radio.Group 
-                                value={options.chooseTypes.indexOf('chart') > -1
-                                            ? 'chart'
-                                            : ''}
+                            <Radio.Group
+                                value={options.chooseTypes.indexOf('chart') > -1 ? 'chart' : ''}
                             >
-                                <Radio.Button 
+                                <Radio.Button
                                     onClick={(e) => {
                                         this.handleButtonOnClick('chart', e)
                                     }}
-                                
-                                style={TIME_BUTTON_STYLE} value="chart" type>
+                                    style={TIME_BUTTON_STYLE}
+                                    value="chart"
+                                    type
+                                >
                                     Chart
                                 </Radio.Button>
                             </Radio.Group>
@@ -358,7 +383,11 @@ class TimePanel extends React.Component {
                             <div className="item-right-option">
                                 <div>Type:</div>
                                 <Select
-                                    value={options.chart.type===undefined ? 'line': options.chart.type}
+                                    value={
+                                        options.chart.type === undefined
+                                            ? 'line'
+                                            : options.chart.type
+                                    }
                                     style={{ width: TPIW }}
                                     size="small"
                                     onChange={(e) =>
@@ -378,59 +407,58 @@ class TimePanel extends React.Component {
                         </div>
                     </div>
 
-
                     {/* insert */}
                     <div className="encoding-item">
                         <div className="encoding-item-title">
-                            <Radio.Group 
-                                value={options.chooseTypes.indexOf('insert') > -1
-                                            ? 'insert'
-                                            : ''}
+                            <Radio.Group
+                                value={options.chooseTypes.indexOf('insert') > -1 ? 'insert' : ''}
                             >
-                                <Radio.Button 
+                                <Radio.Button
                                     onClick={(e) => {
                                         this.handleButtonOnClick('insert', e)
                                     }}
-                                
-                                style={TIME_BUTTON_STYLE} value="insert" type>
+                                    style={TIME_BUTTON_STYLE}
+                                    value="insert"
+                                    type
+                                >
                                     Insert
                                 </Radio.Button>
                             </Radio.Group>
                         </div>
                         <div className="encoding-item-content">
-                                <div className="item-right-option">
-                                    <div>Margin:</div>
-                                    <InputNumber
-                                        size="small"
-                                        min={1}
-                                        max={1000}
-                                        value={options.insert.margin}
-                                        onChange={(e) =>
-                                            this.handleTimeOptionsInput(e, 'insert', 'margin')
-                                        }
-                                        style={{ width: TPIW }}
-                                    />
-                                </div>
-                                <div className="item-right-option">
-                                    <div>Position:</div>
-                                    <Select
-                                        value={options.insert.position}
-                                        style={{ width: TPIW }}
-                                        size="small"
-                                        onChange={(e) =>
-                                            this.handleTimeOptionsSelect(e, 'insert', 'position')
-                                        }
-                                    >
-                                        {' '}
-                                        {INSERT_POSITION.map((v) => {
-                                            return (
-                                                <Option key={v} value={v}>
-                                                    {v}
-                                                </Option>
-                                            )
-                                        })}
-                                    </Select>
-                                </div>
+                            <div className="item-right-option">
+                                <div>Margin:</div>
+                                <InputNumber
+                                    size="small"
+                                    min={1}
+                                    max={1000}
+                                    value={options.insert.margin}
+                                    onChange={(e) =>
+                                        this.handleTimeOptionsInput(e, 'insert', 'margin')
+                                    }
+                                    style={{ width: TPIW }}
+                                />
+                            </div>
+                            <div className="item-right-option">
+                                <div>Position:</div>
+                                <Select
+                                    value={options.insert.position}
+                                    style={{ width: TPIW }}
+                                    size="small"
+                                    onChange={(e) =>
+                                        this.handleTimeOptionsSelect(e, 'insert', 'position')
+                                    }
+                                >
+                                    {' '}
+                                    {INSERT_POSITION.map((v) => {
+                                        return (
+                                            <Option key={v} value={v}>
+                                                {v}
+                                            </Option>
+                                        )
+                                    })}
+                                </Select>
+                            </div>
                         </div>
                         <div className="encoding-item-content">
                             <NodeLinkSample
@@ -453,13 +481,12 @@ class TimePanel extends React.Component {
     }
 }
 
-
-const mapStateToProps = (state)=>({
-	options: state.config.time
+const mapStateToProps = (state) => ({
+    options: state.config.time
 })
 
 const mapDispatchToProps = {
-	modifyConfig,
-} 
+    modifyConfig
+}
 
-export default connect(mapStateToProps,mapDispatchToProps)(TimePanel)
+export default connect(mapStateToProps, mapDispatchToProps)(TimePanel)
