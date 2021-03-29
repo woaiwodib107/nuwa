@@ -1,6 +1,6 @@
 import React from 'react'
 import SampleItem from '../sampleItem/sampleItem.js'
-import { Radio, Select, Collapse, Switch, Checkbox, Col, Row, InputNumber } from 'antd'
+import { Radio, Select, Collapse, Checkbox, Col, Row } from 'antd'
 import NodeLinkStylePanel from '../nodeLinkStylePanel/nodeLinkStylePanel.js'
 import {
     TIME_PANEL_INPUT_WIDTH as TPIW,
@@ -13,6 +13,7 @@ import {
     TASK_CHANGE_TYPES
 } from '../../util/const'
 import { COMPARISON_CONFIG } from '../../util/defaultConfig.js'
+import { getConfigPatternChange } from '../../util/dnetChart.js'
 import './comparisonPanel.css'
 import { connect } from 'react-redux'
 import { modifyConfig } from '../../redux/config.redux.js'
@@ -171,6 +172,7 @@ class TaskPanel extends React.Component {
 
     render() {
         const { comparison, find, taskType, basedType } = this.props.options
+        const patternAndChange = getConfigPatternChange(this.props.options)
         const {
             chooseItem,
             keyFrame,
@@ -196,7 +198,7 @@ class TaskPanel extends React.Component {
                     <div className="change-option-item">
                         <div>Pattern:</div>
                         <Select
-                            value={this.state.taskPattern}
+                            value={patternAndChange.pattern}
                             style={{ width: 120 }}
                             onChange={(value) => this.handleTaskPatternSelect(value)}
                         >
@@ -212,7 +214,7 @@ class TaskPanel extends React.Component {
                     <div className="change-option-item">
                         <div>Change:</div>
                         <Select
-                            value={this.state.taskChange}
+                            value={patternAndChange.change}
                             style={{ width: 120 }}
                             onChange={(value) => this.handleTaskChangeSelect(value)}
                         >

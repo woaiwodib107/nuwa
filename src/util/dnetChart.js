@@ -829,7 +829,7 @@ function getConfigEncoding(config){
     return encoding
 }
 
-function getConfigPatternChange(task){
+export function getConfigPatternChange(task){
     if(task.taskType==='comparison'){
         if(task.basedType==='structure'){
             return { pattern:'compare-structure',change:'all'}
