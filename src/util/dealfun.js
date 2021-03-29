@@ -758,7 +758,7 @@ export const getTranslateMap = (configs, len) => {
         }
         const { eachWidth, eachHeight, margin } = configs.graph
         const eachDis = eachWidth < eachHeight ? eachWidth : eachHeight
-        let radius = (eachDis * len) / 4
+        let radius = (eachDis * len) / 5
         var graph = new G6.Graph({
             container: 'g6-graph-container',
             width: radius * 2,

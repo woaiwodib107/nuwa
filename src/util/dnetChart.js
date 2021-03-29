@@ -797,6 +797,69 @@ export function getHybridPathData(source, target) {
     // console.log("firstData","secondData",firstData,secondData)
     return { firstData, secondData }
 }
+function getConfigEncoding(config){
+    const encoding = {}
+    const {time, graph} = config
+    if(time.chooseTypes.indexOf('timeLine')>-1){
+        if(time.timeLine.type==='linear'){
+            encoding.timeLayout = 'juxtaposed'
+        }else{
+            encoding.timeLayout = time.timeLine.type
+        }
+    }else{
+        encoding.timeLayout = 'merged'
+    }
+    encoding.graphLayout = graph.layout.chooseType
+    if(time.chooseTypes.indexOf('animation')>-1){
+        encoding.animation = `speed-${time.animation.speed}`
+    }
+    if(time.chooseTypes.indexOf(''))
+    if(time.chooseTypes.indexOf('markLine')>-1){
+        encoding.markLine = time.markLine.shape
+    }
+    if(time.chooseTypes.indexOf('color')>-1){
+        encoding.color = `StartColor: ${time.color.startColor}, EndColor:${time.color.endColor}`
+    }
+    if(time.chooseTypes.indexOf('chart')>-1){
+        encoding.chart = `${time.chart.type}Chart`
+    }
+    if(time.chooseTypes.indexOf('insert')>-1){
+        encoding.insert = `${time.insert.position}-Position`
+    }
+    return encoding
+}
+
+function getConfigPatternChange(task){
+    if(task.taskType==='comparison'){
+        if(task.basedType==='structure'){
+            return { pattern:'compare-structure',change:'all'}
+        }else{
+            return { pattern:'compare-degree', change: 'appeared'}
+        }
+    }else if(task.taskType === 'find'){
+        if(task.basedType==='structure'){
+            if(task.find.structure==='short-path'){
+                return { pattern:'shortest-path(A-F)',change:'appeared'}
+            }else{
+                return { pattern:'dumb-bell',change:'appeared'}
+            }
+        }else{
+            return { pattern:'find-degree',change: 'appearedNode'}
+        }
+    }else{
+        return { pattern:'graph',change: 'unchanged'}
+    }
+}
+
+export function getDisplayGrammar(config){
+    const result = getConfigPatternChange(config.task)
+    return {
+        data:'dynamic-graph.json',
+        pattern: result.pattern,
+        change:  result.change,
+        encoding: getConfigEncoding(config)
+    }
+}
 
 export function getSimpleGrammar(config){
     return {

@@ -156,6 +156,8 @@ class TaskPanel extends React.Component {
                 this.handleTaskPanelChange('taskType', 'find')
                 this.handleTaskPanelChange('basedType', 'attr')
                 break
+            default:
+                this.handleTaskPanelChange('taskType', 'none')
         }
     }
     handleTaskChangeSelect = (value) => {

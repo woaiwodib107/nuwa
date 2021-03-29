@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { update } from '../../redux/config.redux.js'
 import * as _ from 'lodash'
 import './grammarPanel.css'
-import { getSimpleGrammar } from '../../util/dnetChart.js'
+import { getSimpleGrammar,getDisplayGrammar } from '../../util/dnetChart.js'
 
 function GrammarPanel(props) {
     const [grammarType, setGrammarType] = useState('simple')
@@ -64,7 +64,7 @@ function GrammarPanel(props) {
                     theme="summerfruit:inverted"
                     className="json-box"
                     {...REACT_JSON_OPTIONS}
-                    src={grammarType === 'simple' ? getSimpleGrammar(props.config) : props.config}
+                    src={grammarType === 'simple' ? getDisplayGrammar(props.config) : props.config}
                 />
             </div>
         </div>

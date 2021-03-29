@@ -58,7 +58,7 @@ function TemplatePanel(props) {
             const key = `DnetG-${lastIndex}`
             const content = JSON.stringify({
                 config: props.config,
-                name: `template-${lastIndex}`,
+                name: `specification-${lastIndex}`,
                 index: lastIndex
             })
             localStorage.setItem(key, content)

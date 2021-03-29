@@ -48,8 +48,7 @@ export const initConfig = {
         },
         nodeStyle: {
             shape: 'circle',
-            fillColor: '#ffffff',
-            fillColor: 'none',
+            fillColor: '#e6e6e6',
             strokeColor: '#000000',
             strokeWidth: 1,
             radius: 6,
