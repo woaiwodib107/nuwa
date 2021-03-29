@@ -1,7 +1,7 @@
 /*Comparison view*/
 .Comparison-box {
     background: #fff;
-    height: 590px;
+    height: 410px;
     width: 270px;
     display: flex;
     flex-direction: column;

@@ -61,7 +61,6 @@ function GrammarPanel(props) {
             </div> */}
             <div className="json-text simple_scrollbar">
                 <ReactJson
-                    theme="summerfruit:inverted"
                     className="json-box"
                     {...REACT_JSON_OPTIONS}
                     src={grammarType === 'simple' ? getDisplayGrammar(props.config) : props.config}

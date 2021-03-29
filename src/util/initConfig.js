@@ -83,7 +83,7 @@ export const initConfig = {
             type: 'linear'
         },
         insert: {
-            position:'bottom',
+            position:'origin',
             margin: 10,
             nodeStyle: {
                 shape: 'circle',
@@ -108,8 +108,8 @@ export const initConfig = {
         },
         color: {
             element: 'all',
-            startColor: '#ECAA7B',
-            endColor: '#98F3E3'
+            startColor: '#F39350',
+            endColor: '#5DBDAD'
         },
         animation: {
             speed: 1800

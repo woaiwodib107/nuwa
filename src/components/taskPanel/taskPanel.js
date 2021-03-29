@@ -189,7 +189,7 @@ class TaskPanel extends React.Component {
         return (
             <div className="Comparison-box combine-inner-border">
                 <div className="combine-inner-title">
-                    &nbsp;Pattern And Change
+                    &nbsp;Pattern and Change
                 </div>
 
                 <div className="encoding-table-container">

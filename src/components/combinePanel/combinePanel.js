@@ -8,7 +8,7 @@ export default function CombinePanel(props) {
     return (
         <div className="combine-panel-box">
             <div className="sub-title">
-                &nbsp;CombinePanel
+                &nbsp;Specification
                 <svg className="icon" aria-hidden="true">
                     <use xlinkHref="#icon-save"></use>
                 </svg>
@@ -20,8 +20,8 @@ export default function CombinePanel(props) {
                 className="cbpl-content-container simple_scrollbar"
             >
                 <div>
-                    <GraphPanel/>
                     <TaskPanel/>
+                    <GraphPanel/>
                 </div>
                 <TimePanel/>
             </div>

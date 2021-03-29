@@ -65,9 +65,14 @@ export const REACT_JSON_OPTIONS = {
   displayDataTypes: false,
   name: null,
   indentWidth: 2,
-  fontFamily: 'lato',
+  fontFamily: 'consola',
+  theme:"summerfruit:inverted",
+  // theme:"monokai",
+  style:{
+    fontFamily: 'consola'
+  },
   collapseStringsAfterLength: 20,
-//               iconStyle: "circle",
+  // iconStyle: "circle",
   enableClipboard: false,
   displayObjectSize: false
 }

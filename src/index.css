@@ -1,18 +1,17 @@
+
 @font-face{
 　　font-family: 'lato';
 　　src: url('./assets/Lato-Regular.ttf');
 }
-
 @font-face{
     font-family: 'DFPSongW9';
     src : url('./assets/DFPSongW9.ttf');
 }
-
-#root {
-    /* overflow-x: hidden; */
-    /* overflow-x: auto; */
-    /* overflow-y: hidden; */
+@font-face{
+    font-family: 'consola';
+    src : url('./assets/consola.ttf');
 }
+
 body {
     overflow-x: hidden;
     /* overflow-x: auto; */
@@ -20,7 +19,8 @@ body {
     overflow-y: auto;
     text-transform: capitalize;
     /* font-family:'lato'; */
-    font-family: 'DFPSongW9';
+    /* font-family: 'DFPSongW9'; */
+    font-family: 'consola';
 }
 
 body::-webkit-scrollbar-track {
@@ -89,7 +89,7 @@ body::-webkit-scrollbar-thumb {
     background: #fff;
     border: 1px solid rgb(68, 67, 67);
     border-radius: 8px;
-    height: 380px;
+    height: 450px;
     width: 280px;
     display: flex;
     flex-direction: column;
@@ -149,7 +149,7 @@ body::-webkit-scrollbar-thumb {
 /*basic view*/
 .basic-box {
     background: #fff;
-    height: 340px;
+    height: 515px;
     width: 270px;
     display: flex;
     flex-direction: column;
@@ -306,6 +306,7 @@ body::-webkit-scrollbar-thumb {
     height: 25px;
     width: 100%;
     background-color: #e6e6e6;
+    text-transform:none;
 }
 
 .combine-inner-border {
