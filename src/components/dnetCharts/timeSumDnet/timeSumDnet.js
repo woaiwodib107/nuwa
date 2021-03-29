@@ -14,10 +14,12 @@ export default function TimeSumDnet(props) {
     // 确定颜色比例尺
     const { startColor = '#FD8F8F', endColor = '#90B5FB' } = props.config.time.color
     let colorScale = getPiePathColor(props.len, startColor, endColor)
+    const { eachWidth, eachHeight, margin, nodeStyle, linkStyle,layout } = props.config.graph
 
     const isColor = timeChooseTypes.indexOf('color') > -1
     const isChart = isColor || timeChooseTypes.indexOf('chart') > -1
-    const { eachWidth, eachHeight, margin, nodeStyle, linkStyle } = props.config.graph
+    const isMatrix = layout.chooseType === 'matrix'
+    
     const svgWidth = eachWidth + margin * 2
     const svgHeight = eachHeight + margin * 2
 
@@ -79,7 +81,7 @@ export default function TimeSumDnet(props) {
             >
                 {
                     /** 链接绘制 */
-                    isChart
+                    isChart && !isMatrix
                         ? props.data.links.map((dataItem, index) => {
                               return (
                                   <DividedLinkItem

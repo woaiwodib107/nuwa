@@ -830,8 +830,8 @@ export const offLineLayout = (sumGraphs, configs) => {
         )
         .force('charge', d3.forceManyBody())
         .force('center', d3.forceCenter(eachWidth / 2, eachHeight / 2))
-        .stop()
-        .tick(30)
+        // .stop()
+        .tick(40)
         .stop()
     adjustLayout2Svg(nodes, links, eachWidth, eachHeight)
 }
@@ -1017,6 +1017,14 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
                     node.style[d] = _.cloneDeep(comparisonNode[d])
                 }
             })
+        }
+        if (node.type == 'link-node') {
+            node.style.nodeStyle = {
+                ...basicNodeStyle,
+                fillColor: basicLinkStyle.pointFillColor,
+                shape: basicLinkStyle.pointShape,
+                opacity: basicLinkStyle.pointOpacity
+            }
         }
     })
     links.forEach((link) => {
