@@ -118,7 +118,7 @@ function TemplatePanel(props) {
                 </svg>
             </div>
             <div className="template-content-box simple_scrollbar">
-                {storageKeyArr.map((v, i) => {
+                {storageKeyArr.map((v, storageIndex) => {
                     const vContent = JSON.parse(localStorage.getItem(v))
                     if (!vContent) {
                         return null
@@ -142,7 +142,7 @@ function TemplatePanel(props) {
                                         />
                                     </div>
                                 </div>
-                                <div className="sample-item-name">{vContent.name}</div>
+                                <div className="sample-item-name">{`Specification-${storageIndex}`}</div>
                             </div>
                             <div
                                 className="sample-item-chart"
