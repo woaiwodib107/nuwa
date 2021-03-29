@@ -16,35 +16,47 @@ import * as emailData from '../../data/import/email-data-6s.json'
 const dataset = [
     {
         dataName: 'DynamicData-1',
-        description: '测试数据，数据量一般',
+        description: getDataDescription(testData.default.graphs,'middle'),
+        // description: '测试数据，数据量一般',
         data: testData.default
     },
     {
-        dataName: 'SimpleData',
-        description: '数据量较小',
+        dataName: 'DynamicData-2',
+        description: getDataDescription(simpleData.default.graphs,'small'),
+        // description: '测试数据，数据量一般',
         data: simpleData.default
     },
     {
-        dataName: 'InsertData',
-        description: '展示插入节点的样例数据',
+        dataName: 'DynamicData-3',
+        description: getDataDescription(insertData.default.graphs,'Insert'),
+        // description: '展示插入节点的样例数据',
         data: insertData.default
     },
     {
-        dataName: 'FlowData',
-        description: '展示mds一维降维数据',
+        dataName: 'DynamicData-4',
+        description: getDataDescription(flowData.default.graphs,'MdsOne'),
+        // description: '展示mds一维降维数据',
         data: flowData.default
     },
     {
-        dataName: 'ShortPathData',
-        description: '展示最短路径',
+        dataName: 'DynamicData-5',
+        description: getDataDescription(shortPathData.default.graphs,'shortPath'),
+        // description: '可以展示最短路径',
         data: shortPathData.default
     },
     {
-        dataName: 'emailData',
-        description: 'Barley yield by variety across the upper midwest in 1931 and 1932',
+        dataName: 'EmailData',
+        description: getDataDescription(emailData.default.graphs,'big'),
+        // description: '大数据量',
         data: emailData.default
     }
 ]
+
+function getDataDescription(data,tag){
+    const result = getDataInfo(data)
+    const description = `Times: ${result.times}; Nodes: ${result.nodes}; Links: ${result.links}; Tag:${tag}`
+    return description
+}
 
 function getDataInfo(data) {
     const times = data.length
