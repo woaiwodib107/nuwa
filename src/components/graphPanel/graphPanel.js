@@ -68,7 +68,7 @@ class GraphPanel extends React.Component {
                 <div className="combine-inner-title">&nbsp;Encoding: Graph-layout</div>
                 <div className="encoding-table-container">
                     <div className="change-option-item">
-                        <div>Layout:</div>
+                        <div>GraphLayout:</div>
                         <Select
                             value={this.props.options.layout.chooseType}
                             style={{ width: 120 }}

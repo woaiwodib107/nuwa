@@ -127,7 +127,7 @@ class TimePanel extends React.Component {
                         </div> */}
                         <div className="encoding-item-content">
                             <div className="item-right-option">
-                                <div>Type:</div>
+                                <div>TimeLayout:</div>
                                 <Select
                                     value={
                                         options.chooseTypes.indexOf('timeLine') === -1 

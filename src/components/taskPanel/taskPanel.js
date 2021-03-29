@@ -8,14 +8,14 @@ import {
     KEYFRAM_OPTIONS,
     TASK_FIND_ATTR,
     TASK_FIND_RELATION,
-    TASK_FIND_STRUCTURE
+    TASK_FIND_STRUCTURE,
+    TASK_PATTERN_TYPES,
+    TASK_CHANGE_TYPES
 } from '../../util/const'
 import { COMPARISON_CONFIG } from '../../util/defaultConfig.js'
 import './comparisonPanel.css'
-import { connect } from "react-redux"
-import { 
-	modifyConfig, 
-} from '../../redux/config.redux.js'
+import { connect } from 'react-redux'
+import { modifyConfig } from '../../redux/config.redux.js'
 
 const { Option } = Select
 const { Panel } = Collapse
@@ -49,22 +49,34 @@ const index2chooseItem = [
     'stable-Link',
     'disappear-Link'
 ]
+
+const changeOptions = [
+    'appear-Node',
+    'stable-Node',
+    'disappear-Node',
+    'appear-Link',
+    'stable-Link',
+    'disappear-Link'
+]
+
 class TaskPanel extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             indeterminate: true,
-            checkAll: false
+            checkAll: false,
+            taskPattern: 'graph',
+            taskChange :'all'
         }
     }
     handleOptionChange = (value) => {
         this.handleComparisonChange({ ...value })
     }
     handleSelectChange = (value, key, option) => {
-        if(option === 'comparison'){
+        if (option === 'comparison') {
             this.handleComparisonChange({ [key]: value })
-        }else if(option==='find'){
-            this.handleFindChange({[key]: value})
+        } else if (option === 'find') {
+            this.handleFindChange({ [key]: value })
         }
     }
     handleColumnChange = (e) => {
@@ -115,8 +127,44 @@ class TaskPanel extends React.Component {
             [key]: value
         })
     }
-    changeTaskConfig = (value) =>{
-        this.props.modifyConfig({key:'task', value})
+
+
+
+    handleTaskPatternSelect = (value) => {
+        this.setState({
+            taskPattern: value
+        })
+        switch(value){
+            case 'graph':
+                this.handleTaskPanelChange('taskType', 'none')
+                break
+            case 'shortest-path(A-F)':
+                this.handleTaskPanelChange('taskType', 'find')
+                this.handleTaskPanelChange('basedType', 'structure')
+                this.handleSelectChange('shortest-path', 'structure', 'find')
+                break
+            case 'dumb-bell':
+                this.handleTaskPanelChange('taskType', 'find')
+                this.handleTaskPanelChange('basedType', 'structure')
+                this.handleSelectChange('dumb-bell', 'structure', 'find')
+                break
+            case 'compare-degree':
+                this.handleTaskPanelChange('taskType', 'comparison')
+                this.handleTaskPanelChange('basedType', 'attr')
+                break
+            case 'find-degree':
+                this.handleTaskPanelChange('taskType', 'find')
+                this.handleTaskPanelChange('basedType', 'attr')
+                break
+        }
+    }
+    handleTaskChangeSelect = (value) => {
+        this.setState({
+            taskChange: value
+        })
+    }
+    changeTaskConfig = (value) => {
+        this.props.modifyConfig({ key: 'task', value })
     }
 
     render() {
@@ -140,59 +188,41 @@ class TaskPanel extends React.Component {
             <div className="Comparison-box combine-inner-border">
                 <div className="combine-inner-title">
                     &nbsp;Pattern And Change
-                    {/* <div className="comparison-switch ">
-                        <Switch
-                            checkedChildren="ON"
-                            unCheckedChildren="OFF"
-                            defaultChecked={isOn}
-                            onChange={this.handleIsOnChange}
-                        />
-                    </div> */}
                 </div>
 
                 <div className="encoding-table-container">
                     <div className="change-option-item">
-                        <div>taskType:</div>
+                        <div>Pattern:</div>
                         <Select
-                            value={taskType}
+                            value={this.state.taskPattern}
                             style={{ width: 120 }}
-                            onChange={(value) => this.handleTaskPanelChange('taskType', value)}
+                            onChange={(value) => this.handleTaskPatternSelect(value)}
                         >
-                            <Option value="comparison">comparison</Option>
-                            <Option value="find">find</Option>
-                            <Option value="none">none</Option>
+                            {TASK_PATTERN_TYPES.map((v) => {
+                                return (
+                                    <Option key={v} value={v}>
+                                        {v}
+                                    </Option>
+                                )
+                            })}
                         </Select>
                     </div>
                     <div className="change-option-item">
-                        <div>basedType:</div>
+                        <div>Change:</div>
                         <Select
-                            value={basedType}
+                            value={this.state.taskChange}
                             style={{ width: 120 }}
-                            onChange={(value) => this.handleTaskPanelChange('basedType', value)}
+                            onChange={(value) => this.handleTaskChangeSelect(value)}
                         >
-                            <Option value="attr">attr</Option>
-                            <Option value="structure">structure</Option>
+                            {TASK_CHANGE_TYPES.map((v) => {
+                                return (
+                                    <Option key={v} value={v}>
+                                        {v}
+                                    </Option>
+                                )
+                            })}
                         </Select>
                     </div>
-                    {taskType === 'find' && basedType === 'structure' ? (
-                        <div className="change-option-item">
-                            <div>Structure:</div>
-                            <Select
-                                value={find.structure}
-                                style={{ width: TPIW }}
-                                size="small"
-                                onChange={(value) => this.handleSelectChange(value, 'structure', 'find')}
-                            >
-                                {TASK_FIND_STRUCTURE.map((v) => {
-                                    return (
-                                        <Option key={v} value={v}>
-                                            {v}
-                                        </Option>
-                                    )
-                                })}
-                            </Select>
-                        </div>
-                    ) : null}
                     <div className="change-option-item">
                         <Collapse
                             expandIconPosition={'right'}
@@ -265,7 +295,7 @@ class TaskPanel extends React.Component {
                             </Panel>
                         </Collapse>
                     </div>
-                    {taskType === 'comparison' ? (
+                    {/* {taskType === 'comparison' ? (
                         <>
                             <div className="change-option-item">
                                 <div>KeyFrame:</div>
@@ -273,7 +303,9 @@ class TaskPanel extends React.Component {
                                     value={keyFrame}
                                     style={{ width: TPIW }}
                                     size="small"
-                                    onChange={(value) => this.handleSelectChange(value, 'keyFrame','comparison')}
+                                    onChange={(value) =>
+                                        this.handleSelectChange(value, 'keyFrame', 'comparison')
+                                    }
                                 >
                                     {KEYFRAM_OPTIONS.map((v) => {
                                         return (
@@ -290,7 +322,9 @@ class TaskPanel extends React.Component {
                                     value={elements}
                                     style={{ width: TPIW }}
                                     size="small"
-                                    onChange={(value) => this.handleSelectChange(value, 'elements', 'comparison')}
+                                    onChange={(value) =>
+                                        this.handleSelectChange(value, 'elements', 'comparison')
+                                    }
                                 >
                                     {TIME_TIMELINE_ELEMENT.map((v) => {
                                         return (
@@ -302,8 +336,8 @@ class TaskPanel extends React.Component {
                                 </Select>
                             </div>
                         </>
-                    ) : null}
-                    {taskType === 'find' && basedType === 'attr' ? (
+                    ) : null} */}
+                    {/* {taskType === 'find' && basedType === 'attr' ? (
                         <>
                             <div className="change-option-item">
                                 <div>Attr:</div>
@@ -311,7 +345,9 @@ class TaskPanel extends React.Component {
                                     value={find.attr}
                                     style={{ width: TPIW }}
                                     size="small"
-                                    onChange={(value) => this.handleSelectChange(value, 'attr', 'find')}
+                                    onChange={(value) =>
+                                        this.handleSelectChange(value, 'attr', 'find')
+                                    }
                                 >
                                     {TASK_FIND_ATTR.map((v) => {
                                         return (
@@ -328,7 +364,9 @@ class TaskPanel extends React.Component {
                                     value={find.relation}
                                     style={{ width: TPIW }}
                                     size="small"
-                                    onChange={(value) => this.handleSelectChange(value, 'relation', 'find')}
+                                    onChange={(value) =>
+                                        this.handleSelectChange(value, 'relation', 'find')
+                                    }
                                 >
                                     {TASK_FIND_RELATION.map((v) => {
                                         return (
@@ -346,15 +384,13 @@ class TaskPanel extends React.Component {
                                     min={0}
                                     max={100}
                                     value={find.value}
-                                    onChange={(e) =>
-                                        this.handleFindChange({'value': Number(e)})
-                                    }
+                                    onChange={(e) => this.handleFindChange({ value: Number(e) })}
                                     style={{ width: TPIW }}
                                 />
                             </div>
                         </>
-                    ) : null}
-                    
+                    ) : null} */}
+
                     <div className="comparison-table-container">
                         <div className="table-first-line">
                             <div className="blank-icon"></div>
@@ -453,13 +489,12 @@ class TaskPanel extends React.Component {
     }
 }
 
-
-const mapStateToProps = (state)=>({
-	options: state.config.task
+const mapStateToProps = (state) => ({
+    options: state.config.task
 })
 
 const mapDispatchToProps = {
-	modifyConfig,
-} 
+    modifyConfig
+}
 
-export default connect(mapStateToProps,mapDispatchToProps)(TaskPanel)
+export default connect(mapStateToProps, mapDispatchToProps)(TaskPanel)

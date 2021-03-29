@@ -30,6 +30,9 @@ export const TASK_FIND_ATTR = ['degree']
 export const TASK_FIND_STRUCTURE = ['short-path','dumb-bell']
 export const TASK_FIND_RELATION = ['>=','=','<=']
 
+export const TASK_PATTERN_TYPES = ['graph', 'shortest-path(A-F)', 'anomaly-detection', 'frequent-structure','dumb-bell', 'compare-degree', 'find-degree']
+export const TASK_CHANGE_TYPES = ['all', 'appeared','disappeared','unchanged', 'appearedNode', 'appearedEdge', 'disappearedNode', 'disappearedEdge','unchangedNode', 'unchangedEdge']
+
 export const TIME_TIMELINE_ELEMENT = ['node', 'link', 'all']
 export const TIME_CHART_TYPE = ['line', 'bar']
 export const TIME_TIMELINE_TYPE = ['merged','circular','juxtaposed']
