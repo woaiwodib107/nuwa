@@ -62,7 +62,7 @@ export default function NodeLinkStylePanel(props) {
                                 value={changeOptions.shape}
                                 size="small"
                                 onChange={(value) => handleStyleChange('shape', value)}
-                                style={{ width: 120 }}
+                                style={{ width: 115 }}
                             >
                                 <Option key="circle">
                                     <div>circle</div>
@@ -79,7 +79,7 @@ export default function NodeLinkStylePanel(props) {
                                 size="small"
                                 value={changeOptions.shape}
                                 onChange={(value) => handleStyleChange('shape', value)}
-                                style={{ width: 120 }}
+                                style={{ width: 115 }}
                             >
                                 <Option key="line">
                                     <div>line</div>
@@ -96,7 +96,7 @@ export default function NodeLinkStylePanel(props) {
                         <Select
                             size="small"
                             value={changeOptions.strokeType}
-                            style={{ width: 120 }}
+                            style={{ width: 115 }}
                             onChange={(value) => handleStyleChange('strokeType', value)}
                         >
                             <Option value="solid">solid</Option>
@@ -113,7 +113,7 @@ export default function NodeLinkStylePanel(props) {
                             onChange={(e) =>
                                 handleStyleChange('strokeWidth', Number(e.target.value))
                             }
-                            style={{ width: '120px' }}
+                            style={{ width: '115px' }}
                         />
                     </div>
                     {/* 输入透明度 */}
@@ -127,7 +127,7 @@ export default function NodeLinkStylePanel(props) {
                             max={1}
                             step={0.1}
                             onChange={(e) => handleStyleChange('opacity', e)}
-                            style={{ width: '120px' }}
+                            style={{ width: '115px' }}
                         />
                     </div>
                     {/* 输入半径长度 */}
@@ -141,7 +141,7 @@ export default function NodeLinkStylePanel(props) {
                                 onChange={(e) =>
                                     handleStyleChange('radius', Number(e.target.value))
                                 }
-                                style={{ width: '120px' }}
+                                style={{ width: '115px' }}
                             />
                         </div>
                     ) : null}
@@ -183,7 +183,7 @@ export default function NodeLinkStylePanel(props) {
                                     onClick={() => handleElementColorClick(0)}
                                     style={{
                                         backgroundColor: changeOptions.strokeColor,
-                                        width: '120px',
+                                        width: '115px',
                                         height: '24px'
                                     }}
                                 ></div>
@@ -206,7 +206,7 @@ export default function NodeLinkStylePanel(props) {
                                     onClick={() => handleElementColorClick(1)}
                                     style={{
                                         backgroundColor: changeOptions.fillColor,
-                                        width: '120px',
+                                        width: '115px',
                                         height: '24px'
                                     }}
                                 ></div>
@@ -229,7 +229,7 @@ export default function NodeLinkStylePanel(props) {
                                     onClick={() => handleElementColorClick(2)}
                                     style={{
                                         backgroundColor: changeOptions.textColor,
-                                        width: '120px',
+                                        width: '115px',
                                         height: '24px'
                                     }}
                                 ></div>
@@ -251,7 +251,7 @@ export default function NodeLinkStylePanel(props) {
                                 value={changeOptions.pointShape}
                                 size="small"
                                 onChange={(value) => handleStyleChange('pointShape', value)}
-                                style={{ width: 120 }}
+                                style={{ width: 115 }}
                             >
                                 <Option key="circle">
                                     <div>circle</div>
@@ -274,7 +274,7 @@ export default function NodeLinkStylePanel(props) {
                                 max={1}
                                 step={0.1}
                                 onChange={(e) => handleStyleChange('pointOpacity', e)}
-                                style={{ width: '120px' }}
+                                style={{ width: '115px' }}
                             />
                         </div>
                     ) : null}
@@ -287,7 +287,7 @@ export default function NodeLinkStylePanel(props) {
                                     onClick={() => handleElementColorClick(3)}
                                     style={{
                                         backgroundColor: changeOptions.pointFillColor,
-                                        width: '120px',
+                                        width: '115px',
                                         height: '24px'
                                     }}
                                 ></div>

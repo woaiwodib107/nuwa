@@ -838,7 +838,7 @@ export function getConfigPatternChange(task){
         }
     }else if(task.taskType === 'find'){
         if(task.basedType==='structure'){
-            if(task.find.structure==='short-path'){
+            if(task.find.structure==='shortest-path'){
                 return { pattern:'shortest-path(A-F)',change:'appeared'}
             }else{
                 return { pattern:'dumb-bell',change:'appeared'}

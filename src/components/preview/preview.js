@@ -8,7 +8,7 @@ function Preview(props) {
         <div
             style={{
                 width: `${props.width ? props.width : 1030}px`,
-                height: `${props.height ? props.height : 530}px`,
+                height: `${props.height ? props.height : 538}px`,
             }}
             className="preview-box"
         >
@@ -19,6 +19,7 @@ function Preview(props) {
                 </svg>
             </div>
             <div
+                className = "simple_scrollbar"
                 style={{
                     width: '100%',
                     height: '730px',

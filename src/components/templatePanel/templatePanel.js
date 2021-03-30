@@ -104,7 +104,7 @@ function TemplatePanel(props) {
         <div
             style={{
                 width: `${props.width ? props.width : 1030}px`,
-                height: `${props.height ? props.height : 450}px`
+                height: `${props.height ? props.height : 456}px`
             }}
             className="template-panel-box"
         >

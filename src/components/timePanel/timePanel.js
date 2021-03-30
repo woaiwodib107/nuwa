@@ -262,7 +262,7 @@ class TimePanel extends React.Component {
                                     onClick={() => this.handleElementColorClick(0)}
                                     style={{
                                         backgroundColor: options.color.startColor,
-                                        width: '120px',
+                                        width: '125px',
                                         height: '24px'
                                     }}
                                 ></div>
@@ -288,7 +288,7 @@ class TimePanel extends React.Component {
                                     onClick={() => this.handleElementColorClick(1)}
                                     style={{
                                         backgroundColor: options.color.endColor,
-                                        width: '120px',
+                                        width: '125px',
                                         height: '24px'
                                     }}
                                 ></div>

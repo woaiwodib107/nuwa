@@ -1053,11 +1053,6 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
             }
             node.style.nodeStyle = basicNodeStyle
             // 如果用color编码了时间，则修改其填充颜色
-            if (isChooseColor) {
-                // 此处需要深复制
-                node.style.nodeStyle = _.cloneDeep(basicNodeStyle)
-                node.style.nodeStyle.fillColor = timeColorObj[node.time]
-            }
             // 处理matrix布局中的链接节点
             if (node.type == 'link-node') {
                 node.style.nodeStyle = {
@@ -1068,6 +1063,11 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
                     shape: basicLinkStyle.pointShape ? basicLinkStyle.pointShape : 'rect',
                     opacity: basicLinkStyle.pointOpacity ? basicLinkStyle.pointOpacity : 0.8
                 }
+            }
+            if (isChooseColor) {
+                // 此处需要深复制
+                node.style.nodeStyle = _.cloneDeep(node.style.nodeStyle)
+                node.style.nodeStyle.fillColor = timeColorObj[node.time]
             }
             node.status.forEach((d) => {
                 if (!comparisonNode[d]) {
@@ -1431,7 +1431,7 @@ export const getFindData = (timeGraphs, configs,sumGraphs) => {
                     }
                 }
             }
-        }else if(findOptions.structure==='short-path'){
+        }else if(findOptions.structure==='shortest-path'){
             let startIndex = 0
             const mapId2Index = {}
             const mapIndex2Id = []

@@ -2,7 +2,7 @@ import React from 'react'
 import DividedLinkItem from '../../dividedLinkItem/dividedLinkItem.js'
 import LinkContainer from '../../linkContainer/linkContainer.js'
 import NodeContainer from '../../nodeContainer/nodeContainer.js'
-import { getPiePathColor, getNodeRenderType } from '../../../util/dnetChart.js'
+import { getPiePathColor } from '../../../util/dnetChart.js'
 
 export default function TimeSumDnet(props) {
     if (props.len === 0) return null

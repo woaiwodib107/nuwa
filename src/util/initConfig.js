@@ -132,8 +132,8 @@ export const initConfig = {
         basedType: 'structure',
         find:{
             attr:'degree',
-            // 结构有short-path，也有哑铃结构dumb-bell
-            structure: 'short-path',
+            // 结构有shortest-path，也有哑铃结构dumb-bell
+            structure: 'shortest-path',
             relation: '>=',
             value: 3
         },

@@ -2,13 +2,13 @@
     background: #fff;
     border: 1px solid rgb(68, 67, 67);
     border-radius: 8px;
-    height: 990px;
-    width: 575px;
+    height: 1002px;
+    width: 580px;
     display: flex;
     flex-direction: column;
     padding: 0;
-    margin-bottom: 10px;
-    margin-left: 10px;
+    margin-bottom: 8px;
+    margin-left: 8px;
     text-align: center;
 }
 

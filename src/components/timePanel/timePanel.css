@@ -1,7 +1,7 @@
 /*time view*/
 .time-box {
     background: #fff;
-    height: 935px;
+    height: 950px;
     width: 280px;
     display: flex;
     flex-direction: column;
@@ -60,26 +60,18 @@
 
 .encoding-item {
     border-bottom: 4px dashed #e6e6e6;
-    /* padding-bottom: 15px; */
     padding: 12px 0px;
-    /* height:140px; */
 }
 
 .encoding-item-title {
     margin-left: 8px;
     margin-right: 8px;
-    /* margin-top: 10px; */
     margin-bottom: 5px;
     height: 32px;
 }
 
 .encoding-item-content {
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-bottom: 5px;
-    
-    /* display: flex;
-    justify-content: space-between; */
+    margin: 0px 10px 5px 10px;
 }
 
 .item-ctrl {

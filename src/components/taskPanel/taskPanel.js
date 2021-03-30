@@ -139,6 +139,10 @@ class TaskPanel extends React.Component {
             case 'graph':
                 this.handleTaskPanelChange('taskType', 'none')
                 break
+            case 'compare-structure':
+                this.handleTaskPanelChange('taskType', 'comparison')
+                this.handleTaskPanelChange('basedType', 'structure')
+                break
             case 'shortest-path(A-F)':
                 this.handleTaskPanelChange('taskType', 'find')
                 this.handleTaskPanelChange('basedType', 'structure')
@@ -199,7 +203,7 @@ class TaskPanel extends React.Component {
                         <div>Pattern:</div>
                         <Select
                             value={patternAndChange.pattern}
-                            style={{ width: 120 }}
+                            style={{ width: 125 }}
                             onChange={(value) => this.handleTaskPatternSelect(value)}
                         >
                             {TASK_PATTERN_TYPES.map((v) => {
@@ -215,7 +219,7 @@ class TaskPanel extends React.Component {
                         <div>Change:</div>
                         <Select
                             value={patternAndChange.change}
-                            style={{ width: 120 }}
+                            style={{ width: 125 }}
                             onChange={(value) => this.handleTaskChangeSelect(value)}
                         >
                             {TASK_CHANGE_TYPES.map((v) => {

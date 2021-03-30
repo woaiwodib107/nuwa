@@ -71,7 +71,7 @@ class GraphPanel extends React.Component {
                         <div>GraphLayout:</div>
                         <Select
                             value={this.props.options.layout.chooseType}
-                            style={{ width: 120 }}
+                            style={{ width: 125 }}
                             onChange={this.handleLayoutTypeChange}
                         >
                             {GRAPH_LAYOUT_TYPE.map((v) => {
@@ -90,7 +90,7 @@ class GraphPanel extends React.Component {
                             min={1}
                             max={1000}
                             value={this.props.options.eachWidth}
-                            style={{ width: 120 }}
+                            style={{ width: 125 }}
                             onChange={(e) => this.handleConfigChange(e, 'eachWidth')}
                         />
                     </div>
@@ -100,7 +100,7 @@ class GraphPanel extends React.Component {
                             size="small"
                             min={1}
                             max={7000}
-                            style={{ width: 120 }}
+                            style={{ width: 125 }}
                             value={this.props.options.eachHeight}
                             onChange={(e) => this.handleConfigChange(e, 'eachHeight')}
                         />
@@ -111,7 +111,7 @@ class GraphPanel extends React.Component {
                             size="small"
                             min={1}
                             max={200}
-                            style={{ width: 120 }}
+                            style={{ width: 125 }}
                             value={this.props.options.margin}
                             onChange={(e) => this.handleConfigChange(e, 'margin')}
                         />

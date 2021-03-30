@@ -1,4 +1,4 @@
-export const TIME_PANEL_INPUT_WIDTH = 120
+export const TIME_PANEL_INPUT_WIDTH = 125
 export const SAMPLE_LINK_SOURCE = {
   x: 5,
   y: 5
@@ -27,7 +27,7 @@ export const DNET_SAMPLE_HEIGHT = 65
 export const SAMPLE_ITEM_WIDTH = 62
 export const SAMPLE_ITEM_HEIGHT = 62
 export const TASK_FIND_ATTR = ['degree']
-export const TASK_FIND_STRUCTURE = ['short-path','dumb-bell']
+export const TASK_FIND_STRUCTURE = ['shortest-path','dumb-bell']
 export const TASK_FIND_RELATION = ['>=','=','<=']
 
 export const TASK_PATTERN_TYPES = ['graph', 'compare-structure','shortest-path(A-F)', 'frequent-structure','dumb-bell', 'compare-degree', 'find-degree', 'anomaly-detection']
@@ -67,7 +67,6 @@ export const REACT_JSON_OPTIONS = {
   indentWidth: 2,
   fontFamily: 'consola',
   theme:"summerfruit:inverted",
-  // theme:"monokai",
   style:{
     fontFamily: 'consola'
   },

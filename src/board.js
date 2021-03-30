@@ -33,10 +33,10 @@ class Board extends React.Component {
         return (
             <div className="board">
                 <div className="window-header">
-                    <img 
+                    {/* <img 
                         className="title-graph-svg" 
                         src={graphSvg}
-                    />
+                    /> */}
                     <div className="window-header-text">
                         <div className="title"> <span className="bold-font">GoGraph Editor</span> </div>
                         {/* <div
