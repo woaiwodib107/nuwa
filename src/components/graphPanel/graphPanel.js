@@ -65,7 +65,7 @@ class GraphPanel extends React.Component {
         const changeOptions = this.props.options[optionKey]
         return (
             <div className="basic-box combine-inner-border">
-                <div className="combine-inner-title">&nbsp;Encoding: Graph-layout</div>
+                <div className="combine-inner-title">&nbsp;Encoding</div>
                 <div className="encoding-table-container">
                     <div className="change-option-item">
                         <div>GraphLayout:</div>

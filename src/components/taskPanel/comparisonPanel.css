@@ -40,8 +40,8 @@
 }
 
 .comparison-table-container {
-    margin: 10px;
-    height: 160px;
+    margin: 0 10px 0 10px;
+    height: 150px;
 }
 
 .table-first-line {
@@ -68,7 +68,7 @@
 .table-second-line {
     display: flex;
     width: 100%;
-    height: 130px;
+    height: 120px;
     justify-content: flex-end;
     flex-wrap: nowrap;
 }
@@ -79,7 +79,7 @@
 .second-line-right {
     width: 75%;
     display: grid;
-    grid-template-columns: 33% 33% 34%;
+    grid-template-columns: 33.33% 33.33% 33.33%;
     grid-template-rows: 62px 62px;
 }
 
@@ -105,7 +105,7 @@
 }
 
 .change-option-item {
-    margin: 10px;
+    margin: 8px 10px;
     display: flex;
     justify-content: space-between;
 }
@@ -130,5 +130,11 @@
 }
 
 .ant-checkbox-wrapper{
-    font-size: 13px !important;
+    font-size: 12px !important;
 }
+
+.ant-checkbox-wrapper span:nth-child(2){
+    padding-left: 2px;
+    padding-right: 2px;
+}
+

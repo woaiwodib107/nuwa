@@ -109,7 +109,7 @@ function TemplatePanel(props) {
             className="template-panel-box"
         >
             <div className="sub-title">
-                &nbsp;Template
+                &nbsp;Record
                 <svg className="icon" onClick={handleTemplateAdd} aria-hidden="true">
                     <use xlinkHref="#icon-add"></use>
                 </svg>

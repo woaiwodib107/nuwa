@@ -22,7 +22,7 @@ function Preview(props) {
                 className = "simple_scrollbar"
                 style={{
                     width: '100%',
-                    height: '730px',
+                    height: '508px',
                     overflowX: 'auto',
                     overflowY:'auto'
                 }}

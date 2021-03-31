@@ -1,7 +1,8 @@
 import * as testData from '../data/import/test1.json'
 
 const SET_GRAPH_DATA = "SET_GRAPH_DATA";
-const initState = testData.default.graphs
+// const initState = testData.default.graphs
+const initState = []
 
 export function graphData(state = initState, action) {
 	switch (action.type) {

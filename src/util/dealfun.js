@@ -1049,6 +1049,13 @@ export const setStyle = (timeGraphs, sumGraphs, configs) => {
                     ...basicNodeStyle,
                     ...configs.time.insert.nodeStyle
                 })
+                node.status.forEach((d) => {
+                    if (!comparisonNode[d]) {
+                        node.style[d] = _.cloneDeep(comparisonLink[d])
+                    } else {
+                        node.style[d] = _.cloneDeep(comparisonNode[d])
+                    }
+                })
                 return
             }
             node.style.nodeStyle = basicNodeStyle

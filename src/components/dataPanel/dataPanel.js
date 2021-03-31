@@ -11,7 +11,7 @@ import * as simpleData from '../../data/import/test2.json'
 import * as insertData from '../../data/import/test3-insert.json'
 import * as shortPathData from '../../data/import/test4.json'
 import * as flowData from '../../data/import/test5.json'
-import * as emailData from '../../data/import/email-data-6s.json'
+import * as emailData from '../../data/import/email-data-dsssss.json'
 
 const dataset = [
     {
@@ -54,7 +54,8 @@ const dataset = [
 
 function getDataDescription(data,tag){
     const result = getDataInfo(data)
-    const description = `Times: ${result.times}; Nodes: ${result.nodes}; Links: ${result.links}; Tag:${tag}`
+    // const description = `Times: ${result.times}; Nodes: ${result.nodes}; Links: ${result.links}; Tag:${tag}`
+    const description = `Times: ${result.times}; Nodes: ${result.nodes}; Links: ${result.links};`
     return description
 }
 

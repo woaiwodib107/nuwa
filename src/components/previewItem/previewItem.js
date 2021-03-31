@@ -11,7 +11,7 @@ export default function PreviewItem(props) {
     const [markLine, setMarkLine] = useState({})
     const [renderType, setRenderType] = useState('')
     useEffect(() => {
-        if (props.data) {
+        if (props.data.length>0) {
             let dnetvInstance = dnetv()
             dnetvInstance.initData(props.data, props.config)
             setSubGraphs(converObject2Array(dnetvInstance.timeGraphs))
@@ -21,12 +21,13 @@ export default function PreviewItem(props) {
     }, [props.config, props.data])
 
     useEffect(() => {
-        if (props.data) {
+        if (props.data.length>0) {
             setRenderType(getRenderType(props.config.time.chooseTypes))
         } else {
             setRenderType('')
         }
     }, [props.data, props.config.time.chooseTypes])
+    if(props.data.length===0)return null
     return (
         <DnetChartContainer
             sampleWidth = {props.sampleWidth}

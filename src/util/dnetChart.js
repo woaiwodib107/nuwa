@@ -839,7 +839,7 @@ export function getConfigPatternChange(task){
     }else if(task.taskType === 'find'){
         if(task.basedType==='structure'){
             if(task.find.structure==='shortest-path'){
-                return { pattern:'shortest-path(A-F)',change:'appeared'}
+                return { pattern:"shortest-path",change:'appeared'}
             }else{
                 return { pattern:'dumb-bell',change:'appeared'}
             }
@@ -860,6 +860,8 @@ export function getDisplayGrammar(config){
         encoding: getConfigEncoding(config)
     }
 }
+
+
 
 export function getSimpleGrammar(config){
     return {

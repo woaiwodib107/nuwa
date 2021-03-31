@@ -103,7 +103,7 @@ class TimePanel extends React.Component {
         const changeOptions = this.props.options.insert[optionKey]
         return (
             <div className="time-box combine-inner-border">
-                <div className="combine-inner-title">&nbsp;Encoding: Time-layout</div>
+                <div className="combine-inner-title">&nbsp;Encoding</div>
                 <div className="encoding-table-container">
                     {/* timeLine */}
                     <div className="encoding-item">

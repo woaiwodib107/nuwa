@@ -10,7 +10,8 @@ import {
     TASK_FIND_RELATION,
     TASK_FIND_STRUCTURE,
     TASK_PATTERN_TYPES,
-    TASK_CHANGE_TYPES
+    TASK_CHANGE_TYPES,
+    PATTERN_TO_CHANGE
 } from '../../util/const'
 import { COMPARISON_CONFIG } from '../../util/defaultConfig.js'
 import { getConfigPatternChange } from '../../util/dnetChart.js'
@@ -66,6 +67,9 @@ class TaskPanel extends React.Component {
         this.state = {
             indeterminate: true,
             checkAll: false,
+            changeIndeterminate: true,
+            changeCheckAll: true,
+            changeList: [...TASK_CHANGE_TYPES],
             taskPattern: 'graph',
             taskChange :'all'
         }
@@ -106,6 +110,20 @@ class TaskPanel extends React.Component {
         this.setState({ checkAll: e.target.checked })
     }
 
+    handleChangeCheckChange = (list) => {
+        // this.handleComparisonChange({ chooseTypes: list })
+        this.setState({ changeList: list })
+        // this.setState({ changeIndeterminate: !!list.length && list.length < TASK_CHANGE_TYPES.length })
+        this.setState({ changeCheckAll: list.length === TASK_CHANGE_TYPES.length })
+    }
+    handleAllChangeCheckChange = (e) => {
+        // this.setState({ changeIndeterminate: false })
+        this.setState({ changeCheckAll: e.target.checked })
+        if(e.target.checked){
+            this.setState({ changeList: [...TASK_CHANGE_TYPES] })
+        }
+    }
+
     handleComparisonChange = (value) => {
         this.changeTaskConfig({
             comparison: {
@@ -135,34 +153,49 @@ class TaskPanel extends React.Component {
         this.setState({
             taskPattern: value
         })
+        let tempChangeList
         switch(value){
             case 'graph':
                 this.handleTaskPanelChange('taskType', 'none')
+                tempChangeList = PATTERN_TO_CHANGE['graph']
+                this.setState({changeList:tempChangeList, changeCheckAll: tempChangeList.length===8})
                 break
             case 'compare-structure':
                 this.handleTaskPanelChange('taskType', 'comparison')
                 this.handleTaskPanelChange('basedType', 'structure')
+                tempChangeList = PATTERN_TO_CHANGE['compare-structure']
+                this.setState({changeList: tempChangeList, changeCheckAll: tempChangeList.length===8})
                 break
-            case 'shortest-path(A-F)':
+            case 'shortest-path':
                 this.handleTaskPanelChange('taskType', 'find')
                 this.handleTaskPanelChange('basedType', 'structure')
                 this.handleSelectChange('shortest-path', 'structure', 'find')
+                tempChangeList = PATTERN_TO_CHANGE['shortest-path']
+                this.setState({changeList: tempChangeList, changeCheckAll: tempChangeList.length===8})
                 break
             case 'dumb-bell':
                 this.handleTaskPanelChange('taskType', 'find')
                 this.handleTaskPanelChange('basedType', 'structure')
                 this.handleSelectChange('dumb-bell', 'structure', 'find')
+                tempChangeList = PATTERN_TO_CHANGE['dumb-bell']
+                this.setState({changeList: tempChangeList, changeCheckAll: tempChangeList.length===8})
                 break
             case 'compare-degree':
                 this.handleTaskPanelChange('taskType', 'comparison')
                 this.handleTaskPanelChange('basedType', 'attr')
+                tempChangeList = PATTERN_TO_CHANGE['compare-degree']
+                this.setState({changeList: tempChangeList, changeCheckAll: tempChangeList.length===8})
                 break
             case 'find-degree':
                 this.handleTaskPanelChange('taskType', 'find')
                 this.handleTaskPanelChange('basedType', 'attr')
+                tempChangeList = PATTERN_TO_CHANGE['find-degree']
+                this.setState({changeList:tempChangeList, changeCheckAll: tempChangeList.length===8})
                 break
             default:
                 this.handleTaskPanelChange('taskType', 'none')
+                tempChangeList = PATTERN_TO_CHANGE['graph']
+                this.setState({changeList:tempChangeList, changeCheckAll: tempChangeList.length===8})
         }
     }
     handleTaskChangeSelect = (value) => {
@@ -197,13 +230,13 @@ class TaskPanel extends React.Component {
                 <div className="combine-inner-title">
                     &nbsp;Pattern and Change
                 </div>
-
                 <div className="encoding-table-container">
                     <div className="change-option-item">
                         <div>Pattern:</div>
                         <Select
                             value={patternAndChange.pattern}
                             style={{ width: 125 }}
+                            size="small"
                             onChange={(value) => this.handleTaskPatternSelect(value)}
                         >
                             {TASK_PATTERN_TYPES.map((v) => {
@@ -215,7 +248,7 @@ class TaskPanel extends React.Component {
                             })}
                         </Select>
                     </div>
-                    <div className="change-option-item">
+                    {/* <div className="change-option-item">
                         <div>Change:</div>
                         <Select
                             value={patternAndChange.change}
@@ -230,7 +263,7 @@ class TaskPanel extends React.Component {
                                 )
                             })}
                         </Select>
-                    </div>
+                    </div> */}
                     <div className="change-option-item">
                         <Collapse
                             expandIconPosition={'right'}
@@ -239,6 +272,80 @@ class TaskPanel extends React.Component {
                                 width: '100%'
                             }}
                             defaultActiveKey={['1']}
+                        >
+                            <Panel key="1" className="nlsp-panel" header={'Change'}>
+                                <Col
+                                    style={{
+                                        width: '50%',
+                                        display: 'flex',
+                                        flexDirection: 'flex-start',
+                                        paddingLeft: '10px'
+                                    }}
+                                >
+                                    <Checkbox
+                                        indeterminate={false}
+                                        onChange={this.handleAllChangeCheckChange}
+                                        checked={PATTERN_TO_CHANGE[patternAndChange.pattern].length===8}
+                                    >
+                                        all
+                                    </Checkbox>
+                                </Col>
+                                <Checkbox.Group
+                                    style={{
+                                        textAlign: 'left',
+                                        width: '100%',
+                                        paddingLeft: '10px'
+                                    }}
+                                    // value={this.state.changeList}
+                                    value={PATTERN_TO_CHANGE[patternAndChange.pattern]}
+                                    onChange={this.handleChangeCheckChange}
+                                >
+                                    {[0, 2, 4, 6].map((v) => {
+                                        return (
+                                            <Row
+                                                style={{
+                                                    width: '100%'
+                                                }}
+                                                key={`row-${v}`}
+                                            >
+                                                <Col
+                                                    style={{
+                                                        width: '50%',
+                                                        display: 'flex',
+                                                        flexDirection: 'flex-start'
+                                                    }}
+                                                >
+                                                    <Checkbox value={TASK_CHANGE_TYPES[v]}>
+                                                        {TASK_CHANGE_TYPES[v]}
+                                                    </Checkbox>
+                                                </Col>
+                                                <Col
+                                                    style={{
+                                                        width: '50%',
+                                                        display: 'flex',
+                                                        flexDirection: 'flex-start',
+                                                    }}
+                                                >
+                                                    <Checkbox style={{ fontSize: '10px'}}value={TASK_CHANGE_TYPES[v + 1]}>
+                                                        {TASK_CHANGE_TYPES[v + 1]}
+                                                    </Checkbox>
+                                                </Col>
+                                            </Row>
+                                        )
+                                    })}
+                                </Checkbox.Group>
+                            </Panel>
+                        </Collapse>
+                    </div>
+                    {/*
+                    <div className="change-option-item">
+                        <Collapse
+                            expandIconPosition={'right'}
+                            style={{
+                                backgroundColor: '#ffffff',
+                                width: '100%'
+                            }}
+                            defaultActiveKey={['0']}
                         >
                             <Panel key="1" className="nlsp-panel" header={'chooseTypes'}>
                                 <Col
@@ -303,6 +410,7 @@ class TaskPanel extends React.Component {
                             </Panel>
                         </Collapse>
                     </div>
+                                */}
                     {/* {taskType === 'comparison' ? (
                         <>
                             <div className="change-option-item">
