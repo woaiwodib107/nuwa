@@ -1422,7 +1422,7 @@ export const getLongestPath = (matrix, startIndex, endIndex)=>{
 export const getFindData = (timeGraphs, configs,sumGraphs) => {
     const findOptions = configs.task.find
     if (configs.task.basedType === 'structure') {
-        if(findOptions.structure === 'dumb-bell'){
+        if(findOptions?.structure === 'dumb-bell'){
             // 找结构，现在是假定是找这种类似于哑铃的形态结构。
             for (let timeId in timeGraphs) {
                 const graph = timeGraphs[timeId]
@@ -1438,7 +1438,7 @@ export const getFindData = (timeGraphs, configs,sumGraphs) => {
                     }
                 }
             }
-        }else if(findOptions.structure==='shortest-path'){
+        }else if(findOptions?.structure==='shortest-path'){
             let startIndex = 0
             const mapId2Index = {}
             const mapIndex2Id = []
